@@ -1,0 +1,7 @@
+{
+  "name": "LibraNation",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
