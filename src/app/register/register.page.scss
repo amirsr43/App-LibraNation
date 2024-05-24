@@ -1,0 +1,74 @@
+.img {
+    width: 20vh;
+    display: flex;
+    margin-left: 107px;
+    margin-top: 60px;
+}
+
+.box {
+    width: 28vh;
+    margin-left: 5vh;
+    margin-top: -5vh;
+    margin-bottom: -10vh;
+}
+
+ion-card .box {
+    margin-top: 4vh;
+}
+
+.box .box1 {
+    margin-top: -6px;
+}
+
+p {
+    color: white;
+}
+
+a {
+    color: #589BFF;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+    color: #2E3192;
+    font-weight: bold;
+}
+
+.box ion-input {
+    background-color: white;
+    border-radius: 10px;
+    color: #C0C0C0;
+    margin-top: 12px;
+}
+
+.box ion-button {
+    background-color: white;
+    border-radius: 5px;
+    margin-top: 3vh;
+    width: 100px;
+    margin-left: 7vh;
+    color: #2E3192;
+    font-weight: bold;
+}
+
+ion-card {
+    border-radius: 10px;
+    background-color: #2E3192;
+    width: 38vh;
+    margin-left: 5.6vh;
+    margin-top: 5vh;
+    height: 45vh;
+    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.2);
+}
+
+.text {
+    font-size: 15px;
+    text-align: left;
+    text-transform: lowercase;
+}
+
+.text::first-letter {
+    text-transform: uppercase;
+}
