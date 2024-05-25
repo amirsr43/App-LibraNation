@@ -5,10 +5,10 @@
   <h1>Login</h1>
   <ion-card>
     <div class="box">
-      <ion-input label="Email" label-placement="floating" fill="outline" type="Email"></ion-input> <br>
-      <ion-input label="Password" label-placement="floating" fill="outline" type="Password" ></ion-input>
-      <ion-button fill="clear" class="text">Login</ion-button>
-      <p>Belum punya akun? <a href="#">Daftar disini</a></p>
+      <ion-input id="email" label="Email" label-placement="floating" fill="outline" type="email"></ion-input> <br>
+      <ion-input id="password" label="Password" label-placement="floating" fill="outline" type="password"></ion-input>
+      <ion-button fill="clear" class="text" (click)="login()">Login</ion-button>
+      <p>Belum punya akun? <a href="../register">Daftar disini</a></p>
     </div>
   </ion-card>
 </ion-content>

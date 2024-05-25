@@ -35,3 +35,12 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+// src/global.scss
+
+.my-custom-button {
+    --background: #ff5733; // Warna latar belakang
+    --color: #ffffff; // Warna teks
+    --border-radius: 20px; // Mengatur border-radius
+  }
+  

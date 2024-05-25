@@ -1,0 +1,27 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .logo-container {
+        margin-bottom: 20px;
+
+        img {
+            width: 200vh;
+            margin-top: 15vh;
+            height: auto;
+        }
+    }
+
+}
+
+.login-container ion-button {
+    --border-radius: 20px;
+    color: white;
+    font-weight: bold;
+    margin-top: 12vh;
+}
+
+  

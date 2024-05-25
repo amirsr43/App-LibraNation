@@ -1,2 +1,17 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+// src/theme/variables.scss
+
+:root {
+    --ion-color-primary: #2E3192; // Warna utama
+    --ion-color-secondary: #0cd1e8; // Warna sekunder
+    --ion-color-tertiary: #7044ff; // Warna tersier
+    --ion-color-success: #10dc60; // Warna sukses
+    --ion-color-warning: #ffce00; // Warna peringatan
+    --ion-color-danger: #f04141; // Warna bahaya
+    --ion-color-light: #f4f5f8; // Warna terang
+    --ion-color-medium: #989aa2; // Warna sedang
+    --ion-color-dark: #222428; // Warna gelap
+    --border-radius: 12px;
+  }
+  

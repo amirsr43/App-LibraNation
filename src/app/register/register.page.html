@@ -5,11 +5,11 @@
   <h1>Register</h1>
   <ion-card>
     <div class="box">
-      <ion-input label="Email" label-placement="floating" fill="outline" type="Email"></ion-input> <br>
-      <ion-input label="Password" label-placement="floating" fill="outline" type="Password" class="box1"></ion-input>
-      <ion-input label="Konfirmasi Password" label-placement="floating" fill="outline" type="Password" ></ion-input>
-      <ion-button fill="clear" class="text">Register</ion-button>
-      <p>Sudah punya akun? <a href="#">Masuk disini</a></p>
+      <ion-input id="email" label="Email" label-placement="floating" fill="outline" type="email"></ion-input> 
+      <ion-input id="password" label="Password" label-placement="floating" fill="outline" type="password"></ion-input>
+      <ion-input id="confirmPassword" label="Konfirmasi Password" label-placement="floating" fill="outline" type="password"></ion-input>
+      <ion-button fill="clear" class="text" (click)="register()">Register</ion-button>
+      <p>Sudah punya akun? <a [routerLink]="['/login']">Masuk disini</a></p>
     </div>
   </ion-card>
 </ion-content>
