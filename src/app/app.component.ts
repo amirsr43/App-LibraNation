@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,29 +9,14 @@ import { LoadingController } from '@ionic/angular';
 })
 export class AppComponent {
   constructor(
-    private platform: Platform,
-    private loadingController: LoadingController
+    public router: Router,
+    private platform: Platform
   ) {
     this.initializeApp();
   }
 
   async initializeApp() {
     await this.platform.ready();
-    const loading = await this.showLoading();
-    // Simulate a delay for the loading screen
-    setTimeout(() => {
-      loading.dismiss();
-    }, 1000); // 3 seconds delay
-  }
-
-  async showLoading() {
-    const loading = await this.loadingController.create({
-      message: 'Tunggu blok',
-      spinner: 'crescent', // spinner type
-      cssClass: 'custom-loading',
-      backdropDismiss: false
-    });
-    await loading.present();
-    return loading;
+    this.router.navigateByUrl('splash');
   }
 }
