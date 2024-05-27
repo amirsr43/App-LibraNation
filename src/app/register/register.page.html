@@ -9,7 +9,9 @@
       <ion-input id="password" label="Password" label-placement="floating" fill="outline" type="password"></ion-input>
       <ion-input id="confirmPassword" label="Konfirmasi Password" label-placement="floating" fill="outline" type="password"></ion-input>
       <ion-button fill="clear" class="text" (click)="register()">Register</ion-button>
-      <p>Sudah punya akun? <a [routerLink]="['/login']">Masuk disini</a></p>
+      <div class="text">
+        <p>Sudah punya akun? <a [routerLink]="['/login']">Masuk</a></p>
+      </div>
     </div>
   </ion-card>
 </ion-content>

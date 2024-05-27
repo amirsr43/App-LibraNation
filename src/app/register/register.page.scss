@@ -1,73 +1,86 @@
-.img {
-    width: 20vh;
+ion-content {
     display: flex;
-    margin-left: 107px;
-    margin-top: 60px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
-.box {
-    width: 28vh;
-    margin-left: 5vh;
-    margin-top: -5vh;
-    margin-bottom: -10vh;
+.img {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
-ion-card .box {
-    margin-top: 4vh;
-}
-
-.box .box1 {
-    margin-top: -6px;
-}
-
-p {
-    color: white;
-}
-
-a {
-    color: #589BFF;
-    text-decoration: none;
+ion-img {
+    margin-top: 12px;
+    width: 150px;
+    height: 150px;
 }
 
 h1 {
     font-size: 2rem;
+    color: #2E3192;
     text-align: center;
-    color: #2E3192;
-    font-weight: bold;
-}
-
-.box ion-input {
-    background-color: white;
-    border-radius: 10px;
-    margin-top: 12px;
-}
-
-.box ion-button {
-    background-color: white;
-    border-radius: 5px;
-    margin-top: 3vh;
-    width: 100px;
-    margin-left: 7vh;
-    color: #2E3192;
-    font-weight: bold;
+    margin-bottom: 20px;
+    font-weight: bolder;
 }
 
 ion-card {
+    margin-left: 3vh;
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     background-color: #2E3192;
-    width: 38vh;
-    margin-left: 5.6vh;
-    margin-top: 5vh;
-    height: 45vh;
-    box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.2);
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+}
+
+ion-input {
+    margin-bottom: 15px;
+    --background: white;
+    --padding-start: 15px; /* Adjust left padding */
+    --padding-end: 15px; /* Adjust right padding */
+}
+
+ion-button {
+    --color: #2E3192;
+    --background: white;
+    --border-radius: 50px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+ion-button.text {
+    --color: #2E3192;
+    --background: white;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-weight: bolder;
 }
 
 .text {
-    font-size: 15px;
-    text-align: left;
-    text-transform: lowercase;
+    text-align: center;
+    color: #2E3192;
+    font-weight: bolder;
 }
 
-.text::first-letter {
-    text-transform: uppercase;
+.text p {
+    margin: 0;
+    color: white;
+    text-align: center;
+}
+
+.text a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.text a:hover {
+    text-decoration: underline;
 }

@@ -8,7 +8,9 @@
       <ion-input id="email" label="Email" label-placement="floating" fill="outline" type="email"></ion-input> <br>
       <ion-input id="password" label="Password" label-placement="floating" fill="outline" type="password"></ion-input>
       <ion-button fill="clear" class="text" (click)="login()">Login</ion-button>
-      <p>Belum punya akun? <a [routerLink]="['/register']">Daftar disini</a></p>
+      <div class="text">
+        <p>Belum punya akun? <a [routerLink]="['/register']">Daftar</a></p>
+      </div>
     </div>
   </ion-card>
 </ion-content>
