@@ -2,148 +2,40 @@
   <div class="search">
     <ion-searchbar show-cancel-button="focus" placeholder="Search"></ion-searchbar>
   </div>
+
+  <!-- Genre Select -->
   <div class="btn">
-    <ion-button shape="round">Kategori</ion-button>
+    <ion-button shape="round" (click)="showFavorites()" style="--background: rgb(255, 91, 91);" >Favorit</ion-button>
   </div>
-  <ion-card class="custom-card">
+
+  <!-- Genre Select -->
+  <ion-select class="genre-select" #genreSelect interface="action-sheet" style="margin-left: 12px;"
+    placeholder="Pilih Genre" (ionChange)="genreSelected($event)">
+    <ion-select-option value="action">Action</ion-select-option>
+    <ion-select-option value="drama">Drama</ion-select-option>
+    <ion-select-option value="comedy">Comedy</ion-select-option>
+    <ion-select-option value="horror">Horror</ion-select-option>
+    <ion-select-option value="romance">Romance</ion-select-option>
+  </ion-select>
+
+  <!-- Placeholder for displaying selected genre or related data -->
+  <div class="selected-genre" *ngIf="selectedGenre" style="margin-left: 12px;">
+    <p>Genre yang dipilih: {{ selectedGenre }}</p>
+    <!-- Tambahkan logika atau komponen lain untuk menampilkan data buku berdasarkan genre -->
+  </div>
+
+
+  <ion-card class="custom-card" *ngFor="let book of books">
+    <img alt="Thumbnail image" src="{{book.thumbnail}}" />
+    <ion-card-header>
+      <ion-card-title>{{book.title}}</ion-card-title>
+      <ion-card-subtitle>{{book.author}}</ion-card-subtitle>
+      <ion-card-subtitle>{{book.category}}</ion-card-subtitle>
+    </ion-card-header>
     <ion-card-content>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img alt="Thumbnail image" src="../../assets/icon/buku.png" />
-        </ion-thumbnail>
-        <ion-label>
-          <h2>Judul</h2>
-          <p>Penulis<br>Rak</p>
-        </ion-label>
-        <ion-icon slot="end" name="heart" class="heart-icon" color="danger"></ion-icon>
-      </ion-item>
+      <ion-icon name="heart-outline" [color]="book.isLiked ? 'danger' : ''" (click)="toggleLike(book)"></ion-icon>
     </ion-card-content>
   </ion-card>
-  <ion-card class="custom-card">
-    <ion-card-content>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img alt="Thumbnail image" src="../../assets/icon/buku.png" />
-        </ion-thumbnail>
-        <ion-label>
-          <h2>Judul</h2>
-          <p>Penulis<br>Rak</p>
-        </ion-label>
-        <ion-icon slot="end" name="heart" class="heart-icon" style="color: white;"></ion-icon>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-  <ion-card class="custom-card">
-    <ion-card-content>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img alt="Thumbnail image" src="../../assets/icon/buku.png" />
-        </ion-thumbnail>
-        <ion-label>
-          <h2>Judul</h2>
-          <p>Penulis<br>Rak</p>
-        </ion-label>
-        <ion-icon slot="end" name="heart" class="heart-icon" style="color: white;"></ion-icon>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-  <ion-card class="custom-card">
-    <ion-card-content>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img alt="Thumbnail image" src="../../assets/icon/buku.png" />
-        </ion-thumbnail>
-        <ion-label>
-          <h2>Judul</h2>
-          <p>Penulis<br>Rak</p>
-        </ion-label>
-        <ion-icon slot="end" name="heart" class="heart-icon" style="color: white;"></ion-icon>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-  <ion-card class="custom-card">
-    <ion-card-content>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img alt="Thumbnail image" src="../../assets/icon/buku.png" />
-        </ion-thumbnail>
-        <ion-label>
-          <h2>Judul</h2>
-          <p>Penulis<br>Rak</p>
-        </ion-label>
-        <ion-icon slot="end" name="heart" class="heart-icon" style="color: white;"></ion-icon>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-  <ion-card class="custom-card">
-    <ion-card-content>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img alt="Thumbnail image" src="../../assets/icon/buku.png" />
-        </ion-thumbnail>
-        <ion-label>
-          <h2>Judul</h2>
-          <p>Penulis<br>Rak</p>
-        </ion-label>
-        <ion-icon slot="end" name="heart" class="heart-icon" style="color: white;"></ion-icon>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-  <ion-card class="custom-card">
-    <ion-card-content>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img alt="Thumbnail image" src="../../assets/icon/buku.png" />
-        </ion-thumbnail>
-        <ion-label>
-          <h2>Judul</h2>
-          <p>Penulis<br>Rak</p>
-        </ion-label>
-        <ion-icon slot="end" name="heart" class="heart-icon" style="color: white;"></ion-icon>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-  <ion-card class="custom-card">
-    <ion-card-content>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img alt="Thumbnail image" src="../../assets/icon/buku.png" />
-        </ion-thumbnail>
-        <ion-label>
-          <h2>Judul</h2>
-          <p>Penulis<br>Rak</p>
-        </ion-label>
-        <ion-icon slot="end" name="heart" class="heart-icon" style="color: white;"></ion-icon>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-  <ion-card class="custom-card">
-    <ion-card-content>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img alt="Thumbnail image" src="../../assets/icon/buku.png" />
-        </ion-thumbnail>
-        <ion-label>
-          <h2>Judul</h2>
-          <p>Penulis<br>Rak</p>
-        </ion-label>
-        <ion-icon slot="end" name="heart" class="heart-icon" color="danger"></ion-icon>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-  <ion-card class="custom-card">
-    <ion-card-content>
-      <ion-item lines="none">
-        <ion-thumbnail slot="start">
-          <img alt="Thumbnail image" src="../../assets/icon/buku.png" />
-        </ion-thumbnail>
-        <ion-label>
-          <h2>Judul</h2>
-          <p>Penulis<br>Rak</p>
-        </ion-label>
-        <ion-icon slot="end" name="heart" class="heart-icon" style="color: white;"></ion-icon>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
+  
   
 </ion-content>

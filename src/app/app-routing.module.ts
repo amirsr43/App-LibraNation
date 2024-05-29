@@ -43,6 +43,10 @@ const routes: Routes = [
     path: 'splash',
     loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
   },
+  {
+    path: 'favorit',
+    loadChildren: () => import('./favorit/favorit.module').then( m => m.FavoritPageModule)
+  },
 ];
 
 @NgModule({
