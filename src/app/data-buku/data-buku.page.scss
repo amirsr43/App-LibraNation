@@ -1,0 +1,46 @@
+.search ion-searchbar {
+    --border-radius: 20px;
+    --background: #E3E2E2;
+    color: #ACACAC;
+}
+
+.custom-card {
+    background: linear-gradient(to bottom, #2E3192, #0E0F2C);
+    color: white;
+    border-radius: 10px;
+    height: 15vh;
+}
+
+.custom-card ion-card-content {
+    padding: 10px;
+}
+
+.custom-card ion-item {
+    --background: transparent;
+}
+
+.custom-card ion-label h2,
+.custom-card ion-label p {
+    margin: 0;
+    color: white;
+}
+
+.custom-card ion-label p {
+    font-size: 14px;
+}
+
+.custom-card .heart-icon {
+    margin-top: 8vh;
+    font-size: 24px;
+}
+
+.custom-card img {
+    margin-top: -4vh;
+    margin-left: -10px;
+    width: 12vh;
+    height: 15vh;
+}
+
+.custom-card .heart-icon[color="danger"] {
+    --color: white;
+}
