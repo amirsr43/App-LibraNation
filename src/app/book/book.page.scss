@@ -1,0 +1,107 @@
+/* Adding linear gradient background to ion-content */
+ion-content {
+    --background: linear-gradient(to bottom, #d6d6d6, #e7e7e7);
+}
+
+/* Container styling */
+.container {
+    text-align: center;
+    margin-top: 20px;
+    animation: slide-in-bottom 0.5s ease-in-out both;
+}
+
+/* Book image styling */
+.book-image {
+    width: 200vh;
+    /* Adjusted the width for better visual */
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.book-image:hover {
+    transform: scale(1.1);
+}
+
+/* Book title styling */
+.book-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #222;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+/* Book category styling */
+.book-category {
+    font-size: 18px;
+    color: #555;
+    margin-top: 5px;
+    animation: slideIn 1s ease-out;
+}
+
+/* Book description styling */
+.book-description {
+    font-size: 16px;
+    color: #333;
+    text-align: justify;
+    margin: 20px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+/* Slide-in-bottom animation */
+@keyframes slide-in-bottom {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.slide-in-bottom {
+    animation: slide-in-bottom 0.5s ease-in-out both;
+}
+
+/* Keyframes for other animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-desk {
+    border-radius: 20px;
+}

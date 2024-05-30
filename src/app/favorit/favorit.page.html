@@ -1,15 +1,20 @@
-<ion-header>
+<ion-content class="page-favorit">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/data-buku"></ion-back-button>
+      <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Favorit</ion-title>
   </ion-toolbar>
-</ion-header>
+  <title>Favorit</title>
+  <div class="search">
+    <ion-searchbar show-cancel-button="focus" placeholder="Search"></ion-searchbar>
+  </div>
 
-<ion-content class="page-favorit">
+
   <ion-list>
     <ion-item *ngFor="let book of favoriteBooks">
+      <ion-thumbnail slot="start">
+        <img src="../../assets/icon/buku.png" />
+      </ion-thumbnail>
       <ion-label>
         <h2>{{ book.title }}</h2>
         <p>{{ book.author }}</p>

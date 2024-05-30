@@ -10,12 +10,13 @@ import { Router } from '@angular/router';
 export class DataBukuPage {
   @ViewChild('genreSelect', { static: false }) genreSelect!: IonSelect;
   selectedGenre: string | undefined;
-  isLiked: boolean = false; // Tambahkan variabel isLiked
+  isLiked: boolean = false;
 
   books = [
     { title: 'Judul 1', author: 'Penulis 1', category: 'Kategori 1', thumbnail: '../../assets/icon/buku.png', isLiked: false },
     { title: 'Judul 2', author: 'Penulis 2', category: 'Kategori 2', thumbnail: '../../assets/icon/buku.png', isLiked: false },
-    { title: 'Judul 3', author: 'Penulis 3', category: 'Kategori 3', thumbnail: '../../assets/icon/buku.png', isLiked: false }
+    { title: 'Judul 3', author: 'Penulis 3', category: 'Kategori 3', thumbnail: '../../assets/icon/buku.png', isLiked: false },
+    { title: 'Judul 4', author: 'Penulis 4', category: 'Kategori 4', thumbnail: '../../assets/icon/buku.png', isLiked: false }
   ];
 
   constructor(private router: Router) {}
@@ -27,7 +28,7 @@ export class DataBukuPage {
   genreSelected(event: any) {
     this.selectedGenre = event.detail.value;
     console.log('Selected Genre:', this.selectedGenre);
-    // Tambahkan logika untuk memproses genre yang dipilih, misalnya memuat data buku terkait
+    // Add logic to process the selected genre, e.g., load related book data
   }
 
   showFavorites() {
@@ -35,6 +36,6 @@ export class DataBukuPage {
   }
 
   toggleLike(book: any) {
-    book.isLiked = !book.isLiked; // Mengubah status like ketika ikon diklik
+    book.isLiked = !book.isLiked; // Toggle like status when icon is clicked
   }
 }

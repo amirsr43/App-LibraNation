@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+// tabs.page.ts
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-tabs',
-  templateUrl: './tabs.page.html',
-  styleUrls: ['./tabs.page.scss'],
+  templateUrl: 'tabs.page.html',
+  styleUrls: ['tabs.page.scss']
 })
-export class TabsPage implements OnInit {
+export class TabsPage {
+  selectedTab: string = 'home';
 
-  constructor() { }
-
-  ngOnInit() {
+  setSelectedTab(tab: string) {
+    this.selectedTab = tab;
   }
-
 }

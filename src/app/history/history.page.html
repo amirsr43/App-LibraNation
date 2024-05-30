@@ -1,13 +1,33 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Riwayat</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Riwayat</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-segment [(ngModel)]="segment" value="peminjaman">
+    <ion-segment-button value="peminjaman">
+      <ion-label>Peminjaman</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="denda">
+      <ion-label>Denda</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <ng-container *ngIf="segment === 'peminjaman'">
+    <ion-list>
+      <ion-item *ngFor="let item of riwayatPeminjaman">
+        <ion-label>
+          <h2>{{ item.namaBuku }}</h2>
+          <p>Peminjam: {{ item.namaPeminjam }}</p>
+          <p>Tanggal: {{ item.tanggalPeminjaman }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+
+  <ng-container *ngIf="segment === 'denda'">
+    <ion-list>
+      <ion-item *ngFor="let item of riwayatDenda">
+        <ion-label>
+          <h2>{{ item.namaPeminjam }}</h2>
+          <p>Jumlah Denda: {{ item.jumlahDenda | currency }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ng-container>
 </ion-content>

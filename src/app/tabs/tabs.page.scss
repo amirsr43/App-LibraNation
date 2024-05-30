@@ -1,3 +1,45 @@
-ion-img {
-    width: 4vh;
+.custom-tab-bar ion-tab-button {
+    --color-selected: #2E3192;
+    --color: white;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.custom-tab-bar ion-tab-button:hover {
+    transform: scale(1.1);
+}
+
+.custom-tab-bar ion-tab-button.activated {
+    transform: scale(1.2);
+    background-color: white;
+}
+
+.custom-tab-bar .tab-button-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.custom-tab-bar .tab-button-icon-selected {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #2E3192;
+    border: 2px solid #2E3192;
+    transition: transform 0.3s ease;
+}
+
+.custom-tab-bar .tab-button-icon-selected ion-icon,
+.custom-tab-bar .tab-button-icon ion-icon {
+    color: #2E3192;
+    font-size: 24px;
+}
+
+.custom-tab-bar .icon-background {
+    background: #2E3192;
+    border-radius: 20vh;
+    padding: 5px;
 }

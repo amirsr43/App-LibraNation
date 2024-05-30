@@ -1,0 +1,32 @@
+ion-content {
+    background-color: #f8f9fa;
+    /* Warna latar belakang */
+}
+
+ion-segment {
+    --color: #212529;
+    /* Warna teks */
+    --indicator-color: #007bff;
+    /* Warna indikator saat aktif */
+}
+
+ion-label {
+    font-size: 16px;
+    /* Ukuran teks */
+    color: #212529;
+    /* Warna teks */
+}
+
+h2 {
+    font-size: 20px;
+    /* Ukuran teks judul */
+    margin-bottom: 8px;
+    /* Jarak antara judul dan paragraf */
+}
+
+p {
+    font-size: 14px;
+    /* Ukuran teks paragraf */
+    margin: 0;
+    /* Menghilangkan margin default */
+}

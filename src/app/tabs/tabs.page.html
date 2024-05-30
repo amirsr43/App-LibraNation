@@ -1,20 +1,28 @@
+<!-- tabs.page.html -->
 <ion-tabs>
-  <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="home">
-      <ion-img src="../../assets/icon/logo-03.png"></ion-img>
-      <ion-label>Beranda</ion-label>
+  <ion-tab-bar slot="bottom" class="custom-tab-bar">
+    <ion-tab-button tab="home" [class.activated]="selectedTab === 'home'" (click)="setSelectedTab('home')">
+      <div class="tab-button-icon">
+        <ion-icon name="home-outline"></ion-icon>
+      </div>
     </ion-tab-button>
-    <ion-tab-button tab="data-buku">
-      <ion-icon name="book"></ion-icon>
-      <ion-label>Buku</ion-label>
+    
+    <ion-tab-button tab="data-buku" [class.activated]="selectedTab === 'data-buku'" (click)="setSelectedTab('data-buku')">
+      <div class="tab-button-icon">
+        <ion-icon name="book-outline"></ion-icon>
+      </div>
     </ion-tab-button>
-    <ion-tab-button tab="history">
-      <ion-icon name="time"></ion-icon>
-      <ion-label>Riwayat</ion-label>
+    
+    <ion-tab-button tab="history" [class.activated]="selectedTab === 'history'" (click)="setSelectedTab('history')">
+      <div class="tab-button-icon">
+        <ion-icon name="time-outline"></ion-icon>
+      </div>
     </ion-tab-button>
-    <ion-tab-button tab="profile">
-      <ion-icon name="person"></ion-icon>
-      <ion-label>Akun</ion-label>
+    
+    <ion-tab-button tab="profile" [class.activated]="selectedTab === 'profile'" (click)="setSelectedTab('profile')">
+      <div class="tab-button-icon">
+        <ion-icon name="person-outline"></ion-icon>
+      </div>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
