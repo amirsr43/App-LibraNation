@@ -144,12 +144,26 @@
     }
 }
 
-/* Applying animation to ion-content img */
-ion-content img {
-    -webkit-animation: bounce-top 0.9s ease-in-out both;
-    animation: bounce-top 0.9s ease-in-out both;
-    margin-top: 30vh;
-    width: 20vh;
-    margin-left: 15vh;
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
 }
 
+.loading-container img {
+    width: 100px;
+    /* Sesuaikan ukuran logo */
+    height: 100px;
+    /* Sesuaikan ukuran logo */
+    position: absolute;
+}
+
+.loading-container ion-spinner {
+    --width: 150px;
+    /* Sesuaikan ukuran spinner */
+    --height: 150px;
+    /* Sesuaikan ukuran spinner */
+}

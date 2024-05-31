@@ -16,7 +16,10 @@ export class DataBukuPage {
     { title: 'Judul 1', author: 'Penulis 1', category: 'Kategori 1', thumbnail: '../../assets/icon/buku.png', isLiked: false },
     { title: 'Judul 2', author: 'Penulis 2', category: 'Kategori 2', thumbnail: '../../assets/icon/buku.png', isLiked: false },
     { title: 'Judul 3', author: 'Penulis 3', category: 'Kategori 3', thumbnail: '../../assets/icon/buku.png', isLiked: false },
-    { title: 'Judul 4', author: 'Penulis 4', category: 'Kategori 4', thumbnail: '../../assets/icon/buku.png', isLiked: false }
+    { title: 'Judul 4', author: 'Penulis 4', category: 'Kategori 4', thumbnail: '../../assets/icon/buku.png', isLiked: false },
+    { title: 'Judul 5', author: 'Penulis 5', category: 'Kategori 5', thumbnail: '../../assets/icon/buku.png', isLiked: false },
+    { title: 'Judul 6', author: 'Penulis 6', category: 'Kategori 6', thumbnail: '../../assets/icon/buku.png', isLiked: false },
+    { title: 'Judul 7', author: 'Penulis 7', category: 'Kategori 7', thumbnail: '../../assets/icon/buku.png', isLiked: false }
   ];
 
   constructor(private router: Router) {}
