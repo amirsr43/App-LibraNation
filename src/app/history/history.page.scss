@@ -1,32 +1,93 @@
+/* Styling untuk ion-content */
 ion-content {
-    background-color: #f8f9fa;
-    /* Warna latar belakang */
+    --background: #f5f7fa;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+/* Styling untuk ion-segment */
 ion-segment {
-    --color: #212529;
-    /* Warna teks */
+    --background: #ffffff;
     --indicator-color: #007bff;
-    /* Warna indikator saat aktif */
+    --indicator-height: 4px;
+    --border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+    padding: 5px;
+    width: 100%;
+    max-width: 500px;
 }
 
-ion-label {
-    font-size: 16px;
-    /* Ukuran teks */
-    color: #212529;
-    /* Warna teks */
+/* Styling untuk ion-segment-button */
+ion-segment-button {
+    --background-checked: #007bff;
+    --color-checked: #ffffff;
+    --color: #007bff;
+    --border-radius: 8px;
+    padding: 10px 20px;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
 }
 
-h2 {
+ion-segment-button:not(.segment-button-checked) {
+    background-color: #ffffff;
+    color: #007bff;
+}
+
+ion-segment-button:hover {
+    transform: scale(1.05);
+}
+
+/* Styling untuk ion-list */
+ion-list {
+    --background: #ffffff;
+    --border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 15px;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Styling untuk ion-item */
+ion-item {
+    --background: #ffffff;
+    --border-radius: 8px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    margin-bottom: 12px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+ion-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Styling untuk ion-label */
+ion-label h2 {
     font-size: 20px;
-    /* Ukuran teks judul */
-    margin-bottom: 8px;
-    /* Jarak antara judul dan paragraf */
+    font-weight: bold;
+    margin: 0;
+    color: #333333;
 }
 
-p {
-    font-size: 14px;
-    /* Ukuran teks paragraf */
-    margin: 0;
-    /* Menghilangkan margin default */
+ion-label p {
+    font-size: 16px;
+    margin: 6px 0 0;
+    color: #666666;
+}
+
+/* Styling khusus untuk segmen peminjaman */
+ion-segment-button[value="peminjaman"].segment-button-checked {
+    --background: #28a745;
+    --color: #ffffff;
+}
+
+/* Styling khusus untuk segmen denda */
+ion-segment-button[value="denda"].segment-button-checked {
+    --background: #dc3545;
+    --color: #ffffff;
 }

@@ -1,0 +1,52 @@
+ion-content {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.profile-info h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.profile-info p {
+    font-size: 14px;
+    color: #666;
+}
+
+.account-item {
+    margin-top: 20px;
+}
+
+.logout-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    border-radius: 15px;
+    /* Anda dapat mengubah nilai ini sesuai keinginan */
+}
+
+.logout-button ion-button {
+    width: 60%;
+    /* Agar tombol menyesuaikan dengan lebar div */
+    --border-radius: 15px;
+    /* Menyesuaikan border radius tombol dengan div */
+}

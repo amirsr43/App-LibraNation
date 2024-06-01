@@ -51,6 +51,10 @@ const routes: Routes = [
     path: 'book',
     loadChildren: () => import('./book/book.module').then( m => m.BookPageModule)
   },
+  {
+    path: 'my-profile',
+    loadChildren: () => import('./my-profile/my-profile.module').then( m => m.MyProfilePageModule)
+  },
 ];
 
 @NgModule({

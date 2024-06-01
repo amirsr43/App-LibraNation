@@ -1,0 +1,80 @@
+<ion-content>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/profile"></ion-back-button>
+      <ion-title>My Profile</ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="auto">
+        <ion-avatar class="profile-pic">
+          <img src="../../assets/icon/profile.jpg" alt="Profile Picture">
+        </ion-avatar>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <form>
+          <ion-item>
+            <ion-label position="stacked">Nama Depan</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Nama Belakang</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Tanggal Lahir</ion-label>
+            <ion-input type="date"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Alamat</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Kelurahan/Desa</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Kecamatan</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Kota/Kabupaten</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Provinsi</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Kode Pos</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Negara</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">No.Hp</ion-label>
+            <ion-input type="text"></ion-input>
+          </ion-item>
+
+          <ion-button expand="block" id="open-loading" class="save" type="submit" (click)="save()">Simpan</ion-button>
+          <ion-loading trigger="open-loading" message="Loading..." [duration]="3000" spinner="circles"></ion-loading>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

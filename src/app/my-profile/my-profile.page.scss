@@ -1,0 +1,45 @@
+ion-content {
+    --ion-background-color: #f4f4f4;
+}
+
+.profile-pic {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+form {
+    padding: 0 16px;
+}
+
+ion-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --inner-padding-start: 0;
+    --padding-end: 0;
+}
+
+ion-button {
+    margin-top: 20px;
+    --background: #30d5c8;
+}
+
+ion-button:hover {
+    --background: #25b4a8;
+}
+
+ion-title {
+    font-size: 20px;
+    text-align: center;
+    font-weight: bolder;
+
+}
+
+.save {
+    --border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Menambahkan bayangan */
+}
