@@ -1,169 +1,53 @@
-/* Keyframes for scale-down-center animation */
-@-webkit-keyframes scale-down-center {
-    0% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
-
-    100% {
-        -webkit-transform: scale(0.3);
-        transform: scale(0.3);
-    }
-}
-
-@keyframes scale-down-center {
-    0% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
-
-    100% {
-        -webkit-transform: scale(0.3);
-        transform: scale(0.3);
-    }
-}
-
-/* Keyframes for bounce-top animation */
-@-webkit-keyframes bounce-top {
-    0% {
-        -webkit-transform: translateY(-500px);
-        transform: translateY(-500px);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-        opacity: 0;
-    }
-
-    38% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-        opacity: 1;
-    }
-
-    55% {
-        -webkit-transform: translateY(-65px);
-        transform: translateY(-65px);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-    }
-
-    72% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-    }
-
-    81% {
-        -webkit-transform: translateY(-28px);
-        transform: translateY(-28px);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-    }
-
-    90% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-    }
-
-    95% {
-        -webkit-transform: translateY(-8px);
-        transform: translateY(-8px);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-    }
-
-    100% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-    }
-}
-
-@keyframes bounce-top {
-    0% {
-        -webkit-transform: translateY(-500px);
-        transform: translateY(-500px);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-        opacity: 0;
-    }
-
-    38% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-        opacity: 1;
-    }
-
-    55% {
-        -webkit-transform: translateY(-65px);
-        transform: translateY(-65px);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-    }
-
-    72% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-    }
-
-    81% {
-        -webkit-transform: translateY(-28px);
-        transform: translateY(-28px);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-    }
-
-    90% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-    }
-
-    95% {
-        -webkit-transform: translateY(-8px);
-        transform: translateY(-8px);
-        -webkit-animation-timing-function: ease-in;
-        animation-timing-function: ease-in;
-    }
-
-    100% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-        -webkit-animation-timing-function: ease-out;
-        animation-timing-function: ease-out;
-    }
-}
-
-
 .loading-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 100vh;
-    position: relative;
-}
-
-.loading-container img {
-    width: 100px;
-    /* Sesuaikan ukuran logo */
-    height: 100px;
-    /* Sesuaikan ukuran logo */
-    position: absolute;
-}
-
-.loading-container ion-spinner {
-    --width: 150px;
-    /* Sesuaikan ukuran spinner */
-    --height: 150px;
-    /* Sesuaikan ukuran spinner */
-}
+  }
+  
+  .logo {
+    width: 150px; /* Sesuaikan dengan ukuran logo Anda */
+  }
+  
+  .spinner-container {
+    width: 50px; /* Sesuaikan dengan ukuran spinner Anda */
+    height: 50px; /* Sesuaikan dengan ukuran spinner Anda */
+    animation: spin 1.5s linear infinite;
+  }
+  
+  .spinner {
+    width: 100%; /* Sesuaikan dengan ukuran spinner Anda */
+    height: 100%; /* Sesuaikan dengan ukuran spinner Anda */
+    border: 2px solid transparent;
+    border-top-color: #3900d4; /* Sesuaikan dengan warna spinner Anda */
+    border-radius: 50%;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes scaleUp {
+    from {
+      transform: scale(0.5);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
