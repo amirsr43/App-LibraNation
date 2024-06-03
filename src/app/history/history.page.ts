@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-history',
-  templateUrl: 'history.page.html',
-  styleUrls: ['history.page.scss'],
+  templateUrl: './history.page.html',
+  styleUrls: ['./history.page.scss'],
 })
 export class HistoryPage {
   segment: string = 'peminjaman';
@@ -21,4 +21,11 @@ export class HistoryPage {
   ];
 
   constructor() {}
+
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.target.complete();
+    }, 2000);
+  }
 }

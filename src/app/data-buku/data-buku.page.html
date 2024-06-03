@@ -1,4 +1,7 @@
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <!-- Search Bar -->
   <div class="search">
     <ion-searchbar show-cancel-button="focus" placeholder="Cari"></ion-searchbar>

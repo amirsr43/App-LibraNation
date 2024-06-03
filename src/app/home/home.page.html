@@ -1,4 +1,8 @@
-<ion-content>
+<ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <div class="header-container">
     <h2>Hi Member!</h2>
     <p>Good Morning</p>
@@ -92,5 +96,7 @@
       </ion-row>
     </ion-grid>
   </div>
-  <ion-datetime locale="en-GB-u-hc-h12"></ion-datetime>
+  <div class="date">
+    <ion-datetime locale="en-GB-u-hc-h12"></ion-datetime>
+  </div>
 </ion-content>

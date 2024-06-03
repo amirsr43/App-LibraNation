@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['favorit.page.scss']
 })
 export class FavoritPage {
-  favoriteBooks = [
+  public favoriteBooks: { title: string, author: string }[] = [
     { title: 'Buku Favorit 1', author: 'Penulis 1' },
     { title: 'Buku Favorit 2', author: 'Penulis 2' },
     { title: 'Buku Favorit 3', author: 'Penulis 3' },
@@ -17,4 +17,11 @@ export class FavoritPage {
   ];
 
   constructor() {}
+
+  public handleRefresh(event: any): void {
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.target.complete();
+    }, 2000);
+  }
 }

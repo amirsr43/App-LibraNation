@@ -8,6 +8,12 @@ import { Router } from '@angular/router';
   styleUrls: ['data-buku.page.scss']
 })
 export class DataBukuPage {
+  public handleRefresh(event: any): void {
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.target.complete();
+    }, 2000);
+  }
   @ViewChild('genreSelect', { static: false }) genreSelect!: IonSelect;
   selectedGenre: string | undefined;
   isLiked: boolean = false;

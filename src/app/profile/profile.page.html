@@ -1,4 +1,7 @@
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="profile">
     <img src="../../assets/icon/profile.jpg" alt="Profile Picture" class="profile-img">
     <div class="profile-info">
@@ -11,7 +14,8 @@
     <ion-label>My Profile</ion-label>
   </ion-item>
   <div class="logout-button">
-    <ion-button color="danger" id="open-loading" (click)="logout()">Logout</ion-button>
-    <ion-loading trigger="open-loading" message="Loading..." [duration]="3000" spinner="circles"></ion-loading>
+    <ion-button color="danger" id="present-alert">Logout</ion-button>
+    <ion-alert trigger="present-alert" class="custom-alert" header="Apakah kamu yakin?" [buttons]="alertButtons"></ion-alert>
+
   </div>
 </ion-content>
