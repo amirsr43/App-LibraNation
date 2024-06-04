@@ -1,13 +1,14 @@
 <ion-content class="ion-padding">
-  
+  <div class="background">
+    <img src="../../assets/icon/home.png" alt="Background Image">
+  </div>
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
   <div class="header-container">
-    <h2>Hi, Member!</h2>
-    <p>may you always be healthy</p>
-    <img src="../../assets/icon/library.png" alt="">
+    <h2>Hi,</h2>
+    <h2>Member!</h2>
   </div>
 
   <div class="schedule-container">
@@ -15,89 +16,59 @@
       <ion-card-content>
         <div class="schedule-content">
           <div class="text-content">
-            <ion-card-title>Selamat Datang!</ion-card-title>
-            <ion-card-subtitle>Please see our book</ion-card-subtitle>
+            <ion-card-title>Jika ingin meminjam buku,</ion-card-title>
+            <ion-card-subtitle>langsung saja kelokasinya</ion-card-subtitle>
           </div>
-          <img src="../../assets/icon/library2.png" alt="Welcome">
+          <img src="../../assets/icon/location.png" alt="Welcome">
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div class="schedule-container">
+    <ion-card class="card">
+      <ion-card-content>
+        <div class="schedule-content">
+          <div class="text-content-2">
+            <ion-card-title>Silahkan lihat - lihat</ion-card-title>
+            <ion-card-subtitle>buku kami disini</ion-card-subtitle>
+            <ion-button [routerLink]="['/tabs/data-buku']">lihat</ion-button>
+          </div>
+          <img src="../../assets/icon/library.png" class="img" alt="Welcome">
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <h3>Shortcut</h3>
+  <div class="schedule-container">
+    <ion-card [routerLink]="['/favorit']">
+      <ion-card-content>
+        <div class="schedule-content">
+          <div class="text-content-3">
+            <ion-card-title>Favorit</ion-card-title>
+            <ion-card-subtitle class="text-1">Buku favoritmu</ion-card-subtitle>
+          </div>
+          <img src="../../assets/icon/favorit.png" alt="Welcome">
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <div class="schedule-container">
+    <ion-card [routerLink]="['/qr-code']">
+      <ion-card-content>
+        <div class="schedule-content">
+          <div class="text-content-3">
+            <ion-card-title>QR - Code</ion-card-title>
+            <ion-card-subtitle class="text-1">Code QR saya</ion-card-subtitle>
+          </div>
+          <img src="../../assets/icon/QR-code.png" alt="Welcome">
         </div>
       </ion-card-content>
     </ion-card>
   </div>
   
-
-  <div class="projects-container">
-    <h3>For you</h3>
-    <ion-grid>
-      <ion-row>
-        <ion-col size="12">
-          <div class="book-layout">
-            <div class="book-page">
-              <ion-card [routerLink]="['/favorit']">
-                <ion-card-header>
-                  <ion-card-title>Favorit</ion-card-title>
-                  <ion-card-subtitle>Buku</ion-card-subtitle>
-                  <ion-card-subtitle>May 30, 2022</ion-card-subtitle>
-                </ion-card-header>
-                <ion-card-content>
-                  <div class="progress-bar">
-                    <div class="progress" style="width: 80%;"></div>
-                  </div>
-                </ion-card-content>
-              </ion-card>
-            </div>
-            <div class="book-page">
-              <ion-card [routerLink]="['/qr-code']">
-                <ion-card-header>
-                  <ion-card-title>QR-Code</ion-card-title>
-                  <ion-card-subtitle>Myprofile</ion-card-subtitle>
-                  <ion-card-subtitle>May 30, 2022</ion-card-subtitle>
-                </ion-card-header>
-                <ion-card-content>
-                  <div class="progress-bar">
-                    <div class="progress" style="width: 50%;"></div>
-                  </div>
-                </ion-card-content>
-              </ion-card>
-            </div>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col size="12">
-          <div class="book-layout">
-            <div class="book-page">
-              <ion-card [routerLink]="['/tabs/data-buku']">
-                <ion-card-header>
-                  <ion-card-title>Buku</ion-card-title>
-                  <ion-card-subtitle>Koleksi</ion-card-subtitle>
-                  <ion-card-subtitle>May 30, 2022</ion-card-subtitle>
-                </ion-card-header>
-                <ion-card-content>
-                  <div class="progress-bar">
-                    <div class="progress" style="width: 60%;"></div>
-                  </div>
-                </ion-card-content>
-              </ion-card>
-            </div>
-            <div class="book-page">
-              <ion-card [routerLink]="['/tabs/history']">
-                <ion-card-header>
-                  <ion-card-title>Riwayat</ion-card-title>
-                  <ion-card-subtitle>data</ion-card-subtitle>
-                  <ion-card-subtitle>May 30, 2022</ion-card-subtitle>
-                </ion-card-header>
-                <ion-card-content>
-                  <div class="progress-bar">
-                    <div class="progress" style="width: 30%;"></div>
-                  </div>
-                </ion-card-content>
-              </ion-card>
-            </div>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
+  
   <div class="date">
     <ion-datetime locale="en-GB-u-hc-h12"></ion-datetime>
   </div>

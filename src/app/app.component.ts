@@ -17,6 +17,6 @@ export class AppComponent {
 
   async initializeApp() {
     await this.platform.ready();
-    this.router.navigateByUrl('splash');
+    this.router.navigateByUrl('/tabs/home');
   }
 }
