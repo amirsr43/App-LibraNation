@@ -11,6 +11,6 @@ export class LoginPage {
 
   login() {
     // Arahkan ke halaman /tabs/home setelah klik tombol login
-    this.router.navigate(['/tabs/home']);
+    this.router.navigate(['/my-profile']);
   }
 }

@@ -13,6 +13,10 @@
     <ion-icon name="person-outline" slot="start"></ion-icon>
     <ion-label>My Profile</ion-label>
   </ion-item>
+  <ion-item [routerLink]="['/qr-code']" button class="account-item">
+    <ion-icon name="qr-code-outline" slot="start"></ion-icon>
+    <ion-label>QR Code</ion-label>
+  </ion-item>
   <div class="logout-button">
     <ion-button color="danger" id="present-alert">Logout</ion-button>
     <ion-alert trigger="present-alert" class="custom-alert" header="Apakah kamu yakin?" [buttons]="alertButtons"></ion-alert>

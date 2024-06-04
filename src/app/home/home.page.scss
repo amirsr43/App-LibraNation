@@ -1,20 +1,30 @@
 .header-container {
   padding: 20px;
   text-align: center;
-  background-color: #f8f9fa;
+  background-color: #f9f8fa;
   border-bottom: 1px solid #dee2e6;
 }
 
 .header-container h2 {
+  text-align: justify;
   margin: 0;
   font-size: 24px;
   color: #2E3192;
 }
 
 .header-container p {
+  text-align: justify;
   margin: 0;
   font-size: 16px;
   color: #6c757d;
+}
+
+.header-container img {
+  width: 35%;
+  margin-top: -9vh;
+  margin-right: -1.5vh;
+  float: right;
+  height: auto;
 }
 
 ion-searchbar {

@@ -1,11 +1,13 @@
 <ion-content class="ion-padding">
+  
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
   <div class="header-container">
-    <h2>Hi Member!</h2>
-    <p>Good Morning</p>
+    <h2>Hi, Member!</h2>
+    <p>may you always be healthy</p>
+    <img src="../../assets/icon/library.png" alt="">
   </div>
 
   <div class="schedule-container">
@@ -24,16 +26,16 @@
   
 
   <div class="projects-container">
-    <h3>Anda bisa melihat</h3>
+    <h3>For you</h3>
     <ion-grid>
       <ion-row>
         <ion-col size="12">
           <div class="book-layout">
             <div class="book-page">
-              <ion-card [routerLink]="['/tabs/history']">
+              <ion-card [routerLink]="['/favorit']">
                 <ion-card-header>
-                  <ion-card-title>Peminjaman</ion-card-title>
-                  <ion-card-subtitle>Riwayat</ion-card-subtitle>
+                  <ion-card-title>Favorit</ion-card-title>
+                  <ion-card-subtitle>Buku</ion-card-subtitle>
                   <ion-card-subtitle>May 30, 2022</ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>
@@ -44,10 +46,10 @@
               </ion-card>
             </div>
             <div class="book-page">
-              <ion-card [routerLink]="['/tabs/history']">
+              <ion-card [routerLink]="['/qr-code']">
                 <ion-card-header>
-                  <ion-card-title>Denda</ion-card-title>
-                  <ion-card-subtitle>Riwayat</ion-card-subtitle>
+                  <ion-card-title>QR-Code</ion-card-title>
+                  <ion-card-subtitle>Myprofile</ion-card-subtitle>
                   <ion-card-subtitle>May 30, 2022</ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>
@@ -64,10 +66,10 @@
         <ion-col size="12">
           <div class="book-layout">
             <div class="book-page">
-              <ion-card [routerLink]="['/tabs/profile']">
+              <ion-card [routerLink]="['/tabs/data-buku']">
                 <ion-card-header>
-                  <ion-card-title>Profil</ion-card-title>
-                  <ion-card-subtitle>Akun</ion-card-subtitle>
+                  <ion-card-title>Buku</ion-card-title>
+                  <ion-card-subtitle>Koleksi</ion-card-subtitle>
                   <ion-card-subtitle>May 30, 2022</ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>
@@ -78,10 +80,10 @@
               </ion-card>
             </div>
             <div class="book-page">
-              <ion-card [routerLink]="['/tabs/data-buku']">
+              <ion-card [routerLink]="['/tabs/history']">
                 <ion-card-header>
-                  <ion-card-title>Detail Buku</ion-card-title>
-                  <ion-card-subtitle>Buku</ion-card-subtitle>
+                  <ion-card-title>Riwayat</ion-card-title>
+                  <ion-card-subtitle>data</ion-card-subtitle>
                   <ion-card-subtitle>May 30, 2022</ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>

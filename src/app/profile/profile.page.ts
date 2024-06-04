@@ -25,12 +25,12 @@ export class ProfilePage {
 
   public alertButtons = [
     {
-      text: 'No',
+      text: 'Tidak',
       role: 'cancel',
       cssClass: 'alert-button-cancel',
     },
     {
-      text: 'Yes',
+      text: 'Iya',
       cssClass: 'alert-button-confirm',
       handler: () => {
         this.logout();

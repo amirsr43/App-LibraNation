@@ -9,7 +9,4 @@ import { Router } from '@angular/router';
 export class WelcomePage {
   constructor(private router: Router) {}
 
-  goToLogin() {
-    this.router.navigate(['/login']);
-  }
 }

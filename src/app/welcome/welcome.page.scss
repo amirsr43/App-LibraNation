@@ -43,21 +43,31 @@
         }
 
         img {
-            width: 200vh;
+            width: 25vh;
             height: auto;
         }
     }
 
     .login-button {
-        margin-top: 30px;
-        --border-radius: 20vh;
+        height: 7vh;
         --padding-start: 16px;
         --padding-end: 16px;
         --padding-top: 12px;
         --padding-bottom: 12px;
         font-size: 18px;
         color: white;
-        --background: linear-gradient(to right, #2E3192, #6f72d8);
+        --background: #2E3192;
+    }
+    .login-button .register-button{
+        height: 7vh;
+        margin-top: 18px;
+        --padding-start: 16px;
+        --padding-end: 16px;
+        --padding-top: 12px;
+        --padding-bottom: 12px;
+        font-size: 18px;
+        color: white;
+        --background: #6B71FF;
     }
 
 }
