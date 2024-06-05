@@ -8,9 +8,10 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size="auto">
-        <ion-avatar class="profile-pic">
-          <img src="../../assets/icon/profile.jpg" alt="Profile Picture">
+        <ion-avatar class="profile-pic" (click)="selectImage()">
+          <img [src]="profileImage" alt="Profile Picture">
         </ion-avatar>
+        <input type="file" accept="image/*" id="fileInput" hidden (change)="onFileSelected($event)">
       </ion-col>
     </ion-row>
     <ion-row>
