@@ -10,6 +10,7 @@
       <ion-button fill="clear" class="text" id="open-loading" (click)="login()">Login</ion-button>
       <ion-loading trigger="open-loading" message="Loading..." [duration]="3000" spinner="circles"></ion-loading>
       <div class="text">
+        <a [routerLink]="['/lupa-password']">Forgot Password</a> <br> <br>
         <p>Belum punya akun? <a [routerLink]="['/register']">Daftar</a></p>
       </div>
     </div>
