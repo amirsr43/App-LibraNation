@@ -17,6 +17,6 @@ export class AppComponent {
 
   async initializeApp() {
     await this.platform.ready();
-    this.router.navigateByUrl('login');
+    this.router.navigateByUrl('register');
   }
 }

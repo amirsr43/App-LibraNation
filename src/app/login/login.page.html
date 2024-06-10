@@ -5,8 +5,10 @@
   <h1>Login</h1>
   <ion-card>
     <div class="box">
-      <ion-input id="email" label="Email" label-placement="floating" fill="outline" type="email"></ion-input> <br>
-      <ion-input id="password" label="Password" label-placement="floating" fill="outline" type="password"></ion-input>
+      <ion-input id="email" placeholder="Email" fill="outline" type="email"></ion-input> <br>
+      <ion-input id="password" placeholder="Password" fill="outline" type="password">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
       <ion-button fill="clear" class="text" id="open-loading" (click)="login()">Login</ion-button>
       <ion-loading trigger="open-loading" message="Loading..." [duration]="3000" spinner="circles"></ion-loading>
       <div class="text">
