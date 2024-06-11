@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-favorit',
   templateUrl: 'favorit.page.html',
   styleUrls: ['favorit.page.scss']
 })
-export class FavoritPage {
+export class FavoritPage implements OnInit {
   public favoriteBooks: { title: string, author: string }[] = [
     { title: 'Buku Favorit 1', author: 'Penulis 1' },
     { title: 'Buku Favorit 2', author: 'Penulis 2' },
@@ -16,7 +17,18 @@ export class FavoritPage {
     { title: 'Buku Favorit 7', author: 'Penulis 7' }
   ];
 
-  constructor() {}
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.checkAuthentication();
+  }
+
+  checkAuthentication() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.router.navigateByUrl('/login', { replaceUrl: true });
+    }
+  }
 
   public handleRefresh(event: any): void {
     setTimeout(() => {

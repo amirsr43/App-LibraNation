@@ -5,13 +5,13 @@
   <h1>Register</h1>
   <ion-card>
     <div class="box">
-      <ion-input id="nama" label="Nama depan" label-placement="floating" fill="outline" type="text"></ion-input> 
-      <ion-input id="nama" label="Nama belakang" label-placement="floating" fill="outline" type="text"></ion-input> 
-      <ion-input id="email" label="Email" label-placement="floating" fill="outline" type="email"></ion-input> 
-      <ion-input id="password" placeholder="Password" fill="outline" type="password">
+      <ion-input [(ngModel)]="firstName" label="Nama depan" label-placement="floating" fill="outline" type="text"></ion-input> 
+      <ion-input [(ngModel)]="lastName" label="Nama belakang" label-placement="floating" fill="outline" type="text"></ion-input> 
+      <ion-input [(ngModel)]="email" label="Email" label-placement="floating" fill="outline" type="email"></ion-input> 
+      <ion-input [(ngModel)]="password" placeholder="Password" fill="outline" type="password">
         <ion-input-password-toggle slot="end"></ion-input-password-toggle>
       </ion-input>
-      <ion-input id="password" placeholder="Konfirmasi Password" fill="outline" type="password">
+      <ion-input [(ngModel)]="password_confirmation" placeholder="Konfirmasi Password" fill="outline" type="password">
         <ion-input-password-toggle slot="end"></ion-input-password-toggle>
       </ion-input>
       <ion-button fill="clear" class="text" (click)="register()">Register</ion-button>

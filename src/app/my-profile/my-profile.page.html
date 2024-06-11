@@ -1,49 +1,44 @@
 <ion-content>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button  defaultHref="['/tabs/profile']"></ion-back-button>
-      <ion-title>My Profile</ion-title>
+      <ion-back-button defaultHref="/tabs/profile"></ion-back-button>
     </ion-buttons>
+    <ion-title style="margin-left: -8vh;">My Profile</ion-title>
   </ion-toolbar>
+  
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size="auto">
-        <ion-avatar class="profile-pic" (click)="selectImage()">
-          <img [src]="profileImage" alt="Profile Picture">
+        <ion-avatar class="profile-pic">
+          <img [src]="profileImageUrl || 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png'" alt="Profile Image">
         </ion-avatar>
-        <input type="file" accept="image/*" id="fileInput" hidden (change)="onFileSelected($event)">
       </ion-col>
     </ion-row>
+    
     <ion-row>
       <ion-col>
-        <form>
-          <ion-item>
-            <ion-label position="stacked">Nama Depan</ion-label>
-            <ion-input type="text"></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-label position="stacked">Nama Belakang</ion-label>
-            <ion-input type="text"></ion-input>
-          </ion-item>
-
+        <form (ngSubmit)="save()">
           <ion-item>
             <ion-label position="stacked">Tanggal Lahir</ion-label>
-            <ion-input type="date"></ion-input>
+            <ion-input type="date" [(ngModel)]="tglLahir" name="tglLahir"></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-label position="stacked">Alamat</ion-label>
-            <ion-input type="text"></ion-input>
+            <ion-input type="text" [(ngModel)]="address" name="address"></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-label position="stacked">No.Hp</ion-label>
-            <ion-input type="text"></ion-input>
+            <ion-input type="text" [(ngModel)]="phone" name="phone"></ion-input>
           </ion-item>
 
-          <ion-button expand="block" id="open-loading" class="save" type="submit" (click)="save()">Simpan</ion-button>
-          <ion-loading trigger="open-loading" message="Loading..." [duration]="3000" spinner="circles"></ion-loading>
+          <ion-item>
+            <ion-label position="stacked">Profile Picture</ion-label>
+            <input type="file" (change)="onFileChange($event)">
+          </ion-item>
+
+          <ion-button expand="block" type="submit">Simpan</ion-button>
         </form>
       </ion-col>
     </ion-row>

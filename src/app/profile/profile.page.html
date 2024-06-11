@@ -3,10 +3,10 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <div class="profile">
-    <img src="../../assets/icon/profile.jpg" alt="Profile Picture" class="profile-img">
+    <img [src]="profileImageUrl || 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png'" alt="Profile Picture" class="profile-img">
     <div class="profile-info">
-      <h2>Nizar Zul Islami</h2>
-      <p>NizarIslamLah&#64;gmail.com</p>
+      <h2>{{ firstName }} {{ lastName }}</h2>
+      <p>{{ email }}</p>
     </div>
   </div>
   <ion-item [routerLink]="['/my-profile']" button class="account-item">
@@ -18,8 +18,6 @@
     <ion-label>QR Code</ion-label>
   </ion-item>
   <div class="logout-button">
-    <ion-button color="danger" id="present-alert">Logout</ion-button>
-    <ion-alert trigger="present-alert" class="custom-alert" header="Apakah kamu yakin?" [buttons]="alertButtons"></ion-alert>
-
+    <ion-button color="danger" id="present-alert" (click)="presentAlert()">Logout</ion-button>
   </div>
 </ion-content>

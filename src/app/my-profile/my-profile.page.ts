@@ -1,36 +1,138 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { LoadingController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-my-profile',
   templateUrl: './my-profile.page.html',
   styleUrls: ['./my-profile.page.scss'],
 })
-export class MyProfilePage {
-  profileImage: string = '../../assets/icon/profile.jpg';
+export class MyProfilePage implements OnInit {
+  tglLahir: string = '';
+  address: string = '';
+  phone: string = '';
+  imageProfile: File | null = null;
+  profileImageUrl: string = '';
+  isLoading = false;
+  apiUrl = 'https://lib.libranation.my.id/api/members/';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController
+  ) {}
 
-  selectImage() {
-    const fileInput = document.getElementById('fileInput') as HTMLElement;
-    fileInput.click();
+  ngOnInit() {
+    this.checkAuthentication();
+    this.loadProfile();
   }
 
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.profileImage = e.target.result;
-      };
-      reader.readAsDataURL(file);
+  checkAuthentication() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.router.navigateByUrl('/login', { replaceUrl: true });
     }
   }
 
-  save() {
-    // Implementasikan logika untuk menyimpan perubahan profil di sini
-    // Misalnya, kirim data ke server atau simpan di local storage
-    this.router.navigateByUrl('/tabs/profile');
+  async loadProfile() {
+  try {
+    const userId = localStorage.getItem('user_id');
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    const response: any = await this.http.get(`${this.apiUrl}${userId}`, { headers }).toPromise();
+
+    // Sesuaikan akses properti berdasarkan struktur respons sebenarnya
+    this.tglLahir = response.member.tgl_lahir || '';
+    this.address = response.member.address || '';
+    this.phone = response.member.phone || '';
+    this.profileImageUrl = response?.image_profile_url || '';
+  } catch (error) {
+    this.handleError(error, 'Error loading profile');
+  }
+}
+
+
+  onFileChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.imageProfile = input.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.profileImageUrl = reader.result as string;
+      };
+      reader.readAsDataURL(this.imageProfile);
+    }
+  }
+
+  async save() {
+    this.isLoading = true;
+    let loading: HTMLIonLoadingElement | null = null;
+    try {
+      loading = await this.loadingCtrl.create({
+        message: 'Loading...',
+      });
+      await loading.present();
+
+      const profileData = new FormData();
+      profileData.append('tgl_lahir', this.tglLahir);
+      profileData.append('address', this.address);
+      profileData.append('phone', this.phone);
+      if (this.imageProfile) {
+        profileData.append('imageProfile', this.imageProfile);
+      }
+
+      const userId = localStorage.getItem('user_id');
+      const token = localStorage.getItem('token');
+
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+
+      const response: any = await this.http.post(`${this.apiUrl}${userId}`, profileData, { headers }).toPromise();
+      console.log('Profile saved successfully:', response);
+      if (this.profileImageUrl) {
+        localStorage.setItem('profileImage', this.profileImageUrl);
+        localStorage.setItem('tgl_lahir', this.tglLahir);
+        localStorage.setItem('phone', this.phone);
+        localStorage.setItem('address', this.address);
+      }
+      this.router.navigateByUrl('/tabs/profile');
+    } catch (error) {
+      this.handleError(error, 'Error saving profile');
+    } finally {
+      this.isLoading = false;
+      if (loading) {
+        await loading.dismiss();
+      }
+    }
+  }
+
+  private async handleError(error: any, defaultErrorMessage: string) {
+    let message = defaultErrorMessage;
+    if (error instanceof HttpErrorResponse) {
+      if (error.error instanceof ErrorEvent) {
+        message = error.error.message;
+      } else {
+        message = error.error?.message || defaultErrorMessage;
+      }
+    } else {
+      message = error?.message || defaultErrorMessage;
+    }
+    console.error(message);
+    this.presentErrorAlert(message);
+  }
+
+  async presentErrorAlert(message: string) {
+    const alert = await this.alertCtrl.create({
+      header: 'Error',
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 }

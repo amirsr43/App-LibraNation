@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { IonSelect } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -7,13 +7,7 @@ import { Router } from '@angular/router';
   templateUrl: 'data-buku.page.html',
   styleUrls: ['data-buku.page.scss']
 })
-export class DataBukuPage {
-  public handleRefresh(event: any): void {
-    setTimeout(() => {
-      // Any calls to load data go here
-      event.target.complete();
-    }, 2000);
-  }
+export class DataBukuPage implements OnInit {
   @ViewChild('genreSelect', { static: false }) genreSelect!: IonSelect;
   selectedGenre: string | undefined;
   isLiked: boolean = false;
@@ -29,6 +23,28 @@ export class DataBukuPage {
   ];
 
   constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.checkAuthentication();
+  }
+
+  ionViewWillEnter() {
+    this.checkAuthentication();
+  }
+
+  checkAuthentication() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.router.navigateByUrl('/login', { replaceUrl: true });
+    }
+  }
+
+  handleRefresh(event: any): void {
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.target.complete();
+    }, 2000);
+  }
 
   openGenreSelect() {
     this.genreSelect.open();

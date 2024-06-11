@@ -5,8 +5,8 @@
   <h1>Login</h1>
   <ion-card>
     <div class="box">
-      <ion-input id="email" placeholder="Email" fill="outline" type="email"></ion-input> <br>
-      <ion-input id="password" placeholder="Password" fill="outline" type="password">
+      <ion-input [(ngModel)]="email" placeholder="Email" fill="outline" type="email"></ion-input> <br>
+      <ion-input [(ngModel)]="password" placeholder="Password" fill="outline" type="password">
         <ion-input-password-toggle slot="end"></ion-input-password-toggle>
       </ion-input>
       <ion-button fill="clear" class="text" id="open-loading" (click)="login()">Login</ion-button>

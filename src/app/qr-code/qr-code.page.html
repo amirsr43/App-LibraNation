@@ -3,16 +3,17 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/profile"></ion-back-button>
     </ion-buttons>
-    <ion-title>My QR Code</ion-title>
+    <ion-title style="margin-left: 8vh;">My QR Code</ion-title>
   </ion-toolbar>
   <div class="profile">
-    <img src="../../assets/icon/profile.jpg" alt="Profile Picture" class="profile-pic">
-    <h1>Nizar Zul Islami</h1>
-    <p>NizarIslamLah&#64;gmail.com</p>
-  </div> <br>
+    <img [src]="profileImageUrl || 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png'" alt="Profile Picture" class="profile-pic">
+    <h1>{{ firstName }} {{ lastName }}</h1>
+    <p>{{ email }}</p>
+  </div>
+  <br>
   <div class="container">
     <div class="qr-code">
-      <img src="../../assets/icon/qr.png" alt="QR Code">
+      <img [src]="qrCodeUrl" alt="QR Code"> <!-- Use qrCodeUrl to display QR Code -->
     </div>
   </div>
 </ion-content>

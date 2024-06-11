@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavController, AlertController } from '@ionic/angular';
+import { environment } from '../../environments/environment'; // Import environment variables
 
 @Component({
   selector: 'app-register',
@@ -7,10 +9,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage {
-  constructor(private router: Router) {}
+  firstName: string = '';
+  lastName: string = '';
+  email: string = '';
+  password: string = '';
+  password_confirmation: string = '';
 
-  register() {
-    // Arahkan ke halaman login setelah klik tombol register
-    this.router.navigate(['/login']);
+  constructor(private http: HttpClient, private navCtrl: NavController, private alertController: AlertController) {}
+
+  async register() {
+    const url = `${environment.apiUrl}/register`; // Use environment variable for the URL
+    const data = {
+      first_name: this.firstName,
+      last_name: this.lastName,
+      email: this.email,
+      password: this.password,
+      password_confirmation: this.password_confirmation,
+    };
+
+    this.http.post(url, data).subscribe(async response => {
+      console.log(response);
+      this.navCtrl.navigateForward('/login'); // Redirect to login page after successful registration
+    }, async error => {
+      console.error(error);
+      const alert = await this.alertController.create({
+        header: 'Registration Failed',
+        message: 'Please check your input and try again.',
+        buttons: ['OK']
+      });
+      await alert.present();
+    });
   }
 }

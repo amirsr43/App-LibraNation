@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,14 +8,8 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   constructor(
-    public router: Router,
-    private platform: Platform
+    public router: Router
   ) {
-    this.initializeApp();
-  }
-
-  async initializeApp() {
-    await this.platform.ready();
-    this.router.navigateByUrl('register');
+    // Anda dapat menambahkan logika inisialisasi di sini jika diperlukan
   }
 }
