@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-book',
@@ -7,12 +9,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./book.page.scss'],
 })
 export class BookPage implements OnInit {
+  book: any;
+  errorMessage: string | undefined;
 
-  constructor(private router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private http: HttpClient
+  ) { }
 
   ngOnInit() {
     this.checkAuthentication();
-    // You can add any initialization logic here
+    this.loadBook();
   }
 
   checkAuthentication() {
@@ -22,4 +30,59 @@ export class BookPage implements OnInit {
     }
   }
 
+  loadBook() {
+    const bookId = this.route.snapshot.paramMap.get('id');
+    if (bookId) {
+      this.fetchBookDetails(bookId);
+    } else {
+      this.errorMessage = 'Book ID not found in route';
+    }
+  }
+
+  fetchBookDetails(bookId: string) {
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    this.http.get<any>(`https://lib.libranation.my.id/api/books/${bookId}`, { headers }).subscribe(
+      data => {
+        console.log('Book data:', data); // Tambahkan log ini
+        this.book = data;
+
+        // Tambahkan pengecekan dan log untuk stock.jmlh_tersedia dan rack.name
+        if (!data.stock) {
+          console.error('Stock tidak ditemukan dalam data buku');
+          this.errorMessage = 'Stock not found in the book data';
+        } else {
+          console.log('Jumlah tersedia:', data.stock.jmlh_tersedia);
+          if (!data.stock.jmlh_tersedia) {
+            console.error('Jumlah tersedia tidak ditemukan dalam data stock');
+            this.errorMessage = 'Jumlah tersedia not found in the stock data';
+          }
+        }
+
+        if (!data.rack) {
+          console.error('Rack tidak ditemukan dalam data buku');
+          this.errorMessage = 'Rack not found in the book data';
+        } else {
+          console.log('Rak:', data.rack.name);
+          if (!data.rack.name) {
+            console.error('Nama rak tidak ditemukan dalam data rack');
+            this.errorMessage = 'Nama rak not found in the rack data';
+          }
+        }
+
+        if (!data.cover_link) {
+          this.errorMessage = 'Cover link not found in the book data';
+        }
+      },
+      (error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          this.errorMessage = 'Book not found';
+        } else {
+          this.errorMessage = 'An error occurred while loading the book';
+        }
+        console.error('Error loading book:', error);
+      }
+    );
+  }
 }

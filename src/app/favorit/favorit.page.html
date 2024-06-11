@@ -12,11 +12,10 @@
     <ion-searchbar show-cancel-button="focus" placeholder="Search"></ion-searchbar>
   </div>
 
-
   <ion-list>
     <ion-item *ngFor="let book of favoriteBooks">
       <ion-thumbnail slot="start">
-        <img src="../../assets/icon/buku.png" />
+        <ion-img [src]="book.cover_link" alt="Book Cover"></ion-img>
       </ion-thumbnail>
       <ion-label>
         <h2>{{ book.title }}</h2>

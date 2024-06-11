@@ -2,48 +2,47 @@
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
   <!-- Search Bar -->
   <div class="search">
     <ion-searchbar show-cancel-button="focus" placeholder="Cari"></ion-searchbar>
   </div>
-  
-  <!-- Favorites Button -->
-  
+
   <!-- Genre Select -->
   <ion-select class="genre-select" #genreSelect interface="action-sheet" style="margin-left: 12px;"
   placeholder="Pilih Genre" (ionChange)="genreSelected($event)">
-  <ion-select-option value="action">Action</ion-select-option>
-  <ion-select-option value="drama">Drama</ion-select-option>
-  <ion-select-option value="comedy">Comedy</ion-select-option>
-  <ion-select-option value="horror">Horror</ion-select-option>
-  <ion-select-option value="romance">Romance</ion-select-option>
-</ion-select>
-<div class="btn">
-  <ion-button shape="round" (click)="showFavorites()" style="--background: rgb(248, 35, 35);">
-    Favorit
-  </ion-button>
-</div>
+    <ion-select-option value="action">Action</ion-select-option>
+    <ion-select-option value="drama">Drama</ion-select-option>
+    <ion-select-option value="comedy">Comedy</ion-select-option>
+    <ion-select-option value="horror">Horror</ion-select-option>
+    <ion-select-option value="romance">Romance</ion-select-option>
+  </ion-select>
 
-<!-- Selected Genre Display -->
+  <div class="btn">
+    <ion-button shape="round" (click)="showFavorites()" style="--background: rgb(248, 35, 35);">
+      Favorit
+    </ion-button>
+  </div>
+
+  <!-- Selected Genre Display -->
   <div class="selected-genre" *ngIf="selectedGenre" style="margin-left: 12px;">
     <p>Genre yang dipilih: {{ selectedGenre }}</p>
-    <!-- Add logic or components to display books based on selected genre -->
   </div>
 
   <!-- Book Cards -->
   <ion-grid>
     <ion-row>
-      <ion-col size="6" size-md="4" *ngFor="let book of books">
-        <ion-card class="custom-card" [routerLink]="['/book']">
-          <img [src]="book.thumbnail" alt="Thumbnail image" />
+      <ion-col size="6" size-md="4" *ngFor="let book of filteredBooks">
+        <ion-card class="custom-card" [routerLink]="['/book', book.id]">
+          <ion-card-content>
+            <ion-img [src]="book.cover_link" alt="Book Cover"></ion-img>
+          </ion-card-content>
           <ion-card-header>
             <ion-card-title>{{ book.title }}</ion-card-title>
-            <ion-card-subtitle>{{ book.author }}</ion-card-subtitle> <br> <br>
+            <ion-card-subtitle>Author :{{ book.author }}</ion-card-subtitle>
           </ion-card-header>
         </ion-card>
-        <ion-card-content>
-          <ion-icon name="heart-outline" [color]="book.isLiked ? 'danger' : ''" (click)="toggleLike(book)"></ion-icon>
-        </ion-card-content>
+        <ion-icon name="heart-outline" [color]="book.isLiked ? 'danger' : ''" (click)="toggleLike(book)"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
     path: '',
@@ -13,59 +13,59 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+    loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule)
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'data-buku',
-    loadChildren: () => import('./data-buku/data-buku.module').then( m => m.DataBukuPageModule)
+    loadChildren: () => import('./data-buku/data-buku.module').then(m => m.DataBukuPageModule)
   },
   {
     path: 'history',
-    loadChildren: () => import('./history/history.module').then( m => m.HistoryPageModule)
+    loadChildren: () => import('./history/history.module').then(m => m.HistoryPageModule)
   },
   {
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfilePageModule)
   },
   {
     path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
     path: 'welcome',
-    loadChildren: () => import('./welcome/welcome.module').then( m => m.WelcomePageModule)
+    loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomePageModule)
   },
   {
     path: 'splash',
-    loadChildren: () => import('./splash/splash.module').then( m => m.SplashPageModule)
+    loadChildren: () => import('./splash/splash.module').then(m => m.SplashPageModule)
   },
   {
     path: 'favorit',
-    loadChildren: () => import('./favorit/favorit.module').then( m => m.FavoritPageModule)
+    loadChildren: () => import('./favorit/favorit.module').then(m => m.FavoritPageModule)
   },
   {
-    path: 'book',
-    loadChildren: () => import('./book/book.module').then( m => m.BookPageModule)
+    path: 'book/:id',
+    loadChildren: () => import('./book/book.module').then(m => m.BookPageModule)
   },
   {
     path: 'my-profile',
-    loadChildren: () => import('./my-profile/my-profile.module').then( m => m.MyProfilePageModule)
+    loadChildren: () => import('./my-profile/my-profile.module').then(m => m.MyProfilePageModule)
   },
   {
     path: 'qr-code',
-    loadChildren: () => import('./qr-code/qr-code.module').then( m => m.QrCodePageModule)
+    loadChildren: () => import('./qr-code/qr-code.module').then(m => m.QrCodePageModule)
   },
   {
     path: 'lupa-password',
-    loadChildren: () => import('./lupa-password/lupa-password.module').then( m => m.LupaPasswordPageModule)
+    loadChildren: () => import('./lupa-password/lupa-password.module').then(m => m.LupaPasswordPageModule)
   },
   {
     path: 'reset-password',
-    loadChildren: () => import('./reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
+    loadChildren: () => import('./reset-password/reset-password.module').then(m => m.ResetPasswordPageModule)
   },
 ];
 

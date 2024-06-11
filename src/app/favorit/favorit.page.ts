@@ -7,17 +7,14 @@ import { Router } from '@angular/router';
   styleUrls: ['favorit.page.scss']
 })
 export class FavoritPage implements OnInit {
-  public favoriteBooks: { title: string, author: string }[] = [
-    { title: 'Buku Favorit 1', author: 'Penulis 1' },
-    { title: 'Buku Favorit 2', author: 'Penulis 2' },
-    { title: 'Buku Favorit 3', author: 'Penulis 3' },
-    { title: 'Buku Favorit 4', author: 'Penulis 4' },
-    { title: 'Buku Favorit 5', author: 'Penulis 5' },
-    { title: 'Buku Favorit 6', author: 'Penulis 6' },
-    { title: 'Buku Favorit 7', author: 'Penulis 7' }
-  ];
+  favoriteBooks: any[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras.state && navigation.extras.state['favoriteBooks']) {
+      this.favoriteBooks = navigation.extras.state['favoriteBooks'];
+    }
+  }
 
   ngOnInit() {
     this.checkAuthentication();
@@ -30,7 +27,7 @@ export class FavoritPage implements OnInit {
     }
   }
 
-  public handleRefresh(event: any): void {
+  handleRefresh(event: any): void {
     setTimeout(() => {
       // Any calls to load data go here
       event.target.complete();

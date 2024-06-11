@@ -3,22 +3,30 @@
     <ion-buttons slot="start">
       <ion-back-button text="Go Back"></ion-back-button>
     </ion-buttons>
+    <ion-title>{{ book?.title }}</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content class="ion-padding">
-  <div class="container slide-in-bottom">
-    <img src="../../assets/icon/buku.png" alt="The Martian" class="book-image">
-    <ion-card class="card-desk">
-      <div class="book-title">The Martian</div>
-      <div class="book-category">Science Fiction</div>
-      <div class="book-description">
-        The Martian is a 2011 science fiction novel written by Andy Weir. It was his debut novel under his own name, and
-        originally self-published in 2011. Crown Publishing purchased the rights and re-released it in 2014. The story
-        follows an American astronaut, Mark Watney, as he becomes stranded alone on Mars in the year 2035 and must
-        improvise in order to survive. The Martian, a film adaptation ...
-      </div>
+  <div *ngIf="book; else errorTemplate">
+    <ion-img [src]="book.cover_link" alt="Book Cover"></ion-img>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ book.title }}</ion-card-title>
+        <ion-card-subtitle>Author: {{ book.author }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Category:</strong> {{ book.category?.name }}</p>
+        <p><strong>Jumlah Buku:</strong> {{ book.stock?.jmlh_tersedia }}</p>
+        <p><strong>Rak:</strong> {{ book.rack?.name }}</p>
+        <p><strong>Publisher:</strong> {{ book.publisher }}</p>
+        <p>{{ book.description }}</p>
+      </ion-card-content>
     </ion-card>
   </div>
+  <ng-template #errorTemplate>
+    <div class="error-message">
+      <p>{{ errorMessage }}</p>
+    </div>
+  </ng-template>
 </ion-content>
-
-<script src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic.js"></script>

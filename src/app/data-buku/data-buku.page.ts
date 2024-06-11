@@ -1,6 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { IonSelect } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-data-buku',
@@ -10,57 +11,75 @@ import { Router } from '@angular/router';
 export class DataBukuPage implements OnInit {
   @ViewChild('genreSelect', { static: false }) genreSelect!: IonSelect;
   selectedGenre: string | undefined;
-  isLiked: boolean = false;
+  books: any[] = [];
+  filteredBooks: any[] = [];
+  favoriteBooks: any[] = [];
 
-  books = [
-    { title: 'Judul 1', author: 'Penulis 1', category: 'Kategori 1', thumbnail: '../../assets/icon/buku.png', isLiked: false },
-    { title: 'Judul 2', author: 'Penulis 2', category: 'Kategori 2', thumbnail: '../../assets/icon/buku.png', isLiked: false },
-    { title: 'Judul 3', author: 'Penulis 3', category: 'Kategori 3', thumbnail: '../../assets/icon/buku.png', isLiked: false },
-    { title: 'Judul 4', author: 'Penulis 4', category: 'Kategori 4', thumbnail: '../../assets/icon/buku.png', isLiked: false },
-    { title: 'Judul 5', author: 'Penulis 5', category: 'Kategori 5', thumbnail: '../../assets/icon/buku.png', isLiked: false },
-    { title: 'Judul 6', author: 'Penulis 6', category: 'Kategori 6', thumbnail: '../../assets/icon/buku.png', isLiked: false },
-    { title: 'Judul 7', author: 'Penulis 7', category: 'Kategori 7', thumbnail: '../../assets/icon/buku.png', isLiked: false }
-  ];
-
-  constructor(private router: Router) {}
+  constructor(private router: Router, private http: HttpClient) {}
 
   ngOnInit() {
-    this.checkAuthentication();
+    this.periksaAutentikasi();
+    this.ambilBuku();
   }
 
   ionViewWillEnter() {
-    this.checkAuthentication();
+    this.periksaAutentikasi();
   }
 
-  checkAuthentication() {
+  periksaAutentikasi() {
     const token = localStorage.getItem('token');
     if (!token) {
       this.router.navigateByUrl('/login', { replaceUrl: true });
     }
   }
 
+  ambilBuku() {
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+  
+    this.http.get<any[]>('https://lib.libranation.my.id/api/books', { headers }).subscribe(
+      data => {
+        console.log('Data Buku:', data);
+        this.books = data;
+        this.filteredBooks = data; // Tampilkan semua buku pada awalnya
+      },
+      error => {
+        console.error('Kesalahan mengambil buku:', error);
+      }
+    );
+  }
+
   handleRefresh(event: any): void {
     setTimeout(() => {
-      // Any calls to load data go here
+      this.ambilBuku(); // Segarkan data buku
       event.target.complete();
     }, 2000);
   }
 
-  openGenreSelect() {
-    this.genreSelect.open();
-  }
-
   genreSelected(event: any) {
     this.selectedGenre = event.detail.value;
-    console.log('Selected Genre:', this.selectedGenre);
-    // Add logic to process the selected genre, e.g., load related book data
+    if (this.selectedGenre) {
+      this.filterBooksByGenre(this.selectedGenre);
+    } else {
+      this.filteredBooks = this.books;
+    }
+  }
+
+  filterBooksByGenre(genre: string) {
+    this.filteredBooks = this.books.filter(book => book.category.toLowerCase() === genre.toLowerCase());
   }
 
   showFavorites() {
-    this.router.navigate(['/favorit']);
+    this.router.navigate(['/favorit'], { state: { favoriteBooks: this.favoriteBooks } });
   }
 
   toggleLike(book: any) {
-    book.isLiked = !book.isLiked; // Toggle like status when icon is clicked
+    book.isLiked = !book.isLiked; // Ganti status suka saat ikon diklik
+    if (book.isLiked) {
+      this.favoriteBooks.push(book);
+    } else {
+      this.favoriteBooks = this.favoriteBooks.filter(favBook => favBook.id !== book.id);
+    }
+    console.log('Buku Favorit:', this.favoriteBooks); // Tambahkan log ini
   }
 }
