@@ -1,6 +1,7 @@
 /* Adding linear gradient background to ion-content */
 ion-content {
-    --background: linear-gradient(to bottom, #d6d6d6, #e7e7e7);
+    --background: rgb(221, 219, 255);
+    --background: linear-gradient(to bottom, rgb(190, 192, 255) 0%, rgba(210,220,236,1) 100%);
 }
 
 /* Container styling */

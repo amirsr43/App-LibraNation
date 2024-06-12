@@ -29,15 +29,25 @@ export class RegisterPage {
 
     this.http.post(url, data).subscribe(async response => {
       console.log(response);
+      
+      const successAlert = await this.alertController.create({
+        header: 'Registrasi Berhasil',
+        message: 'Akun Anda berhasil dibuat. Silakan login.',
+        buttons: ['OK']
+      });
+      await successAlert.present();
+      
       this.navCtrl.navigateForward('/login'); // Redirect to login page after successful registration
+      
     }, async error => {
       console.error(error);
-      const alert = await this.alertController.create({
-        header: 'Registration Failed',
+      
+      const errorAlert = await this.alertController.create({
+        header: 'Registrasi Gagal',
         message: 'Please check your input and try again.',
         buttons: ['OK']
       });
-      await alert.present();
+      await errorAlert.present();
     });
   }
 }

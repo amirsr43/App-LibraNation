@@ -9,8 +9,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['data-buku.page.scss']
 })
 export class DataBukuPage implements OnInit {
-  @ViewChild('genreSelect', { static: false }) genreSelect!: IonSelect;
-  selectedGenre: string | undefined;
+  @ViewChild('categorySelect', { static: false }) categorySelect!: IonSelect;
+  selectedCategory: string | undefined;
   books: any[] = [];
   filteredBooks: any[] = [];
   favoriteBooks: any[] = [];
@@ -56,17 +56,24 @@ export class DataBukuPage implements OnInit {
     }, 2000);
   }
 
-  genreSelected(event: any) {
-    this.selectedGenre = event.detail.value;
-    if (this.selectedGenre) {
-      this.filterBooksByGenre(this.selectedGenre);
+  categorySelected(event: any) {
+    this.selectedCategory = event.detail.value;
+    this.filterBooks();
+  }
+
+  categoryCanceled(event: any) {
+    this.selectedCategory = undefined;
+    this.filteredBooks = this.books; // Tampilkan semua buku saat kategori dibatalkan
+  }
+
+  filterBooks() {
+    if (this.selectedCategory) {
+      this.filteredBooks = this.books.filter(book => 
+        book.category?.name?.toLowerCase() === this.selectedCategory?.toLowerCase()
+      );
     } else {
       this.filteredBooks = this.books;
     }
-  }
-
-  filterBooksByGenre(genre: string) {
-    this.filteredBooks = this.books.filter(book => book.category.toLowerCase() === genre.toLowerCase());
   }
 
   showFavorites() {

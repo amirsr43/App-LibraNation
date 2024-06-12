@@ -8,12 +8,14 @@ import { Router } from '@angular/router';
 })
 export class HomePage implements OnInit {
   firstName: string = ''; // Inisialisasi di sini
+  lastName: string = ''; // Inisialisasi di sini
 
   constructor(private router: Router) {}
 
   ngOnInit() {
     this.checkAuthentication();
     this.firstName = localStorage.getItem('first_name') || 'Member';
+    this.lastName = localStorage.getItem('last_name') || 'Member';
   }
 
   ionViewWillEnter() {

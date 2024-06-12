@@ -4,7 +4,7 @@
   </ion-refresher>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/data-buku"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
   <title>Favorit</title>
@@ -13,13 +13,14 @@
   </div>
 
   <ion-list>
-    <ion-item *ngFor="let book of favoriteBooks">
+    <ion-item *ngFor="let book of favoriteBooks" [routerLink]="['/book', book.id]" >
       <ion-thumbnail slot="start">
-        <ion-img [src]="book.cover_link" alt="Book Cover"></ion-img>
+        <ion-img [src]="book.cover_link" alt="Book Cover" class="img"></ion-img>
       </ion-thumbnail>
       <ion-label>
         <h2>{{ book.title }}</h2>
-        <p>{{ book.author }}</p>
+        <p>Author: {{ book.author }}</p>
+        <p><strong>Stok Buku:</strong> {{ book.stock?.jmlh_tersedia }}</p>
       </ion-label>
     </ion-item>
   </ion-list>

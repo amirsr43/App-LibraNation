@@ -1,16 +1,20 @@
 <ion-content class="ion-padding">
-  <div class="background">
-    <img src="../../assets/icon/home.png" alt="Background Image">
-  </div>
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
   <div class="header-container">
-    <h2>Hi,</h2>
-    <h2>{{ firstName }}!</h2>
-  </div> <br>
+    <h2>Hello, {{ firstName }}!</h2>
+  </div>
 
+  <div class="header-text">
+    <h2 style="color: #2E3192;">let's look at the</h2>
+    <h2 style="color: #2E3192;">books here</h2>
+  </div>
+  <h3 style="margin-top: -12px;">____________&nbsp; &nbsp; &nbsp; &nbsp;___________</h3>
+  <img src="../../assets/icon/library.png" class="img-header">
+
+  <h3>Announcement</h3>
   <div class="schedule-container">
     <ion-card>
       <ion-card-content>
@@ -25,24 +29,9 @@
     </ion-card>
   </div>
 
-  <div class="schedule-container">
-    <ion-card class="card">
-      <ion-card-content>
-        <div class="schedule-content">
-          <div class="text-content-2">
-            <ion-card-title>Silahkan lihat - lihat</ion-card-title>
-            <ion-card-subtitle>buku kami disini</ion-card-subtitle>
-            <ion-button [routerLink]="['/tabs/data-buku']">lihat</ion-button>
-          </div>
-          <img src="../../assets/icon/library.png" class="img" alt="Welcome">
-        </div>
-      </ion-card-content>
-    </ion-card>
-  </div>
-
   <h3>Shortcut</h3>
   <div class="schedule-container">
-    <ion-card [routerLink]="['/favorit']">
+    <ion-card [routerLink]="['/favorit']" class="card-header">
       <ion-card-content>
         <div class="schedule-content">
           <div class="text-content-3">
@@ -54,8 +43,8 @@
       </ion-card-content>
     </ion-card>
   </div>
-  <div class="schedule-container">
-    <ion-card [routerLink]="['/qr-code']">
+  <div class="schedule-container" style="margin-top: 15px;">
+    <ion-card [routerLink]="['/qr-code']" class="card-header1">
       <ion-card-content>
         <div class="schedule-content">
           <div class="text-content-3">
@@ -67,8 +56,8 @@
       </ion-card-content>
     </ion-card>
   </div>
-  
-  
+
+  <h3>Calendar</h3>
   <div class="date">
     <ion-datetime locale="en-GB-u-hc-h12"></ion-datetime>
   </div>
