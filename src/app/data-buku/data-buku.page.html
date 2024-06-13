@@ -6,7 +6,7 @@
 
   <!-- Search Bar -->
   <div class="search">
-    <ion-searchbar show-cancel-button="focus" placeholder="Cari"></ion-searchbar>
+    <ion-searchbar show-cancel-button="focus" placeholder="Cari" (ionInput)="filterBooks($event)"></ion-searchbar>
   </div>
 
   <!-- Category Select -->
@@ -20,7 +20,6 @@
     <ion-select-option value="novel">Novel</ion-select-option>
     <ion-select-option value="komik">Komik</ion-select-option>
   </ion-select>
-
 
   <!-- Selected Category Display -->
   <div class="selected-category" *ngIf="selectedCategory" style="margin-left: 12px;">

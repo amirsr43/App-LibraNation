@@ -37,25 +37,23 @@ export class MyProfilePage implements OnInit {
   }
 
   async loadProfile() {
-  try {
-    const userId = localStorage.getItem('user_id');
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
+    try {
+      const userId = localStorage.getItem('user_id');
+      const token = localStorage.getItem('token');
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
 
-    const response: any = await this.http.get(`${this.apiUrl}${userId}`, { headers }).toPromise();
+      const response: any = await this.http.get(`${this.apiUrl}${userId}`, { headers }).toPromise();
 
-    // Sesuaikan akses properti berdasarkan struktur respons sebenarnya
-    this.tglLahir = response.member.tgl_lahir || '';
-    this.address = response.member.address || '';
-    this.phone = response.member.phone || '';
-    this.profileImageUrl = response?.image_profile_url || '';
-  } catch (error) {
-    this.handleError(error, 'Error loading profile');
+      this.tglLahir = response.member.tgl_lahir || '';
+      this.address = response.member.address || '';
+      this.phone = response.member.phone || '';
+      this.profileImageUrl = response?.image_profile_url || '';
+    } catch (error) {
+      this.handleError(error, 'Error loading profile');
+    }
   }
-}
-
 
   onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -101,6 +99,8 @@ export class MyProfilePage implements OnInit {
         localStorage.setItem('phone', this.phone);
         localStorage.setItem('address', this.address);
       }
+
+      await this.presentSuccessAlert('Data berhasil disimpan, silahkan refresh');
       this.router.navigateByUrl('/tabs/profile');
     } catch (error) {
       this.handleError(error, 'Error saving profile');
@@ -110,6 +110,10 @@ export class MyProfilePage implements OnInit {
         await loading.dismiss();
       }
     }
+  }
+
+  checkProfileCompletion(): boolean {
+    return !!this.tglLahir && !!this.address && !!this.phone;
   }
 
   private async handleError(error: any, defaultErrorMessage: string) {
@@ -130,6 +134,15 @@ export class MyProfilePage implements OnInit {
   async presentErrorAlert(message: string) {
     const alert = await this.alertCtrl.create({
       header: 'Error',
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+  async presentSuccessAlert(message: string) {
+    const alert = await this.alertCtrl.create({
+      header: 'Success',
       message: message,
       buttons: ['OK']
     });

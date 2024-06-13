@@ -1,6 +1,5 @@
 /* Styling untuk ion-content */
 ion-content {
-    --background: #f5f7fa;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -9,7 +8,6 @@ ion-content {
 
 /* Styling untuk ion-segment */
 ion-segment {
-    --background: #ffffff;
     --indicator-color: #007bff;
     --indicator-height: 4px;
     --border-radius: 12px;
@@ -31,7 +29,6 @@ ion-segment-button {
 }
 
 ion-segment-button:not(.segment-button-checked) {
-    background-color: #ffffff;
     color: #007bff;
 }
 
@@ -41,7 +38,6 @@ ion-segment-button:hover {
 
 /* Styling untuk ion-list */
 ion-list {
-    --background: #ffffff;
     --border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
@@ -52,7 +48,6 @@ ion-list {
 
 /* Styling untuk ion-item */
 ion-item {
-    --background: #ffffff;
     --border-radius: 8px;
     --padding-start: 16px;
     --padding-end: 16px;
@@ -71,13 +66,11 @@ ion-label h2 {
     font-size: 20px;
     font-weight: bold;
     margin: 0;
-    color: #333333;
 }
 
 ion-label p {
     font-size: 16px;
     margin: 6px 0 0;
-    color: #666666;
 }
 
 /* Styling khusus untuk segmen peminjaman */

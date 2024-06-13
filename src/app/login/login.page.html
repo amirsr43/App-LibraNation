@@ -1,20 +1,13 @@
-<ion-content [fullscreen]="true">
-  <div class="img">
-    <ion-img src="../../assets/icon/logo.png"></ion-img>
-  </div>
-  <h1>Login</h1>
-  <ion-card>
-    <div class="box">
-      <ion-input [(ngModel)]="email" placeholder="Email" fill="outline" type="email"></ion-input> <br>
-      <ion-input [(ngModel)]="password" placeholder="Password" fill="outline" type="password">
-        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-      </ion-input>
-      <ion-button fill="clear" class="text" id="open-loading" (click)="login()">Login</ion-button>
-      <ion-loading trigger="open-loading" message="Loading..." [duration]="3000" spinner="circles"></ion-loading>
-      <div class="text">
-        <a [routerLink]="['/lupa-password']">Forgot Password</a> <br> <br>
-        <p>Belum punya akun? <a [routerLink]="['/register']">Daftar</a></p>
-      </div>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="login-container">
+    <h1>Login</h1>
+    <ion-input [(ngModel)]="email" placeholder="Email" fill="outline" type="email"></ion-input> <br>
+    <ion-input [(ngModel)]="password" placeholder="Password" fill="outline" type="password">
+      <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+    </ion-input> <br>
+    <ion-button expand="block" id="open-loading" (click)="login()">Login</ion-button>
+    <ion-loading trigger="open-loading" message="Loading..." [duration]="3000" spinner="circles"></ion-loading>
+    <a class="forgot-password" [routerLink]="['/lupa-password']">Forgot Password</a>
+    <p>Belum punya akun? <a [routerLink]="['/register']">Daftar</a></p>
     </div>
-  </ion-card>
 </ion-content>

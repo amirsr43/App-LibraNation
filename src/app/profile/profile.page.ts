@@ -14,6 +14,7 @@ export class ProfilePage implements OnInit {
   email: string = '';
   profileImageUrl: string = '';
   apiUrl = 'https://lib.libranation.my.id/api/members/';
+  isProfileComplete: boolean = true;
 
   constructor(
     private router: Router,
@@ -50,9 +51,15 @@ export class ProfilePage implements OnInit {
 
       const response: any = await this.http.get(`${this.apiUrl}${userId}`, { headers }).toPromise();
       this.profileImageUrl = response?.image_profile_url || '';
+
+      this.isProfileComplete = this.checkProfileCompletion(response);
     } catch (error) {
       this.handleError(error, 'Error loading profile');
     }
+  }
+
+  checkProfileCompletion(profile: any): boolean {
+    return !!profile.member.tgl_lahir && !!profile.member.address && !!profile.member.phone;
   }
 
   handleRefresh(event: any) {

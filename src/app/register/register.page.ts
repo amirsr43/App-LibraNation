@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController } from '@ionic/angular';
 import { environment } from '../../environments/environment'; // Import environment variables
 
 @Component({
@@ -15,9 +15,24 @@ export class RegisterPage {
   password: string = '';
   password_confirmation: string = '';
 
-  constructor(private http: HttpClient, private navCtrl: NavController, private alertController: AlertController) {}
+  constructor(
+    private http: HttpClient, 
+    private navCtrl: NavController, 
+    private alertController: AlertController,
+    private loadingController: LoadingController // Inject LoadingController
+  ) {}
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+    return loading;
+  }
 
   async register() {
+    const loading = await this.presentLoading(); // Show loading indicator
+
     const url = `${environment.apiUrl}/register`; // Use environment variable for the URL
     const data = {
       first_name: this.firstName,
@@ -29,7 +44,8 @@ export class RegisterPage {
 
     this.http.post(url, data).subscribe(async response => {
       console.log(response);
-      
+      await loading.dismiss(); // Hide loading indicator
+
       const successAlert = await this.alertController.create({
         header: 'Registrasi Berhasil',
         message: 'Akun Anda berhasil dibuat. Silakan login.',
@@ -41,7 +57,8 @@ export class RegisterPage {
       
     }, async error => {
       console.error(error);
-      
+      await loading.dismiss(); // Hide loading indicator
+
       const errorAlert = await this.alertController.create({
         header: 'Registrasi Gagal',
         message: 'Please check your input and try again.',

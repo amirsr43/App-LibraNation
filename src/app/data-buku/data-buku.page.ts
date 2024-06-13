@@ -66,13 +66,17 @@ export class DataBukuPage implements OnInit {
     this.filteredBooks = this.books; // Tampilkan semua buku saat kategori dibatalkan
   }
 
-  filterBooks() {
+  filterBooks(event?: any) {
+    const searchTerm = event?.target.value?.toLowerCase() || '';
     if (this.selectedCategory) {
-      this.filteredBooks = this.books.filter(book => 
-        book.category?.name?.toLowerCase() === this.selectedCategory?.toLowerCase()
+      this.filteredBooks = this.books.filter(book =>
+        book.category?.name?.toLowerCase() === this.selectedCategory?.toLowerCase() &&
+        book.title.toLowerCase().includes(searchTerm)
       );
     } else {
-      this.filteredBooks = this.books;
+      this.filteredBooks = this.books.filter(book =>
+        book.title.toLowerCase().includes(searchTerm)
+      );
     }
   }
 
@@ -82,11 +86,36 @@ export class DataBukuPage implements OnInit {
 
   toggleLike(book: any) {
     book.isLiked = !book.isLiked; // Ganti status suka saat ikon diklik
+    const userId = localStorage.getItem('user_id'); // Atau ambil dari token jika ada
+    const token = localStorage.getItem('token'); // Ambil token dari localStorage
+
     if (book.isLiked) {
       this.favoriteBooks.push(book);
+      const headers = { 'Authorization': `Bearer ${token}` }; // Sertakan token dalam header
+      this.http.post(`https://lib.libranation.my.id/api/users/${userId}/books/${book.id}/favorite`, {}, { headers }).subscribe(
+        response => {
+          console.log('Added to favorites:', response);
+        },
+        error => {
+          console.error('Error adding to favorites:', error);
+        }
+      );
     } else {
       this.favoriteBooks = this.favoriteBooks.filter(favBook => favBook.id !== book.id);
+      const headers = { 'Authorization': `Bearer ${token}` }; // Sertakan token dalam header
+      this.http.delete(`https://lib.libranation.my.id/api/users/${userId}/books/${book.id}/favorite`, { headers }).subscribe(
+        response => {
+          console.log('Removed from favorites:', response);
+        },
+        error => {
+          console.error('Error removing from favorites:', error);
+        }
+      );
     }
     console.log('Buku Favorit:', this.favoriteBooks); // Tambahkan log ini
+  }
+
+  ngAfterViewInit() {
+    // Remove the unnecessary event listener
   }
 }

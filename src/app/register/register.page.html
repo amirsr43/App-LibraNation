@@ -1,23 +1,16 @@
-<ion-content [fullscreen]="true">
-  <div class="img">
-    <ion-img src="../../assets/icon/logo.png"></ion-img>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="login-container">
+    <h1>Register</h1>
+    <ion-input [(ngModel)]="firstName" fill="outline" placeholder="Nama Depan" type="text"></ion-input> <br>
+    <ion-input [(ngModel)]="lastName" fill="outline" placeholder="Nama Belakang" type="text"></ion-input> <br>
+    <ion-input [(ngModel)]="email" fill="outline" placeholder="Email" type="email"></ion-input> <br>
+    <ion-input [(ngModel)]="password" placeholder="Password" fill="outline" type="password">
+      <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+    </ion-input> <br>
+    <ion-input [(ngModel)]="password_confirmation" placeholder="Konfirmasi Password" fill="outline" type="password">
+      <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+    </ion-input> <br>
+    <ion-button expand="block" (click)="register()">Register</ion-button>
+    <p>Sudah punya akun? <a [routerLink]="['/login']">Masuk</a></p>
   </div>
-  <h1>Register</h1>
-  <ion-card>
-    <div class="box">
-      <ion-input [(ngModel)]="firstName" label="Nama depan" label-placement="floating" fill="outline" type="text"></ion-input> 
-      <ion-input [(ngModel)]="lastName" label="Nama belakang" label-placement="floating" fill="outline" type="text"></ion-input> 
-      <ion-input [(ngModel)]="email" label="Email" label-placement="floating" fill="outline" type="email"></ion-input> 
-      <ion-input [(ngModel)]="password" placeholder="Password" fill="outline" type="password">
-        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-      </ion-input>
-      <ion-input [(ngModel)]="password_confirmation" placeholder="Konfirmasi Password" fill="outline" type="password">
-        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-      </ion-input>
-      <ion-button fill="clear" class="text" (click)="register()">Register</ion-button>
-      <div class="text">
-        <p>Sudah punya akun? <a [routerLink]="['/login']">Masuk</a></p> 
-      </div>
-    </div>
-  </ion-card>
 </ion-content>
