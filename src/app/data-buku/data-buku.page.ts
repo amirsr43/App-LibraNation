@@ -20,6 +20,7 @@ export class DataBukuPage implements OnInit {
   ngOnInit() {
     this.periksaAutentikasi();
     this.ambilBuku();
+    this.getFavorites(); // Tambahkan ini untuk mengambil daftar favorit
   }
 
   ionViewWillEnter() {
@@ -36,12 +37,13 @@ export class DataBukuPage implements OnInit {
   ambilBuku() {
     const token = localStorage.getItem('token');
     const headers = { 'Authorization': `Bearer ${token}` };
-  
+
     this.http.get<any[]>('https://lib.libranation.my.id/api/books', { headers }).subscribe(
       data => {
         console.log('Data Buku:', data);
         this.books = data;
         this.filteredBooks = data; // Tampilkan semua buku pada awalnya
+        this.syncFavorites(); // Sinkronkan dengan favorit
       },
       error => {
         console.error('Kesalahan mengambil buku:', error);
@@ -49,9 +51,34 @@ export class DataBukuPage implements OnInit {
     );
   }
 
+  getFavorites() {
+    const userId = localStorage.getItem('user_id');
+    const token = localStorage.getItem('token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    this.http.get<any[]>(`https://lib.libranation.my.id/api/users/${userId}/favorites`, { headers }).subscribe(
+      data => {
+        console.log('Favorite Books:', data);
+        this.favoriteBooks = data;
+        this.syncFavorites(); // Sinkronkan dengan buku setelah mendapat favorit
+      },
+      error => {
+        console.error('Error fetching favorite books:', error);
+      }
+    );
+  }
+
+  syncFavorites() {
+    this.books.forEach(book => {
+      book.isLiked = this.favoriteBooks.some(favBook => favBook.id === book.id);
+    });
+    this.filterBooks(); // Perbarui filteredBooks
+  }
+
   handleRefresh(event: any): void {
     setTimeout(() => {
       this.ambilBuku(); // Segarkan data buku
+      this.getFavorites(); // Segarkan data favorit
       event.target.complete();
     }, 2000);
   }

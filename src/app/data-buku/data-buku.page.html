@@ -1,5 +1,4 @@
 <ion-content [fullscreen]="true">
-  <br>
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
@@ -41,7 +40,8 @@
             <p><strong>Category:</strong> {{ book.category?.name }}</p>
           </ion-card-header>
         </ion-card>
-        <ion-icon name="heart-outline" [color]="book.isLiked ? 'danger' : ''" (click)="toggleLike(book)"></ion-icon>
+        <!-- Update the ion-icon with name binding -->
+        <ion-icon [name]="book.isLiked ? 'heart' : 'heart-outline'" [color]="book.isLiked ? 'danger' : ''" (click)="toggleLike(book)"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-grid>

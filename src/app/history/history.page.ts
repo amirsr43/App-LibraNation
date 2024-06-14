@@ -50,8 +50,14 @@ export class HistoryPage implements OnInit {
         (response: any) => {
           console.log('API response:', response); // Logging API response
           if (Array.isArray(response)) {
-            this.riwayatPeminjaman = response; // Menyesuaikan dengan struktur response dari API
-            console.log('Peminjaman data:', this.riwayatPeminjaman); // Logging fetched data
+            // Filter out items with a non-null return_date
+            this.riwayatPeminjaman = response.filter(item => item.return_date === null);
+            // Convert dates to dd/mm/yyyy format
+            this.riwayatPeminjaman.forEach(item => {
+              item.created_at = this.formatDate(item.created_at);
+              item.return_date = this.formatDate(item.return_date);
+            });
+            console.log('Filtered and formatted peminjaman data:', this.riwayatPeminjaman); // Logging formatted data
           } else {
             console.warn('Unexpected API response format:', response); // Warning for unexpected format
           }
@@ -71,5 +77,15 @@ export class HistoryPage implements OnInit {
       this.loadPeminjamanData();
       event.target.complete();
     }, 2000);
+  }
+
+  // Function to format date to dd/mm/yyyy
+  formatDate(dateString: string): string {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const day = ('0' + date.getDate()).slice(-2);
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
   }
 }

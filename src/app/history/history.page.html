@@ -15,9 +15,10 @@
     <ion-list>
       <ion-item *ngFor="let item of riwayatPeminjaman">
         <ion-label>
-          <h2>{{ item.book?.title }}</h2>
+          <h2>Judul: {{ item.book?.title }}</h2>
           <p>Resi: {{ item.resi_pjmn }}</p>
-          <p>Tanggal: {{ item.created_at }}</p>
+          <p>Tanggal peminjaman: {{ item.created_at }}</p>
+          <p>Tanggal pengembalian: {{ item.return_date ? item.return_date : 'belum dikembalikan' }}</p>
         </ion-label>
       </ion-item>
     </ion-list>
