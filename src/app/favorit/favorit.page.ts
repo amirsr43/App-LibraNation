@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-favorit',
@@ -36,7 +37,7 @@ export class FavoritPage implements OnInit {
     const token = localStorage.getItem('token');
     const headers = { 'Authorization': `Bearer ${token}` };
 
-    this.http.get<any[]>(`https://lib.libranation.my.id/api/users/${userId}/favorites`, { headers }).subscribe(
+    this.http.get<any[]>(`${environment.apiUrl}/users/${userId}/favorites`, { headers }).subscribe(
       data => {
         console.log('Favorite Books:', data);
         this.favoriteBooks = data;

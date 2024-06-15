@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { IonSelect } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-data-buku',
@@ -38,7 +39,7 @@ export class DataBukuPage implements OnInit {
     const token = localStorage.getItem('token');
     const headers = { 'Authorization': `Bearer ${token}` };
 
-    this.http.get<any[]>('https://lib.libranation.my.id/api/books', { headers }).subscribe(
+    this.http.get<any[]>(`${environment.apiUrl}/books`, { headers }).subscribe(
       data => {
         console.log('Data Buku:', data);
         this.books = data;
@@ -56,7 +57,7 @@ export class DataBukuPage implements OnInit {
     const token = localStorage.getItem('token');
     const headers = { 'Authorization': `Bearer ${token}` };
 
-    this.http.get<any[]>(`https://lib.libranation.my.id/api/users/${userId}/favorites`, { headers }).subscribe(
+    this.http.get<any[]>(`${environment.apiUrl}/users/${userId}/favorites`, { headers }).subscribe(
       data => {
         console.log('Favorite Books:', data);
         this.favoriteBooks = data;
@@ -119,7 +120,7 @@ export class DataBukuPage implements OnInit {
     if (book.isLiked) {
       this.favoriteBooks.push(book);
       const headers = { 'Authorization': `Bearer ${token}` }; // Sertakan token dalam header
-      this.http.post(`https://lib.libranation.my.id/api/users/${userId}/books/${book.id}/favorite`, {}, { headers }).subscribe(
+      this.http.post(`${environment.apiUrl}/users/${userId}/books/${book.id}/favorite`, {}, { headers }).subscribe(
         response => {
           console.log('Added to favorites:', response);
         },
@@ -130,7 +131,7 @@ export class DataBukuPage implements OnInit {
     } else {
       this.favoriteBooks = this.favoriteBooks.filter(favBook => favBook.id !== book.id);
       const headers = { 'Authorization': `Bearer ${token}` }; // Sertakan token dalam header
-      this.http.delete(`https://lib.libranation.my.id/api/users/${userId}/books/${book.id}/favorite`, { headers }).subscribe(
+      this.http.delete(`${environment.apiUrl}/users/${userId}/books/${book.id}/favorite`, { headers }).subscribe(
         response => {
           console.log('Removed from favorites:', response);
         },

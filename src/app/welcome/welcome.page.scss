@@ -7,70 +7,66 @@
     background-color: #f5f5f5;
     position: relative;
     overflow: hidden;
+}
 
-    .background {
-        position: absolute;
-        top: 0;
-        left: 0;
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+
+    img {
         width: 100%;
         height: 100%;
-        z-index: -1;
-        /* Ensure it stays in the background */
+        object-fit: cover;
+    }
+}
 
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* Make the background image semi-transparent */
-        }
+.logo-container {
+    margin-top: 19vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 1;
+    padding: 20px;
+
+    h1 {
+        font-size: 33px;
+        font-weight: bolder;
+        margin-bottom: 20px;
+        color: #2E3192;
     }
 
-    .logo-container {
-        margin-top: 19vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        z-index: 1;
-        /* Ensure it stays above the background */
-        padding: 20px;
-
-        h1 {
-            font-size: 33px;
-            font-weight: bolder;
-            margin-bottom: 20px;
-            color: #2E3192;
-        }
-
-        img {
-            width: 25vh;
-            height: auto;
-        }
+    img {
+        width: 25vh;
+        height: auto;
     }
+}
 
-    .login-button {
-        height: 7vh;
-        --padding-start: 16px;
-        --padding-end: 16px;
-        --padding-top: 12px;
-        --padding-bottom: 12px;
-        font-size: 18px;
-        color: white;
-        --background: #2E3192;
-    }
+.login-button {
+    height: 7vh;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    font-size: 18px;
+    color: white;
+    --background: #2E3192;
+}
 
-    .login-button .register-button {
-        height: 7vh;
-        margin-top: 18px;
-        --padding-start: 16px;
-        --padding-end: 16px;
-        --padding-top: 12px;
-        --padding-bottom: 12px;
-        font-size: 18px;
-        color: white;
-        --background: #6B71FF;
-    }
-
+.register-button {
+    height: 7vh;
+    margin-top: 18px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    font-size: 18px;
+    color: white;
+    --background: #6B71FF;
 }
 
 .img-logo {
@@ -78,7 +74,6 @@
     height: auto;
     position: absolute;
     left: 44%;
-    
 }
 
 .text {

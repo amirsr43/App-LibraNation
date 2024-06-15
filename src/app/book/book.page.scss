@@ -1,108 +1,29 @@
-/* Adding linear gradient background to ion-content */
-ion-content {
-    --background: rgb(221, 219, 255);
-    --background: linear-gradient(to bottom, rgb(190, 192, 255) 0%, rgba(210,220,236,1) 100%);
+.book-cover {
+    width: 100%;
+    height: auto;
+    margin-bottom: 16px;
+    border-radius: 8px;
 }
 
-/* Container styling */
-.container {
+.error-message {
     text-align: center;
+    color: var(--ion-color-danger);
     margin-top: 20px;
-    animation: slide-in-bottom 0.5s ease-in-out both;
 }
 
-/* Book image styling */
-.book-image {
-    width: 200vh;
-    /* Adjusted the width for better visual */
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
+ion-card-title,
+ion-card-subtitle {
+    text-align: center;
 }
 
-.book-image:hover {
-    transform: scale(1.1);
+.animate__animated.animate__fadeInUp {
+    --animate-duration: 0.5s;
 }
 
-/* Book title styling */
-.book-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 10px;
-    color: #222;
-    animation: fadeInUp 1s ease-in-out;
+.animate__animated.animate__shakeX {
+    --animate-duration: 0.5s;
 }
 
-/* Book category styling */
-.book-category {
-    font-size: 18px;
-    color: #555;
-    margin-top: 5px;
-    animation: slideIn 1s ease-out;
-}
-
-/* Book description styling */
-.book-description {
-    font-size: 16px;
-    color: #333;
-    text-align: justify;
-    margin: 20px;
-    animation: fadeIn 2s ease-in-out;
-}
-
-/* Slide-in-bottom animation */
-@keyframes slide-in-bottom {
-    0% {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-.slide-in-bottom {
-    animation: slide-in-bottom 0.5s ease-in-out both;
-}
-
-/* Keyframes for other animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.card-desk {
-    border-radius: 20px;
+ion-note {
+    font-size: 17px;
 }

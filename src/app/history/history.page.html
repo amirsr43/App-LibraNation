@@ -18,7 +18,7 @@
           <h2>Judul: {{ item.book?.title }}</h2>
           <p>Resi: {{ item.resi_pjmn }}</p>
           <p>Tanggal peminjaman: {{ item.created_at }}</p>
-          <p>Tanggal pengembalian: {{ item.return_date ? item.return_date : 'belum dikembalikan' }}</p>
+          <p>Tanggal pengembalian: {{ item.return_date }}</p>
         </ion-label>
       </ion-item>
     </ion-list>

@@ -1,32 +1,49 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button text="Go Back"></ion-back-button>
+      <ion-back-button text="Go Back" defaultHref="/tabs/data-buku"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ book?.title }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div *ngIf="book; else errorTemplate">
-    <ion-img [src]="book.cover_link" alt="Book Cover"></ion-img>
+  <div *ngIf="book; else errorTemplate" class="book-details animate__animated animate__fadeInUp">
+    <ion-img [src]="book.cover_link" alt="Book Cover" class="book-cover"></ion-img>
     <ion-card>
       <ion-card-header>
         <ion-card-title>{{ book.title }}</ion-card-title>
         <ion-card-subtitle>Author: {{ book.author }}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        <p><strong>Category:</strong> {{ book.category?.name }}</p>
-        <p><strong>Stok Buku:</strong> {{ book.stock?.jmlh_tersedia }}</p>
-        <p><strong>Rak:</strong> {{ book.rack?.name }}</p>
-        <p><strong>Publisher:</strong> {{ book.publisher }}</p>
-        <p>{{ book.description }}</p>
+        <ion-list lines="none">
+          <ion-item>
+            <ion-label><strong>Category:</strong></ion-label>
+            <ion-note>{{ book.category?.name }}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Stok Buku:</strong></ion-label>
+            <ion-note>{{ book.stock?.jmlh_tersedia }}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Rak:</strong></ion-label>
+            <ion-note>{{ book.rack?.name }}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label><strong>Publisher:</strong></ion-label>
+            <ion-note>{{ book.publisher }}</ion-note>
+          </ion-item>
+        </ion-list>
+        <ion-text>
+          <p>{{ book.description }}</p>
+        </ion-text>
       </ion-card-content>
     </ion-card>
   </div>
   <ng-template #errorTemplate>
-    <div class="error-message">
+    <div class="error-message animate__animated animate__shakeX">
       <p>{{ errorMessage }}</p>
     </div>
   </ng-template>
 </ion-content>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>

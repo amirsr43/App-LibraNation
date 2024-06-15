@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-book',
@@ -42,13 +42,13 @@ export class BookPage implements OnInit {
   fetchBookDetails(bookId: string) {
     const token = localStorage.getItem('token');
     const headers = { 'Authorization': `Bearer ${token}` };
+    const url = `${environment.apiUrl}/books/${bookId}`;
 
-    this.http.get<any>(`https://lib.libranation.my.id/api/books/${bookId}`, { headers }).subscribe(
+    this.http.get<any>(url, { headers }).subscribe(
       data => {
-        console.log('Book data:', data); // Tambahkan log ini
+        console.log('Book data:', data);
         this.book = data;
 
-        // Tambahkan pengecekan dan log untuk stock.jmlh_tersedia dan rack.name
         if (!data.stock) {
           console.error('Stock tidak ditemukan dalam data buku');
           this.errorMessage = 'Stock not found in the book data';

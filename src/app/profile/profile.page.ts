@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +14,7 @@ export class ProfilePage implements OnInit {
   lastName: string = '';
   email: string = '';
   profileImageUrl: string = '';
-  apiUrl = 'https://lib.libranation.my.id/api/members/';
+  apiUrl = `${environment.apiUrl}/members/`;
   isProfileComplete: boolean = true;
 
   constructor(

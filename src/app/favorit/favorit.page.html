@@ -14,21 +14,29 @@
     <ion-searchbar show-cancel-button="focus" placeholder="Search" (ionInput)="filterFavorites($event)"></ion-searchbar>
   </div>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col size="6" size-md="4" *ngFor="let book of filteredFavoriteBooks">
-        <ion-card class="custom-card" [routerLink]="['/book', book.id]">
-          <ion-card-content>
-            <ion-img [src]="book.cover_link" alt="Book Cover"></ion-img>
-          </ion-card-content>
-          <ion-card-header>
-            <ion-card-title>{{ book.title }}</ion-card-title>
-            <ion-card-subtitle>Author: {{ book.author }}</ion-card-subtitle>
-            <p><strong>Stok Buku:</strong> {{ book.stock?.jmlh_tersedia }}</p>
-            <p><strong>Category:</strong> {{ book.category?.name }}</p>
-          </ion-card-header>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-row>
+    <ion-col size="12">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Favorite Books</ion-card-title>
+          <ion-card-subtitle>Collection of your favorite books</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngFor="let book of filteredFavoriteBooks">
+              <ion-thumbnail slot="start" [routerLink]="['/book', book.id]">
+                <img [src]="book.cover_link" alt="Book Cover" />
+              </ion-thumbnail>
+              <ion-label [routerLink]="['/book', book.id]">
+                <h2>{{ book.title }}</h2>
+                <p><strong>Author:</strong> {{ book.author }}</p>
+                <p><strong>Stock:</strong> {{ book.stock?.jmlh_tersedia }}</p>
+                <p><strong>Category:</strong> {{ book.category?.name }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
 </ion-content>
