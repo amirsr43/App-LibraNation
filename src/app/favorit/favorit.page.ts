@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-favorit',
@@ -12,7 +13,7 @@ export class FavoritPage implements OnInit {
   favoriteBooks: any[] = [];
   filteredFavoriteBooks: any[] = [];
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient, private storage: Storage) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state && navigation.extras.state['favoriteBooks']) {
       this.favoriteBooks = navigation.extras.state['favoriteBooks'];
@@ -20,26 +21,26 @@ export class FavoritPage implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.checkAuthentication();
+  async ngOnInit() {
+    await this.storage.create(); // Initialize storage
+    await this.checkAuthentication();
     this.getFavorites();
   }
 
-  checkAuthentication() {
-    const token = localStorage.getItem('token');
+  async checkAuthentication() {
+    const token = await this.storage.get('token');
     if (!token) {
       this.router.navigateByUrl('/login', { replaceUrl: true });
     }
   }
 
-  getFavorites() {
-    const userId = localStorage.getItem('user_id'); // Atau ambil dari token jika ada
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };
+  async getFavorites() {
+    const userId = await this.storage.get('user_id');
+    const token = await this.storage.get('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
 
     this.http.get<any[]>(`${environment.apiUrl}/users/${userId}/favorites`, { headers }).subscribe(
       data => {
-        console.log('Favorite Books:', data);
         this.favoriteBooks = data;
         this.filteredFavoriteBooks = this.favoriteBooks;
       },
@@ -51,7 +52,7 @@ export class FavoritPage implements OnInit {
 
   handleRefresh(event: any): void {
     setTimeout(() => {
-      this.getFavorites(); // Segarkan data favorit
+      this.getFavorites(); // Refresh favorite data
       event.target.complete();
     }, 2000);
   }

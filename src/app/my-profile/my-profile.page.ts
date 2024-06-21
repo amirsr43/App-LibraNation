@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { environment } from '../../environments/environment';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-my-profile',
@@ -22,16 +23,18 @@ export class MyProfilePage implements OnInit {
     private router: Router,
     private http: HttpClient,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private storage: Storage
   ) {}
 
-  ngOnInit() {
-    this.checkAuthentication();
+  async ngOnInit() {
+    await this.storage.create(); // Initialize storage
+    await this.checkAuthentication();
     this.loadProfile();
   }
 
-  checkAuthentication() {
-    const token = localStorage.getItem('token');
+  async checkAuthentication() {
+    const token = await this.storage.get('token');
     if (!token) {
       this.router.navigateByUrl('/login', { replaceUrl: true });
     }
@@ -39,8 +42,8 @@ export class MyProfilePage implements OnInit {
 
   async loadProfile() {
     try {
-      const userId = localStorage.getItem('user_id');
-      const token = localStorage.getItem('token');
+      const userId = await this.storage.get('user_id');
+      const token = await this.storage.get('token');
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
@@ -85,20 +88,19 @@ export class MyProfilePage implements OnInit {
         profileData.append('imageProfile', this.imageProfile);
       }
 
-      const userId = localStorage.getItem('user_id');
-      const token = localStorage.getItem('token');
+      const userId = await this.storage.get('user_id');
+      const token = await this.storage.get('token');
 
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
 
       const response: any = await this.http.post(`${this.apiUrl}${userId}`, profileData, { headers }).toPromise();
-      console.log('Profile saved successfully:', response);
       if (this.profileImageUrl) {
-        localStorage.setItem('profileImage', this.profileImageUrl);
-        localStorage.setItem('tgl_lahir', this.tglLahir);
-        localStorage.setItem('phone', this.phone);
-        localStorage.setItem('address', this.address);
+        await this.storage.set('profileImage', this.profileImageUrl);
+        await this.storage.set('tgl_lahir', this.tglLahir);
+        await this.storage.set('phone', this.phone);
+        await this.storage.set('address', this.address);
       }
 
       await this.presentSuccessAlert('Data berhasil disimpan, silahkan refresh');
@@ -128,7 +130,6 @@ export class MyProfilePage implements OnInit {
     } else {
       message = error?.message || defaultErrorMessage;
     }
-    console.error(message);
     this.presentErrorAlert(message);
   }
 

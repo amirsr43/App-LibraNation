@@ -32,3 +32,16 @@ ion-button {
     height: 50px;
 }
 
+.custom-loading .loading-wrapper {
+    background: rgba(255, 255, 255, 0.8) url('../../assets/icon/logo-03.png') no-repeat center center;
+    background-size: 150px 150px;
+  }
+  
+  .fade-in {
+    animation: fadeIn 1s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }

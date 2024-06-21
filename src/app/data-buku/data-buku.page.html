@@ -1,3 +1,4 @@
+<br>
 <ion-content [fullscreen]="true">
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
@@ -17,7 +18,8 @@
   <ion-select class="category-select" #categorySelect interface="action-sheet" style="margin-left: 12px;"
     placeholder="Pilih Kategori" (ionChange)="categorySelected($event)" (ionCancel)="categoryCanceled($event)">
     <ion-select-option value="novel">Novel</ion-select-option>
-    <ion-select-option value="komik">Komik</ion-select-option>
+    <ion-select-option value="fiksi">fiksi</ion-select-option>
+    <ion-select-option value="sejarah">Sejarah</ion-select-option>
   </ion-select>
 
   <!-- Selected Category Display -->

@@ -1,8 +1,9 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { IonSelect } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-data-buku',
@@ -16,10 +17,11 @@ export class DataBukuPage implements OnInit {
   filteredBooks: any[] = [];
   favoriteBooks: any[] = [];
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient, private storage: Storage) {}
 
-  ngOnInit() {
-    this.periksaAutentikasi();
+  async ngOnInit() {
+    await this.storage.create(); // Inisialisasi storage
+    await this.periksaAutentikasi();
     this.ambilBuku();
     this.getFavorites(); // Tambahkan ini untuk mengambil daftar favorit
   }
@@ -28,20 +30,19 @@ export class DataBukuPage implements OnInit {
     this.periksaAutentikasi();
   }
 
-  periksaAutentikasi() {
-    const token = localStorage.getItem('token');
+  async periksaAutentikasi() {
+    const token = await this.storage.get('token');
     if (!token) {
       this.router.navigateByUrl('/login', { replaceUrl: true });
     }
   }
 
-  ambilBuku() {
-    const token = localStorage.getItem('token');
+  async ambilBuku() {
+    const token = await this.storage.get('token');
     const headers = { 'Authorization': `Bearer ${token}` };
 
     this.http.get<any[]>(`${environment.apiUrl}/books`, { headers }).subscribe(
       data => {
-        console.log('Data Buku:', data);
         this.books = data;
         this.filteredBooks = data; // Tampilkan semua buku pada awalnya
         this.syncFavorites(); // Sinkronkan dengan favorit
@@ -52,14 +53,13 @@ export class DataBukuPage implements OnInit {
     );
   }
 
-  getFavorites() {
-    const userId = localStorage.getItem('user_id');
-    const token = localStorage.getItem('token');
+  async getFavorites() {
+    const userId = await this.storage.get('user_id');
+    const token = await this.storage.get('token');
     const headers = { 'Authorization': `Bearer ${token}` };
 
     this.http.get<any[]>(`${environment.apiUrl}/users/${userId}/favorites`, { headers }).subscribe(
       data => {
-        console.log('Favorite Books:', data);
         this.favoriteBooks = data;
         this.syncFavorites(); // Sinkronkan dengan buku setelah mendapat favorit
       },
@@ -112,38 +112,29 @@ export class DataBukuPage implements OnInit {
     this.router.navigate(['/favorit'], { state: { favoriteBooks: this.favoriteBooks } });
   }
 
-  toggleLike(book: any) {
+  async toggleLike(book: any) {
     book.isLiked = !book.isLiked; // Ganti status suka saat ikon diklik
-    const userId = localStorage.getItem('user_id'); // Atau ambil dari token jika ada
-    const token = localStorage.getItem('token'); // Ambil token dari localStorage
+    const userId = await this.storage.get('user_id'); // Atau ambil dari storage
+    const token = await this.storage.get('token'); // Ambil token dari storage
+
+    const headers = { 'Authorization': `Bearer ${token}` };
 
     if (book.isLiked) {
       this.favoriteBooks.push(book);
-      const headers = { 'Authorization': `Bearer ${token}` }; // Sertakan token dalam header
       this.http.post(`${environment.apiUrl}/users/${userId}/books/${book.id}/favorite`, {}, { headers }).subscribe(
-        response => {
-          console.log('Added to favorites:', response);
-        },
+        response => {},
         error => {
           console.error('Error adding to favorites:', error);
         }
       );
     } else {
       this.favoriteBooks = this.favoriteBooks.filter(favBook => favBook.id !== book.id);
-      const headers = { 'Authorization': `Bearer ${token}` }; // Sertakan token dalam header
       this.http.delete(`${environment.apiUrl}/users/${userId}/books/${book.id}/favorite`, { headers }).subscribe(
-        response => {
-          console.log('Removed from favorites:', response);
-        },
+        response => {},
         error => {
           console.error('Error removing from favorites:', error);
         }
       );
     }
-    console.log('Buku Favorit:', this.favoriteBooks); // Tambahkan log ini
-  }
-
-  ngAfterViewInit() {
-    // Remove the unnecessary event listener
   }
 }

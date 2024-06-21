@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
 import { environment } from '../../environments/environment';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-profile',
@@ -20,23 +21,25 @@ export class ProfilePage implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private storage: Storage
   ) {}
 
-  ngOnInit() {
-    this.checkAuthentication();
-    this.firstName = localStorage.getItem('first_name') || '';
-    this.lastName = localStorage.getItem('last_name') || '';
-    this.email = localStorage.getItem('email') || '';
+  async ngOnInit() {
+    await this.storage.create(); // Initialize storage
+    await this.checkAuthentication();
+    this.firstName = await this.storage.get('first_name') || '';
+    this.lastName = await this.storage.get('last_name') || '';
+    this.email = await this.storage.get('email') || '';
     this.loadProfile();
   }
 
-  ionViewWillEnter() {
-    this.checkAuthentication();
+  async ionViewWillEnter() {
+    await this.checkAuthentication();
   }
 
-  checkAuthentication() {
-    const token = localStorage.getItem('token');
+  async checkAuthentication() {
+    const token = await this.storage.get('token');
     if (!token) {
       this.router.navigateByUrl('/login', { replaceUrl: true });
     }
@@ -44,8 +47,8 @@ export class ProfilePage implements OnInit {
 
   async loadProfile() {
     try {
-      const userId = localStorage.getItem('user_id');
-      const token = localStorage.getItem('token');
+      const userId = await this.storage.get('user_id');
+      const token = await this.storage.get('token');
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
@@ -92,13 +95,8 @@ export class ProfilePage implements OnInit {
     await alert.present();
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('first_name');
-    localStorage.removeItem('last_name');
-    localStorage.removeItem('email');
-    localStorage.removeItem('user_id');
-    localStorage.removeItem('qr_code');
+  async logout() {
+    await this.storage.clear();
     this.router.navigateByUrl('/login', { replaceUrl: true });
   }
 
@@ -113,7 +111,6 @@ export class ProfilePage implements OnInit {
     } else {
       message = error?.message || defaultErrorMessage;
     }
-    console.error(message);
     this.presentErrorAlert(message);
   }
 

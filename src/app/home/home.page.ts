@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +10,8 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  firstName: string = ''; // Inisialisasi di sini
-  lastName: string = ''; // Inisialisasi di sini
+  firstName: string = '';
+  lastName: string = '';
   totalPeminjaman: number = 0;
   totalDenda: number = 0;
   riwayatDenda: any[] = [
@@ -19,12 +20,12 @@ export class HomePage implements OnInit {
     // Tambahkan data riwayat denda lainnya
   ];
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient, private storage: Storage) {}
 
-  ngOnInit() {
-    this.checkAuthentication();
-    this.firstName = localStorage.getItem('first_name') || 'Member';
-    this.lastName = localStorage.getItem('last_name') || 'Member';
+  async ngOnInit() {
+    await this.checkAuthentication();
+    this.firstName = (await this.storage.get('first_name')) || 'Member';
+    this.lastName = (await this.storage.get('last_name')) || 'Member';
     this.loadPeminjamanData();
     this.totalDenda = this.calculateTotalDenda();
   }
@@ -33,25 +34,24 @@ export class HomePage implements OnInit {
     this.checkAuthentication();
   }
 
-  checkAuthentication() {
-    const token = localStorage.getItem('token');
+  async checkAuthentication() {
+    const token = await this.storage.get('token');
     if (!token) {
       this.router.navigateByUrl('/login', { replaceUrl: true });
     }
   }
 
-  loadPeminjamanData() {
-    const userId = localStorage.getItem('user_id'); // Pastikan user_id tersimpan di localStorage
-    const token = localStorage.getItem('token'); // Ambil token dari localStorage
+  async loadPeminjamanData() {
+    const userId = await this.storage.get('user_id'); // Pastikan user_id tersimpan di Ionic Storage
+    const token = await this.storage.get('token'); // Ambil token dari Ionic Storage
     if (userId && token) {
       const apiUrl = `${environment.apiUrl}/peminjaman/${userId}`;
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
-      console.log(`Fetching data from API: ${apiUrl}`); // Logging API URL
+
       this.http.get(apiUrl, { headers }).subscribe(
         (response: any) => {
-          console.log('API response:', response); // Logging API response
           if (Array.isArray(response)) {
             const formattedData = response.map(item => {
               return {
@@ -61,9 +61,6 @@ export class HomePage implements OnInit {
               };
             });
             this.totalPeminjaman = formattedData.length;
-            console.log('Formatted peminjaman data:', formattedData); // Logging formatted data
-          } else {
-            console.warn('Unexpected API response format:', response); // Warning for unexpected format
           }
         },
         (error) => {
@@ -71,7 +68,7 @@ export class HomePage implements OnInit {
         }
       );
     } else {
-      console.warn('User ID or token not found in localStorage'); // Warning if user_id or token is missing
+      console.warn('User ID or token not found in storage'); // Warning if user_id or token is missing
     }
   }
 
@@ -80,7 +77,6 @@ export class HomePage implements OnInit {
   }
 
   handleRefresh(event: any) {
-    console.log('Refresh event triggered');
     setTimeout(() => {
       this.loadPeminjamanData();
       this.totalDenda = this.calculateTotalDenda();

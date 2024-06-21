@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +10,15 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   constructor(
+    private platform: Platform,
+    private storage: Storage,
     public router: Router
   ) {
-    // Anda dapat menambahkan logika inisialisasi di sini jika diperlukan
+    this.initializeApp();
+  }
+
+  async initializeApp() {
+    await this.platform.ready();
+    await this.storage.create();  // Inisialisasi storage
   }
 }

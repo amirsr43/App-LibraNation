@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-qr-code',
@@ -19,20 +20,22 @@ export class QrCodePage implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private storage: Storage
   ) { }
 
-  ngOnInit() {
-    this.checkAuthentication();
-    this.firstName = localStorage.getItem('first_name') || '';
-    this.lastName = localStorage.getItem('last_name') || '';
-    this.email = localStorage.getItem('email') || '';
-    this.qrCodeUrl = localStorage.getItem('qr_code') || '';
+  async ngOnInit() {
+    await this.storage.create(); // Initialize storage
+    await this.checkAuthentication();
+    this.firstName = await this.storage.get('first_name') || '';
+    this.lastName = await this.storage.get('last_name') || '';
+    this.email = await this.storage.get('email') || '';
+    this.qrCodeUrl = await this.storage.get('qr_code') || '';
     this.loadProfileImage();
   }
 
-  checkAuthentication() {
-    const token = localStorage.getItem('token');
+  async checkAuthentication() {
+    const token = await this.storage.get('token');
     if (!token) {
       this.router.navigateByUrl('/login', { replaceUrl: true });
     }
@@ -40,8 +43,8 @@ export class QrCodePage implements OnInit {
 
   async loadProfileImage() {
     try {
-      const userId = localStorage.getItem('user_id');
-      const token = localStorage.getItem('token');
+      const userId = await this.storage.get('user_id');
+      const token = await this.storage.get('token');
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });

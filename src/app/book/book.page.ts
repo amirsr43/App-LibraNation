@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-book',
@@ -15,16 +16,18 @@ export class BookPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private storage: Storage
   ) { }
 
-  ngOnInit() {
-    this.checkAuthentication();
+  async ngOnInit() {
+    await this.storage.create(); // Initialize storage
+    await this.checkAuthentication();
     this.loadBook();
   }
 
-  checkAuthentication() {
-    const token = localStorage.getItem('token');
+  async checkAuthentication() {
+    const token = await this.storage.get('token');
     if (!token) {
       this.router.navigateByUrl('/login', { replaceUrl: true });
     }
@@ -39,41 +42,15 @@ export class BookPage implements OnInit {
     }
   }
 
-  fetchBookDetails(bookId: string) {
-    const token = localStorage.getItem('token');
-    const headers = { 'Authorization': `Bearer ${token}` };
+  async fetchBookDetails(bookId: string) {
+    const token = await this.storage.get('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
     const url = `${environment.apiUrl}/books/${bookId}`;
 
     this.http.get<any>(url, { headers }).subscribe(
       data => {
-        console.log('Book data:', data);
         this.book = data;
-
-        if (!data.stock) {
-          console.error('Stock tidak ditemukan dalam data buku');
-          this.errorMessage = 'Stock not found in the book data';
-        } else {
-          console.log('Jumlah tersedia:', data.stock.jmlh_tersedia);
-          if (!data.stock.jmlh_tersedia) {
-            console.error('Jumlah tersedia tidak ditemukan dalam data stock');
-            this.errorMessage = 'Jumlah tersedia not found in the stock data';
-          }
-        }
-
-        if (!data.rack) {
-          console.error('Rack tidak ditemukan dalam data buku');
-          this.errorMessage = 'Rack not found in the book data';
-        } else {
-          console.log('Rak:', data.rack.name);
-          if (!data.rack.name) {
-            console.error('Nama rak tidak ditemukan dalam data rack');
-            this.errorMessage = 'Nama rak not found in the rack data';
-          }
-        }
-
-        if (!data.cover_link) {
-          this.errorMessage = 'Cover link not found in the book data';
-        }
+        this.validateBookData(data);
       },
       (error: HttpErrorResponse) => {
         if (error.status === 404) {
@@ -84,5 +61,23 @@ export class BookPage implements OnInit {
         console.error('Error loading book:', error);
       }
     );
+  }
+
+  validateBookData(data: any) {
+    if (!data.stock) {
+      this.errorMessage = 'Stock not found in the book data';
+    } else if (!data.stock.jmlh_tersedia) {
+      this.errorMessage = 'Jumlah tersedia not found in the stock data';
+    }
+
+    if (!data.rack) {
+      this.errorMessage = 'Rack not found in the book data';
+    } else if (!data.rack.name) {
+      this.errorMessage = 'Nama rak not found in the rack data';
+    }
+
+    if (!data.cover_link) {
+      this.errorMessage = 'Cover link not found in the book data';
+    }
   }
 }
