@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { LoadingController, AlertController } from '@ionic/angular';
 import { environment } from '../../environments/environment';
 import { Storage } from '@ionic/storage-angular';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-my-profile',
@@ -24,13 +25,19 @@ export class MyProfilePage implements OnInit {
     private http: HttpClient,
     private loadingCtrl: LoadingController,
     private alertCtrl: AlertController,
-    private storage: Storage
-  ) {}
+    private storage: Storage,
+    private platform: Platform
+  ) { }
 
   async ngOnInit() {
     await this.storage.create(); // Initialize storage
     await this.checkAuthentication();
     this.loadProfile();
+
+    // Handle hardware back button
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['/tabs/profile']);
+    });
   }
 
   async checkAuthentication() {

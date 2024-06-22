@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Storage } from '@ionic/storage-angular';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-book',
@@ -17,7 +18,8 @@ export class BookPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
-    private storage: Storage
+    private storage: Storage,
+    private platform: Platform
   ) { }
 
   async ngOnInit() {
@@ -79,5 +81,12 @@ export class BookPage implements OnInit {
     if (!data.cover_link) {
       this.errorMessage = 'Cover link not found in the book data';
     }
+  }
+
+  // Handle hardware back button
+  ionViewDidEnter() {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['/tabs/data-buku']);
+    });
   }
 }

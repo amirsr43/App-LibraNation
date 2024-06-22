@@ -9,9 +9,9 @@ import { ToastController, AlertController } from '@ionic/angular';
   styleUrls: ['./reset-password.page.scss'],
 })
 export class ResetPasswordPage {
-  newPassword: string = ''; // Inisialisasi properti newPassword dengan string kosong
-  confirmPassword: string = ''; // Inisialisasi properti confirmPassword dengan string kosong
-  token: string = ''; // Inisialisasi properti token dengan string kosong
+  newPassword: string = '';
+  confirmPassword: string = '';
+  token: string = '';
 
   constructor(
     private router: Router,
@@ -31,6 +31,17 @@ export class ResetPasswordPage {
       return;
     }
 
+    if (this.newPassword.length < 8) {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Password minimal harus 8 karakter.',
+        buttons: ['OK']
+      });
+      await alert.present();
+      return;
+    }
+
+    // Validation passed, continue with API call
     this.http.post('https://lib.libranation.my.id/api/reset-password', {
       reset_token: this.token,
       password: this.newPassword,

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { AlertController } from '@ionic/angular';
 import { environment } from '../../environments/environment';
 import { Storage } from '@ionic/storage-angular';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +23,8 @@ export class ProfilePage implements OnInit {
     private router: Router,
     private http: HttpClient,
     private alertController: AlertController,
-    private storage: Storage
+    private storage: Storage,
+    private platform: Platform
   ) {}
 
   async ngOnInit() {
@@ -121,5 +123,12 @@ export class ProfilePage implements OnInit {
       buttons: ['OK']
     });
     await alert.present();
+  }
+
+  // Handle hardware back button
+  ionViewDidEnter() {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['/tabs/home']);
+    });
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
 
 @Component({
@@ -21,7 +21,8 @@ export class QrCodePage implements OnInit {
     private router: Router,
     private http: HttpClient,
     private alertController: AlertController,
-    private storage: Storage
+    private storage: Storage,
+    private platform: Platform
   ) { }
 
   async ngOnInit() {
@@ -32,6 +33,11 @@ export class QrCodePage implements OnInit {
     this.email = await this.storage.get('email') || '';
     this.qrCodeUrl = await this.storage.get('qr_code') || '';
     this.loadProfileImage();
+
+    // Subscribe to hardware back button
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['/tabs/profile']);
+    });
   }
 
   async checkAuthentication() {

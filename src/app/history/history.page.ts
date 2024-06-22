@@ -1,9 +1,9 @@
-// history.page.ts
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Storage } from '@ionic/storage-angular';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-history',
@@ -18,7 +18,8 @@ export class HistoryPage implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private storage: Storage
+    private storage: Storage,
+    private platform: Platform
   ) {}
 
   async ngOnInit() {
@@ -115,5 +116,12 @@ export class HistoryPage implements OnInit {
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
+  }
+
+  // Handle hardware back button
+  ionViewDidEnter() {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['/tabs/home']);
+    });
   }
 }

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Storage } from '@ionic/storage-angular';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-favorit',
@@ -13,18 +14,22 @@ export class FavoritPage implements OnInit {
   favoriteBooks: any[] = [];
   filteredFavoriteBooks: any[] = [];
 
-  constructor(private router: Router, private http: HttpClient, private storage: Storage) {
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras.state && navigation.extras.state['favoriteBooks']) {
-      this.favoriteBooks = navigation.extras.state['favoriteBooks'];
-      this.filteredFavoriteBooks = this.favoriteBooks;
-    }
-  }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private storage: Storage,
+    private platform: Platform
+  ) { }
 
   async ngOnInit() {
     await this.storage.create(); // Initialize storage
     await this.checkAuthentication();
     this.getFavorites();
+
+    // Handle hardware back button
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['/tabs/data-buku']);
+    });
   }
 
   async checkAuthentication() {

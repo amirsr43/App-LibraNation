@@ -33,6 +33,30 @@ export class RegisterPage {
   async register() {
     const loading = await this.presentLoading(); // Show loading indicator
 
+    if (this.password.length < 8 || this.password_confirmation.length < 8) {
+      await loading.dismiss(); // Hide loading indicator
+
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Password minimal harus 8 karakter.',
+        buttons: ['OK']
+      });
+      await alert.present();
+      return;
+    }
+
+    if (this.password !== this.password_confirmation) {
+      await loading.dismiss(); // Hide loading indicator
+
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Password dan Konfirmasi Password tidak cocok.',
+        buttons: ['OK']
+      });
+      await alert.present();
+      return;
+    }
+
     const url = `${environment.apiUrl}/register`; // Use environment variable for the URL
     const data = {
       first_name: this.firstName,
@@ -68,4 +92,3 @@ export class RegisterPage {
     });
   }
 }
-  

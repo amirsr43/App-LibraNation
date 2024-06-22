@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-splash',
@@ -9,12 +10,19 @@ import { Router } from '@angular/router';
 export class SplashPage implements OnInit {
 
   constructor(
-    public router: Router
+    private router: Router,
+    private storage: Storage
   ) {
-    setTimeout(()=> {
-      this.router.navigateByUrl('/welcome')
+    setTimeout(async () => {
+      await this.storage.create();
+      const token = await this.storage.get('token');
+      if (token) {
+        this.router.navigateByUrl('/tabs/home');
+      } else {
+        this.router.navigateByUrl('/welcome');
+      }
     }, 2000);
-   }
+  }
 
   ngOnInit() {
   }

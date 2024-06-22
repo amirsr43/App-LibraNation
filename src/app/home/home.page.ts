@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Storage } from '@ionic/storage-angular';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -19,34 +20,43 @@ export class HomePage implements OnInit {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private storage: Storage
+    private storage: Storage,
+    private platform: Platform
   ) {}
 
   async ngOnInit() {
-    await this.storage.create(); // Ensure Ionic Storage is initialized
-    await this.checkAuthentication(); // Check user authentication
-    this.firstName = (await this.storage.get('first_name')) || 'Member'; // Retrieve user's first name
-    this.lastName = (await this.storage.get('last_name')) || 'Member'; // Retrieve user's last name
-    this.loadPeminjamanData(); // Load loan data
-    this.loadDendaData(); // Load fine data
+    await this.storage.create();
+    await this.checkAuthentication();
+    this.firstName = (await this.storage.get('first_name')) || 'Member';
+    this.lastName = (await this.storage.get('last_name')) || 'Member';
+    this.loadPeminjamanData();
+    this.loadDendaData();
   }
 
-  ionViewWillEnter() {
-    this.checkAuthentication(); // Check authentication again on view enter
+  ionViewDidEnter() {
+    this.platform.backButton.subscribe(() => {
+      if (this.router.url === '/tabs/home') {
+        this.exitApp();
+      } else {
+        this.router.navigate(['/tabs/home']);
+      }
+    });
   }
 
   async checkAuthentication() {
-    const token = await this.storage.get('token'); // Retrieve token from storage
+    const token = await this.storage.get('token');
     if (!token) {
-      this.router.navigateByUrl('/login', { replaceUrl: true }); // Redirect to login if token is missing
+      this.router.navigateByUrl('/login', { replaceUrl: true });
+    } else {
+      this.router.navigateByUrl('/tabs/home', { replaceUrl: true }); // Directly navigate to home
     }
   }
 
   async loadPeminjamanData() {
-    const userId = await this.storage.get('user_id'); // Retrieve user ID from storage
-    const token = await this.storage.get('token'); // Retrieve token from storage
+    const userId = await this.storage.get('user_id');
+    const token = await this.storage.get('token');
     if (userId && token) {
-      const apiUrl = `${environment.apiUrl}/peminjaman/${userId}`; // API URL for loans
+      const apiUrl = `${environment.apiUrl}/peminjaman/${userId}`;
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
@@ -59,23 +69,23 @@ export class HomePage implements OnInit {
               created_at: this.formatDate(item.created_at),
               return_date: item.return_date ? this.formatDate(item.return_date) : 'belum dikembalikan'
             }));
-            this.totalPeminjaman = formattedData.length; // Set totalPeminjaman based on fetched data
+            this.totalPeminjaman = formattedData.length;
           }
         },
         (error) => {
-          console.error('Error fetching peminjaman data', error); // Log error if fetching fails
+          console.error('Error fetching peminjaman data', error);
         }
       );
     } else {
-      console.warn('User ID or token not found in storage'); // Log warning if user ID or token is missing
+      console.warn('User ID or token not found in storage');
     }
   }
 
   async loadDendaData() {
-    const userId = await this.storage.get('user_id'); // Retrieve user ID from storage
-    const token = await this.storage.get('token'); // Retrieve token from storage
+    const userId = await this.storage.get('user_id');
+    const token = await this.storage.get('token');
     if (userId && token) {
-      const apiUrl = `${environment.apiUrl}/denda/user/${userId}`; // API URL for fines
+      const apiUrl = `${environment.apiUrl}/denda/user/${userId}`;
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
@@ -88,39 +98,49 @@ export class HomePage implements OnInit {
               tgl_pinjam: this.formatDate(denda.tgl_pinjam),
               tgl_pengembalian: this.formatDate(denda.tgl_pengembalian)
             }));
-            this.totalDenda = this.riwayatDenda.length; // Set totalDenda based on the number of fines
+            this.totalDenda = this.riwayatDenda.length;
           } else {
-            console.warn('No fine data found for userId:', userId); // Log warning if no fine data found
+            console.warn('No fine data found for userId:', userId);
           }
         },
         (error) => {
           if (error.status === 404) {
-            console.warn('Fine data not found for userId:', userId); // Log warning if fine data not found
+            console.warn('Fine data not found for userId:', userId);
           } else {
-            console.error('Error fetching fine data', error); // Log error if fetching fails
+            console.error('Error fetching fine data', error);
           }
         }
       );
     } else {
-      console.warn('Token not found in storage'); // Log warning if token is missing
+      console.warn('Token not found in storage');
     }
   }
 
   handleRefresh(event: any) {
     setTimeout(() => {
-      this.loadPeminjamanData(); // Refresh loan data
-      this.loadDendaData(); // Refresh fine data
-      event.target.complete(); // Complete the refresh event
+      this.loadPeminjamanData();
+      this.loadDendaData();
+      event.target.complete();
     }, 2000);
   }
 
-  // Function to format date to dd/mm/yyyy
   formatDate(dateString: string): string {
-    if (!dateString) return ''; // Return empty string if dateString is falsy
-    const date = new Date(dateString); // Create Date object from dateString
-    const day = ('0' + date.getDate()).slice(-2); // Get day with leading zero
-    const month = ('0' + (date.getMonth() + 1)).slice(-2); // Get month with leading zero
-    const year = date.getFullYear(); // Get full year
-    return `${day}/${month}/${year}`; // Return formatted date string dd/mm/yyyy
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    const day = ('0' + date.getDate()).slice(-2);
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+  exitApp() {
+    if (this.platform.is('cordova')) {
+      this.platform.ready().then(() => {
+        (window as any).navigator.app.exitApp();
+      });
+    } else {
+      // Handle other platforms
+      console.error('Exit app not supported on this platform');
+    }
   }
 }

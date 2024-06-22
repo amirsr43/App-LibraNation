@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { IonSelect } from '@ionic/angular';
+import { IonSelect, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Storage } from '@ionic/storage-angular';
 
@@ -18,7 +18,12 @@ export class DataBukuPage implements OnInit {
   filteredBooks: any[] = [];
   favoriteBooks: any[] = [];
 
-  constructor(private router: Router, private http: HttpClient, private storage: Storage) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private storage: Storage,
+    private platform: Platform
+  ) { }
 
   async ngOnInit() {
     await this.storage.create(); // Inisialisasi storage
@@ -161,5 +166,12 @@ export class DataBukuPage implements OnInit {
         }
       );
     }
+  }
+
+  // Handle hardware back button
+  ionViewDidEnter() {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['/tabs/home']);
+    });
   }
 }
