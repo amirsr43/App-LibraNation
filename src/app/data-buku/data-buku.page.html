@@ -1,4 +1,3 @@
-<br>
 <ion-content [fullscreen]="true">
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
@@ -17,18 +16,21 @@
   </div>
   <ion-select class="category-select" #categorySelect interface="action-sheet" style="margin-left: 12px;"
     placeholder="Pilih Kategori" (ionChange)="categorySelected($event)" (ionCancel)="categoryCanceled($event)">
-    <ion-select-option value="novel">Novel</ion-select-option>
-    <ion-select-option value="fiksi">fiksi</ion-select-option>
-    <ion-select-option value="sejarah">Sejarah</ion-select-option>
+    <ion-select-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</ion-select-option>
   </ion-select>
 
   <!-- Selected Category Display -->
   <div class="selected-category" *ngIf="selectedCategory" style="margin-left: 12px;">
-    <p>Kategori yang dipilih: {{ selectedCategory }}</p>
+    <p>Kategori yang dipilih: {{ getCategoryName(selectedCategory) }}</p>
+  </div>
+
+  <!-- Not Found Message -->
+  <div *ngIf="noBooksFound" style="text-align: center; margin-top: 20px;">
+    <p>Buku dengan Kategori ini kosong</p>
   </div>
 
   <!-- Book Cards -->
-  <ion-grid>
+  <ion-grid *ngIf="!noBooksFound">
     <ion-row>
       <ion-col size="6" size-md="4" *ngFor="let book of filteredBooks">
         <ion-card class="custom-card" [routerLink]="['/book', book.id]">
@@ -42,7 +44,6 @@
             <ion-card-subtitle>Category: {{ book.category?.name }}</ion-card-subtitle>
           </ion-card-header>
         </ion-card>
-        <!-- Update the ion-icon with name binding -->
         <ion-icon [name]="book.isLiked ? 'heart' : 'heart-outline'" [color]="book.isLiked ? 'danger' : ''" (click)="toggleLike(book)"></ion-icon>
       </ion-col>
     </ion-row>

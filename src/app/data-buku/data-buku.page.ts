@@ -13,15 +13,17 @@ import { Storage } from '@ionic/storage-angular';
 export class DataBukuPage implements OnInit {
   @ViewChild('categorySelect', { static: false }) categorySelect!: IonSelect;
   selectedCategory: string | undefined;
+  categories: any[] = [];
   books: any[] = [];
   filteredBooks: any[] = [];
   favoriteBooks: any[] = [];
 
-  constructor(private router: Router, private http: HttpClient, private storage: Storage) {}
+  constructor(private router: Router, private http: HttpClient, private storage: Storage) { }
 
   async ngOnInit() {
     await this.storage.create(); // Inisialisasi storage
     await this.periksaAutentikasi();
+    this.ambilKategori(); // Fetch categories
     this.ambilBuku();
     this.getFavorites(); // Tambahkan ini untuk mengambil daftar favorit
   }
@@ -35,6 +37,20 @@ export class DataBukuPage implements OnInit {
     if (!token) {
       this.router.navigateByUrl('/login', { replaceUrl: true });
     }
+  }
+
+  async ambilKategori() {
+    const token = await this.storage.get('token');
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    this.http.get<any[]>(`${environment.apiUrl}/kategori`, { headers }).subscribe(
+      data => {
+        this.categories = data;
+      },
+      error => {
+        console.error('Kesalahan mengambil kategori:', error);
+      }
+    );
   }
 
   async ambilBuku() {
@@ -94,11 +110,13 @@ export class DataBukuPage implements OnInit {
     this.filteredBooks = this.books; // Tampilkan semua buku saat kategori dibatalkan
   }
 
+  noBooksFound: boolean = false;
+
   filterBooks(event?: any) {
     const searchTerm = event?.target.value?.toLowerCase() || '';
     if (this.selectedCategory) {
       this.filteredBooks = this.books.filter(book =>
-        book.category?.name?.toLowerCase() === this.selectedCategory?.toLowerCase() &&
+        book.category?.id === this.selectedCategory &&
         book.title.toLowerCase().includes(searchTerm)
       );
     } else {
@@ -106,6 +124,13 @@ export class DataBukuPage implements OnInit {
         book.title.toLowerCase().includes(searchTerm)
       );
     }
+
+    this.noBooksFound = this.filteredBooks.length === 0;
+  }
+
+  getCategoryName(categoryId: string): string {
+    const category = this.categories.find(cat => cat.id === categoryId);
+    return category ? category.name : '';
   }
 
   showFavorites() {
@@ -122,7 +147,7 @@ export class DataBukuPage implements OnInit {
     if (book.isLiked) {
       this.favoriteBooks.push(book);
       this.http.post(`${environment.apiUrl}/users/${userId}/books/${book.id}/favorite`, {}, { headers }).subscribe(
-        response => {},
+        response => { },
         error => {
           console.error('Error adding to favorites:', error);
         }
@@ -130,7 +155,7 @@ export class DataBukuPage implements OnInit {
     } else {
       this.favoriteBooks = this.favoriteBooks.filter(favBook => favBook.id !== book.id);
       this.http.delete(`${environment.apiUrl}/users/${userId}/books/${book.id}/favorite`, { headers }).subscribe(
-        response => {},
+        response => { },
         error => {
           console.error('Error removing from favorites:', error);
         }

@@ -15,7 +15,7 @@
     <ion-list>
       <ion-item *ngFor="let item of riwayatPeminjaman">
         <ion-label>
-          <h2>Judul: {{ item.book?.title }}</h2>
+          <h2>Judul Buku: {{ item.book?.title }}</h2>
           <p>Resi: {{ item.resi_pjmn }}</p>
           <p>Tanggal peminjaman: {{ item.created_at }}</p>
           <p>Tanggal pengembalian: {{ item.return_date }}</p>
@@ -28,8 +28,13 @@
     <ion-list>
       <ion-item *ngFor="let item of riwayatDenda">
         <ion-label>
-          <h2>{{ item.namaPeminjam }}</h2>
-          <p>Jumlah Denda: {{ item.jumlahDenda | currency }}</p>
+          <h2>Judul Buku: {{ item.judul_buku }}</h2>
+          <p>Resi: {{ item.resi }}</p>
+          <p>Tanggal Peminjaman: {{ item.tgl_pinjam }}</p>
+          <p>Tanggal Pengembalian: {{ item.tgl_pengembalian }}</p>
+          <p>Denda yang dibayar: {{ item.denda_bayar | currency:'Rp':'symbol':'1.0-0' }}</p>
+          <p>Uang yang dibayar: {{ item.uang_yg_dibyrkn | currency:'Rp':'symbol':'1.0-0' }}</p>
+          <p>Status: {{ item.status_lunas }}</p>
         </ion-label>
       </ion-item>
     </ion-list>
