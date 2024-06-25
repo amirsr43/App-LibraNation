@@ -30,10 +30,20 @@
         <ion-label>
           <h2>Judul Buku: {{ item.judul_buku }}</h2>
           <p>Resi: {{ item.resi }}</p>
-          <p>Tanggal Peminjaman: {{ item.tgl_pinjam }}</p>
-          <p>Tanggal Pengembalian: {{ item.tgl_pengembalian }}</p>
-          <p>Denda yang dibayar: {{ item.denda_bayar | currency:'Rp':'symbol':'1.0-0' }}</p>
-          <p>Uang yang dibayar: {{ item.uang_yg_dibyrkn | currency:'Rp':'symbol':'1.0-0' }}</p>
+          <p>Tanggal peminjaman: {{ item.tgl_pinjam }}</p>
+          <p>Tanggal pengembalian: {{ item.tgl_pengembalian }}</p>
+          <p>Denda yang dibayar: 
+            <ng-container *ngIf="isNumber(item.denda_bayar); else notNumber1">
+              {{ item.denda_bayar | currency:'Rp':'symbol':'1.0-0' }}
+            </ng-container>
+            <ng-template #notNumber1>{{ item.denda_bayar }}</ng-template>
+          </p>
+          <p>Uang yang dibayar: 
+            <ng-container *ngIf="isNumber(item.uang_yg_dibyrkn); else notNumber2">
+              {{ item.uang_yg_dibyrkn | currency:'Rp':'symbol':'1.0-0' }}
+            </ng-container>
+            <ng-template #notNumber2>{{ item.uang_yg_dibyrkn }}</ng-template>
+          </p>
           <p>Status: {{ item.status_lunas }}</p>
         </ion-label>
       </ion-item>

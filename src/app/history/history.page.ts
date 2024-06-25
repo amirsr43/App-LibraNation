@@ -79,7 +79,10 @@ export class HistoryPage implements OnInit {
       this.http.get(apiUrl, { headers }).subscribe(
         (response: any) => {
           if (Array.isArray(response)) {
-            this.riwayatDenda = response.map(denda => ({
+            // Filter out the fines that are already paid
+            const unpaidFines = response.filter(denda => denda.status !== 'lunas');
+  
+            this.riwayatDenda = unpaidFines.map(denda => ({
               ...denda,
               created_at: this.formatDate(denda.created_at),
               tgl_pinjam: this.formatDate(denda.tgl_pinjam),
@@ -101,6 +104,8 @@ export class HistoryPage implements OnInit {
       console.warn('Token not found in storage');
     }
   }
+  
+  
 
   handleRefresh(event: any) {
     setTimeout(() => {
@@ -116,6 +121,10 @@ export class HistoryPage implements OnInit {
     const month = ('0' + (date.getMonth() + 1)).slice(-2);
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
+  }
+
+  isNumber(value: any): boolean {
+    return !isNaN(parseFloat(value)) && isFinite(value);
   }
 
   // Handle hardware back button

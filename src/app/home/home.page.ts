@@ -92,13 +92,18 @@ export class HomePage implements OnInit {
       this.http.get(apiUrl, { headers }).subscribe(
         (response: any) => {
           if (Array.isArray(response)) {
-            this.riwayatDenda = response.map(denda => ({
+            // Filter out the fines that are already paid
+            const unpaidFines = response.filter(denda => denda.status_lunas === 'Belum Lunas');
+  
+            this.riwayatDenda = unpaidFines.map(denda => ({
               ...denda,
               created_at: this.formatDate(denda.created_at),
               tgl_pinjam: this.formatDate(denda.tgl_pinjam),
               tgl_pengembalian: this.formatDate(denda.tgl_pengembalian)
             }));
-            this.totalDenda = this.riwayatDenda.length;
+            
+            // Set totalDenda to the number of unpaid fines
+            this.totalDenda = unpaidFines.length;
           } else {
             console.warn('No fine data found for userId:', userId);
           }
@@ -115,6 +120,10 @@ export class HomePage implements OnInit {
       console.warn('Token not found in storage');
     }
   }
+  
+  
+
+  
 
   handleRefresh(event: any) {
     setTimeout(() => {
