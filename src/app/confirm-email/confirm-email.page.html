@@ -1,0 +1,29 @@
+<ion-content [fullscreen]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/register"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <div class="otp-container">
+    <img src="../../assets/icon/otp.png" alt="OTP Verification" class="otp-image" />
+    <h2>OTP Verification</h2>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let otp of otpInputs; let i = index">
+          <ion-input
+            id="otp-input-{{i}}"
+            type="text"
+            maxlength="1"
+            [value]="otpInputs[i]"
+            (input)="onInput($event, i)"
+            (keydown)="onKeyDown($event, i)"
+            (paste)="handlePaste($event)"
+            (keypress)="validateInput($event)">
+          </ion-input>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button expand="block" (click)="verifyOTP()">VERIFY & PROCEED</ion-button>
+  </div>
+</ion-content>

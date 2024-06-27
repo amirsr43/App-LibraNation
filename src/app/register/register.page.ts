@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { NavController, AlertController, LoadingController } from '@ionic/angular';
-import { environment } from '../../environments/environment'; // Import environment variables
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +19,7 @@ export class RegisterPage {
     private http: HttpClient, 
     private navCtrl: NavController, 
     private alertController: AlertController,
-    private loadingController: LoadingController // Inject LoadingController
+    private loadingController: LoadingController
   ) {}
 
   async presentLoading() {
@@ -31,10 +31,10 @@ export class RegisterPage {
   }
 
   async register() {
-    const loading = await this.presentLoading(); // Show loading indicator
+    const loading = await this.presentLoading();
 
     if (this.password.length < 8 || this.password_confirmation.length < 8) {
-      await loading.dismiss(); // Hide loading indicator
+      await loading.dismiss();
 
       const alert = await this.alertController.create({
         header: 'Error',
@@ -46,7 +46,7 @@ export class RegisterPage {
     }
 
     if (this.password !== this.password_confirmation) {
-      await loading.dismiss(); // Hide loading indicator
+      await loading.dismiss();
 
       const alert = await this.alertController.create({
         header: 'Error',
@@ -57,7 +57,7 @@ export class RegisterPage {
       return;
     }
 
-    const url = `${environment.apiUrl}/register`; // Use environment variable for the URL
+    const url = `${environment.apiUrl}/register`;
     const data = {
       first_name: this.firstName,
       last_name: this.lastName,
@@ -68,20 +68,20 @@ export class RegisterPage {
 
     this.http.post(url, data).subscribe(async response => {
       console.log(response);
-      await loading.dismiss(); // Hide loading indicator
+      await loading.dismiss();
 
       const successAlert = await this.alertController.create({
         header: 'Registrasi Berhasil',
-        message: 'Akun Anda berhasil dibuat. Silakan login.',
+        message: 'Silakan masukkan kode OTP yang telah dikirimkan ke email Anda.',
         buttons: ['OK']
       });
       await successAlert.present();
       
-      this.navCtrl.navigateForward('/login'); // Redirect to login page after successful registration
+      this.navCtrl.navigateForward('/confirm-email');
       
     }, async error => {
       console.error(error);
-      await loading.dismiss(); // Hide loading indicator
+      await loading.dismiss();
 
       const errorAlert = await this.alertController.create({
         header: 'Registrasi Gagal',

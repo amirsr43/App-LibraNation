@@ -55,6 +55,10 @@ const routes: Routes = [
     path: 'reset-password',
     loadChildren: () => import('./reset-password/reset-password.module').then(m => m.ResetPasswordPageModule)
   },
+  {
+    path: 'confirm-email',
+    loadChildren: () => import('./confirm-email/confirm-email.module').then( m => m.ConfirmEmailPageModule)
+  },
 ];
 
 @NgModule({
