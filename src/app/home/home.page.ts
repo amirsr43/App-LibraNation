@@ -60,7 +60,7 @@ export class HomePage implements OnInit {
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
-
+  
       this.http.get(apiUrl, { headers }).subscribe(
         (response: any) => {
           if (Array.isArray(response)) {
@@ -69,7 +69,9 @@ export class HomePage implements OnInit {
               created_at: this.formatDate(item.created_at),
               return_date: item.return_date ? this.formatDate(item.return_date) : 'belum dikembalikan'
             }));
-            this.totalPeminjaman = formattedData.length;
+            // Filter hanya yang belum dikembalikan
+            const belumDikembalikan = formattedData.filter(item => item.return_date === 'belum dikembalikan');
+            this.totalPeminjaman = belumDikembalikan.length;
           }
         },
         (error) => {
@@ -80,6 +82,7 @@ export class HomePage implements OnInit {
       console.warn('User ID or token not found in storage');
     }
   }
+  
 
   async loadDendaData() {
     const userId = await this.storage.get('user_id');
