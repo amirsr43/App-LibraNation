@@ -13,6 +13,7 @@ import { Storage } from '@ionic/storage-angular';
 export class DataBukuPage implements OnInit {
   @ViewChild('categorySelect', { static: false }) categorySelect!: IonSelect;
   selectedCategory: string | undefined;
+  selectedCategoryName: string = '';
   categories: any[] = [];
   books: any[] = [];
   filteredBooks: any[] = [];
@@ -107,12 +108,16 @@ export class DataBukuPage implements OnInit {
 
   categorySelected(event: any) {
     this.selectedCategory = event.detail.value;
+    this.selectedCategoryName = this.getCategoryName(this.selectedCategory ?? '');
     this.filterBooks();
   }
 
   categoryCanceled(event: any) {
     this.selectedCategory = undefined;
+    this.selectedCategoryName = '';
     this.filteredBooks = this.books; // Tampilkan semua buku saat kategori dibatalkan
+    this.categorySelect.value = ''; // Reset nilai category select
+    this.categorySelect.placeholder = 'Pilih Kategori'; // Ubah placeholder menjadi "Pilih Kategori"
   }
 
   noBooksFound: boolean = false;

@@ -27,7 +27,7 @@ export class LupaPasswordPage {
       spinner: 'circles'
     });
     await loading.present();
-
+    
     this.http.post('https://lib.libranation.my.id/api/forget-password', { email: this.email })
       .subscribe(
         async (response: any) => {
