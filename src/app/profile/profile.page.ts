@@ -28,7 +28,7 @@ export class ProfilePage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    await this.storage.create(); // Initialize storage
+    await this.storage.create(); // Inisialisasi storage
     await this.checkAuthentication();
     this.firstName = await this.storage.get('first_name') || '';
     this.lastName = await this.storage.get('last_name') || '';
@@ -59,8 +59,16 @@ export class ProfilePage implements OnInit {
       this.profileImageUrl = response?.image_profile_url || '';
 
       this.isProfileComplete = this.checkProfileCompletion(response);
-    } catch (error) {
-      this.handleError(error, 'Error loading profile');
+    } catch (err) {
+      if (err instanceof HttpErrorResponse) {
+        if (err.status === 401 || err.status === 403) {
+          await this.handleUnauthorized();
+        } else {
+          this.handleError(err, 'Error loading profile');
+        }
+      } else {
+        this.handleError(err, 'Error loading profile');
+      }
     }
   }
 
@@ -102,6 +110,11 @@ export class ProfilePage implements OnInit {
     this.router.navigateByUrl('/login', { replaceUrl: true });
   }
 
+  private async handleUnauthorized() {
+    await this.storage.clear();
+    this.router.navigateByUrl('/login', { replaceUrl: true });
+  }
+
   private async handleError(error: any, defaultErrorMessage: string) {
     let message = defaultErrorMessage;
     if (error instanceof HttpErrorResponse) {
@@ -125,7 +138,7 @@ export class ProfilePage implements OnInit {
     await alert.present();
   }
 
-  // Handle hardware back button
+  // Menangani tombol back hardware
   ionViewDidEnter() {
     this.platform.backButton.subscribeWithPriority(10, () => {
       this.router.navigate(['/tabs/home']);

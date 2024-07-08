@@ -4,16 +4,17 @@
   </ion-refresher>
 
   <!-- Search Bar -->
-  <div class="search">
-    <ion-searchbar show-cancel-button="focus" placeholder="Cari" (ionInput)="filterBooks($event)"></ion-searchbar>
+  <div class="search-container">
+    <div class="search">
+      <ion-searchbar show-cancel-button="focus" placeholder="Cari" (ionInput)="filterBooks($event)"></ion-searchbar>
+    </div>
+    <div class="btn">
+      <ion-button shape="round" (click)="showFavorites()" style="--background: #FF6767">
+        Favorit
+      </ion-button>
+    </div>
   </div>
-
-  <!-- Category Select -->
-  <div class="btn">
-    <ion-button shape="round" (click)="showFavorites()" style="--background: rgb(248, 35, 35);">
-      Favorit
-    </ion-button>
-  </div>
+  
   <ion-select class="category-select" #categorySelect interface="action-sheet" style="margin-left: 12px;"
     placeholder="Pilih Kategori" (ionChange)="categorySelected($event)" (ionCancel)="categoryCanceled($event)">
     <ion-select-option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</ion-select-option>

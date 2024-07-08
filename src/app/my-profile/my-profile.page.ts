@@ -157,4 +157,11 @@ export class MyProfilePage implements OnInit {
     });
     await alert.present();
   }
+
+  // Handle hardware back button
+  ionViewDidEnter() {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['/tabs/profile']);
+    });
+  }
 }

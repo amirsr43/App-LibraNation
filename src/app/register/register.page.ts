@@ -77,6 +77,7 @@ export class RegisterPage {
       });
       await successAlert.present();
       
+      localStorage.setItem('registeredEmail', this.email);
       this.navCtrl.navigateForward('/confirm-email');
       
     }, async error => {

@@ -1,49 +1,129 @@
+.custom-background {
+  --background: #2E3192;
+}
+
+.custom-header {
+  --background: transparent;
+  color: white;
+}
+
 .otp-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .otp-image {
-    width: 25vh;
-    margin-bottom: 20px;
-    margin-top: 20vh;
-  }
-  
-  ion-grid {
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  
-  ion-row {
-    justify-content: center;
-  }
-  
-  ion-col {
-    flex: 0 0 auto;
-    width: 60px; /* Width of the input box */
-    margin: 0 2px; /* Reduce the margin to decrease spacing between boxes */
-  }
-  
-  ion-input {
-    text-align: center;
-    font-size: 24px; /* Increase the font size */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add box shadow */
-    border-radius: 5px; /* Optional: Add border radius */
-    padding: 15px; /* Padding */
-    background-color: white; /* Background color */
-    height: 60px; /* Height */
-    color: black;
-  }
-  
-  ion-button {
-    width: 100%;
-    height: 50px;
-    --border-radius: 10px;
-    color: white;
+  background-color: white;
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+}
+
+.otp-image {
+  width: 300px;
+  margin-bottom: 24px;
+}
+
+.otp-container h2 {
+  font-size: 20px;
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.otp-container p {
+  font-weight: 100;
+  color: #525252;
+}
+
+.otp-input-container {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  max-width: 300px;
+  margin-bottom: 24px;
+}
+
+.otp-input {
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+ion-button {
+  --border-radius: 30px;
+  --background: #4a5df2;
+  --background-hover: #3a4dc2;
+  --background-activated: #2a3da2;
+  --background-focused: #4a5df2;
+  width: 40vh;
+  height: 50px;
+}
+
+/* Custom animations */
+@keyframes customEnterAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
   }
 
-  h2 {
-    font-weight: bold;
+  100% {
+    opacity: 1;
+    transform: scale(1);
   }
+}
+
+@keyframes customLeaveAnimation {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+/* Custom alert styles */
+ion-alert.custom-alert .alert-wrapper {
+  border-radius: 20px;
+  background: linear-gradient(135deg, #2193b0, #6dd5ed);
+  color: white;
+  animation: customEnterAnimation 0.5s forwards;
+}
+
+ion-alert.custom-alert .alert-wrapper.leave {
+  animation: customLeaveAnimation 0.5s forwards;
+}
+
+ion-alert.custom-alert .alert-header {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-align: center;
+}
+
+ion-alert.custom-alert .alert-message {
+  font-size: 1.2em;
+  text-align: center;
+  margin-top: 10px;
+}
+
+ion-alert.custom-alert .alert-button {
+  font-weight: bold;
+  background-color: #fff;
+  color: #2193b0;
+  border-radius: 10px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+ion-alert.custom-alert .alert-button:hover {
+  background-color: #2193b0;
+  color: #fff;
+}

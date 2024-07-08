@@ -1,4 +1,7 @@
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/profile"></ion-back-button>
@@ -13,7 +16,10 @@
   <br>
   <div class="container">
     <div class="qr-code">
+      <p>Jangan lupa untuk memperbarui QR code jika ingin melakukan scan.</p>
       <img [src]="qrCodeUrl" alt="QR Code"> <!-- Use qrCodeUrl to display QR Code -->
+      <ion-button expand="block" (click)="onUpdateButtonClick()">Update QR Code</ion-button>
+      <p>QR code will update in: {{ countdown }} seconds</p>
     </div>
   </div>
 </ion-content>

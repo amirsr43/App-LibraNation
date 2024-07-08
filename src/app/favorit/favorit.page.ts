@@ -68,4 +68,11 @@ export class FavoritPage implements OnInit {
       book.title.toLowerCase().includes(searchTerm)
     );
   }
+
+  // Handle hardware back button
+  ionViewDidEnter() {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['/tabs/data-buku']);
+    });
+  }
 }

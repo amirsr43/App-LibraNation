@@ -1,24 +1,21 @@
-<ion-content [fullscreen]="true">
+<ion-content class="custom-background">
+  <ion-toolbar class="custom-header">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/register"></ion-back-button>
+    </ion-buttons>
+    <ion-title>OTP Verification</ion-title>
+  </ion-toolbar>
   <div class="otp-container">
-    <img src="../../assets/icon/otp.png" alt="OTP Verification" class="otp-image" />
-    <h2>OTP Verification</h2>
-    <ion-grid>
-      <ion-row>
-        <ion-col *ngFor="let otp of otpInputs; let i = index">
-          <ion-input
-            id="otp-input-{{i}}"
-            type="number"
-            maxlength="1"
-            [value]="otpInputs[i]"
-            (input)="onInput($event, i)"
-            (keydown)="onKeyDown($event, i)"
-            (paste)="handlePaste($event)"
-            (keypress)="validateInput($event)">
-          </ion-input>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <ion-button id="open-loading" expand="block" (click)="verifyOTP()">VERIFY & PROCEED</ion-button>
-    <ion-loading trigger="open-loading" message="Loading..." [duration]="1500" spinner="circles"></ion-loading>
+    <p>{{ email }}</p>
+    <img src="../../assets/icon/otp2-unscreen.gif" alt="OTP Verification" class="otp-image">
+    <h2>Masukan Kode OTP</h2>
+    <div class="otp-input-container">
+      <ion-input id="otp-input-0" type="text" maxlength="1" class="otp-input" [(ngModel)]="otpInputs[0]" (input)="onInput($event, 0)" (keydown)="onKeyDown($event, 0)" (paste)="handlePaste($event)" (keypress)="validateInput($event)"></ion-input>
+      <ion-input id="otp-input-1" type="text" maxlength="1" class="otp-input" [(ngModel)]="otpInputs[1]" (input)="onInput($event, 1)" (keydown)="onKeyDown($event, 1)" (paste)="handlePaste($event)" (keypress)="validateInput($event)"></ion-input>
+      <ion-input id="otp-input-2" type="text" maxlength="1" class="otp-input" [(ngModel)]="otpInputs[2]" (input)="onInput($event, 2)" (keydown)="onKeyDown($event, 2)" (paste)="handlePaste($event)" (keypress)="validateInput($event)"></ion-input>
+      <ion-input id="otp-input-3" type="text" maxlength="1" class="otp-input" [(ngModel)]="otpInputs[3]" (input)="onInput($event, 3)" (keydown)="onKeyDown($event, 3)" (paste)="handlePaste($event)" (keypress)="validateInput($event)"></ion-input>
+      <ion-input id="otp-input-4" type="text" maxlength="1" class="otp-input" [(ngModel)]="otpInputs[4]" (input)="onInput($event, 4)" (keydown)="onKeyDown($event, 4)" (paste)="handlePaste($event)" (keypress)="validateInput($event)"></ion-input>
+    </div>
+    <ion-button expand="block" color="primary" (click)="verifyOTP()">VERIFY & PROCEED</ion-button>
   </div>
 </ion-content>

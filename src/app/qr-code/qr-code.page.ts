@@ -1,21 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { AlertController, Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage-angular';
+import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-qr-code',
   templateUrl: './qr-code.page.html',
   styleUrls: ['./qr-code.page.scss'],
 })
-export class QrCodePage implements OnInit {
+export class QrCodePage implements OnInit, OnDestroy {
   firstName: string = '';
   lastName: string = '';
   email: string = '';
   qrCodeUrl: string = '';
   profileImageUrl: string = '';
+  countdown: number = 0;
   apiUrl = 'https://lib.libranation.my.id/api/members/';
+  updateQrCodeUrl = 'https://lib.libranation.my.id/api/update-qrcodes/';
+  countdownSubscription: Subscription | null = null;
 
   constructor(
     private router: Router,
@@ -62,6 +66,47 @@ export class QrCodePage implements OnInit {
     }
   }
 
+  async updateQrCode() {
+    try {
+      const userId = await this.storage.get('user_id');
+      const token = await this.storage.get('token');
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+
+      const response: any = await this.http.post(`${this.updateQrCodeUrl}${userId}`, {}, { headers }).toPromise();
+      this.qrCodeUrl = response?.qr_code_url || '';
+      await this.storage.set('qr_code', this.qrCodeUrl); // Update QR code in storage
+    } catch (error) {
+      this.handleError(error, 'Error updating QR code');
+    }
+  }
+
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      this.loadProfileImage();
+      event.target.complete();
+    }, 2000);
+  }
+
+  onUpdateButtonClick() {
+    this.updateQrCode();
+    this.startCountdown();
+  }
+
+  startCountdown() {
+    if (this.countdownSubscription) {
+      this.countdownSubscription.unsubscribe();
+    }
+    this.countdown = 60;
+    this.countdownSubscription = interval(1000).subscribe(() => {
+      this.countdown--;
+      if (this.countdown <= 0) {
+        this.countdownSubscription?.unsubscribe();
+      }
+    });
+  }
+
   private async handleError(error: any, defaultErrorMessage: string) {
     let message = defaultErrorMessage;
     if (error instanceof HttpErrorResponse) {
@@ -84,5 +129,18 @@ export class QrCodePage implements OnInit {
       buttons: ['OK']
     });
     await alert.present();
+  }
+
+  ngOnDestroy() {
+    if (this.countdownSubscription) {
+      this.countdownSubscription.unsubscribe();
+    }
+  }
+
+  // Handle hardware back button
+  ionViewDidEnter() {
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      this.router.navigate(['/tabs/profile']);
+    });
   }
 }

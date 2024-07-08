@@ -3,17 +3,24 @@ ion-header {
     --color: #000;
 }
 
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.search {
+    flex: 1;
+}
+
 .search ion-searchbar {
-    --border-radius: 15px;
+    --border-radius: 20px;
 }
 
 .btn {
-    text-align: right;
-    margin-top: -2vh;
-    margin-top: 2px;
-    margin-right: 12px;
-    justify-content: center;
+    margin-left: 10px;
 }
+
 
 .genre-select {
     width: 18vh;
@@ -38,6 +45,12 @@ ion-header {
     --box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     transition: transform 0.3s ease-in-out;
+    width: 100%;
+    max-width: 300px; // Atau sesuai dengan kebutuhan Anda
+    height: 380px; // Atau sesuai dengan kebutuhan Anda
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     &:hover {
         transform: translateY(-4px);
@@ -68,6 +81,7 @@ ion-header {
         justify-content: center;
         align-items: center;
         padding-top: 4px;
+        flex: 1;
 
         ion-icon {
             font-size: 22px;

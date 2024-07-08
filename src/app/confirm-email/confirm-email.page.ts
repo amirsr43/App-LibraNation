@@ -18,27 +18,27 @@ export class ConfirmEmailPage {
     private http: HttpClient
   ) { }
 
+  ngOnInit() {
+    this.email = localStorage.getItem('registeredEmail') || '';
+  }
+
   onInput(event: any, index: number) {
     const input = event.target as HTMLInputElement;
     const value = input.value;
 
-    // Ensure the input value is only one character long
     if (value.length > 1) {
       input.value = value.charAt(0);
     }
 
-    // Update the otpInputs array
     this.otpInputs[index] = value.charAt(0);
 
-    // Clear the next input and focus on it if the current one is filled
     if (input.value.length === 1 && index < this.otpInputs.length - 1) {
       const nextInput = document.getElementById('otp-input-' + (index + 1)) as HTMLInputElement;
       if (nextInput) {
-        nextInput.value = ''; // Clear the next input
+        nextInput.value = '';
         nextInput.focus();
       }
     } else if (input.value.length === 0 && index < this.otpInputs.length - 1) {
-      // Handle if the input is cleared
       const nextInput = document.getElementById('otp-input-' + (index + 1)) as HTMLInputElement;
       if (nextInput) {
         nextInput.focus();
@@ -49,7 +49,6 @@ export class ConfirmEmailPage {
   onKeyDown(event: KeyboardEvent, index: number) {
     const input = event.target as HTMLInputElement;
 
-    // Handle backspace to focus the previous input
     if (event.key === 'Backspace' && index > 0 && !input.value) {
       const previousInput = document.getElementById('otp-input-' + (index - 1)) as HTMLInputElement;
       if (previousInput) {
@@ -59,7 +58,7 @@ export class ConfirmEmailPage {
   }
 
   handlePaste(event: ClipboardEvent) {
-    event.preventDefault(); // Prevent pasting any content
+    event.preventDefault();
   }
 
   validateInput(event: KeyboardEvent) {
@@ -80,8 +79,9 @@ export class ConfirmEmailPage {
     this.http.post(url, data).subscribe(async (response: any) => {
       const successAlert = await this.alertController.create({
         header: 'Verifikasi Berhasil',
-        message: 'OTP berhasil diverifikasi. Silakan login.',
-        buttons: ['OK']
+        message: `OTP berhasil diverifikasi. Silakan login.`,
+        buttons: ['OK'],
+        cssClass: 'custom-alert'
       });
       await successAlert.present();
 
@@ -90,8 +90,9 @@ export class ConfirmEmailPage {
     }, async error => {
       const errorAlert = await this.alertController.create({
         header: 'Verifikasi Gagal',
-        message: 'Kode OTP salah atau telah kedaluwarsa.',
-        buttons: ['OK']
+        message: `Kode OTP salah atau telah kedaluwarsa.`,
+        buttons: ['OK'],
+        cssClass: 'custom-alert'
       });
       await errorAlert.present();
     });
