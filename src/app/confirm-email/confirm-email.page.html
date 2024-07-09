@@ -10,12 +10,31 @@
     <img src="../../assets/icon/otp2-unscreen.gif" alt="OTP Verification" class="otp-image">
     <h2>Masukan Kode OTP</h2>
     <div class="otp-input-container">
-      <ion-input id="otp-input-0" type="text" maxlength="1" class="otp-input" [(ngModel)]="otpInputs[0]" (input)="onInput($event, 0)" (keydown)="onKeyDown($event, 0)" (paste)="handlePaste($event)" (keypress)="validateInput($event)"></ion-input>
-      <ion-input id="otp-input-1" type="text" maxlength="1" class="otp-input" [(ngModel)]="otpInputs[1]" (input)="onInput($event, 1)" (keydown)="onKeyDown($event, 1)" (paste)="handlePaste($event)" (keypress)="validateInput($event)"></ion-input>
-      <ion-input id="otp-input-2" type="text" maxlength="1" class="otp-input" [(ngModel)]="otpInputs[2]" (input)="onInput($event, 2)" (keydown)="onKeyDown($event, 2)" (paste)="handlePaste($event)" (keypress)="validateInput($event)"></ion-input>
-      <ion-input id="otp-input-3" type="text" maxlength="1" class="otp-input" [(ngModel)]="otpInputs[3]" (input)="onInput($event, 3)" (keydown)="onKeyDown($event, 3)" (paste)="handlePaste($event)" (keypress)="validateInput($event)"></ion-input>
-      <ion-input id="otp-input-4" type="text" maxlength="1" class="otp-input" [(ngModel)]="otpInputs[4]" (input)="onInput($event, 4)" (keydown)="onKeyDown($event, 4)" (paste)="handlePaste($event)" (keypress)="validateInput($event)"></ion-input>
+      <ion-input id="otp-input-0" type="number" maxlength="1" class="otp-input" [(ngModel)]="otpInputs[0]"
+        (input)="onInput($event, 0)" (keydown)="onKeyDown($event, 0)" (paste)="handlePaste($event)"
+        (keypress)="validateInput($event)"></ion-input>
+      <ion-input id="otp-input-1" type="number" maxlength="1" class="otp-input" [(ngModel)]="otpInputs[1]"
+        (input)="onInput($event, 1)" (keydown)="onKeyDown($event, 1)" (paste)="handlePaste($event)"
+        (keypress)="validateInput($event)"></ion-input>
+      <ion-input id="otp-input-2" type="number" maxlength="1" class="otp-input" [(ngModel)]="otpInputs[2]"
+        (input)="onInput($event, 2)" (keydown)="onKeyDown($event, 2)" (paste)="handlePaste($event)"
+        (keypress)="validateInput($event)"></ion-input>
+      <ion-input id="otp-input-3" type="number" maxlength="1" class="otp-input" [(ngModel)]="otpInputs[3]"
+        (input)="onInput($event, 3)" (keydown)="onKeyDown($event, 3)" (paste)="handlePaste($event)"
+        (keypress)="validateInput($event)"></ion-input>
+      <ion-input id="otp-input-4" type="number" maxlength="1" class="otp-input" [(ngModel)]="otpInputs[4]"
+        (input)="onInput($event, 4)" (keydown)="onKeyDown($event, 4)" (paste)="handlePaste($event)"
+        (keypress)="validateInput($event)"></ion-input>
     </div>
-    <ion-button expand="block" color="primary" (click)="verifyOTP()">VERIFY & PROCEED</ion-button>
+    <ion-button expand="block" (click)="verifyOTP()">VERIFY & PROCEED</ion-button>
+  </div>
+
+  <div *ngIf="showAlert" class="modal-overlay fadeIn">
+    <div class="alert-message">
+      <img [src]="alertImage" alt="Alert Image">
+      <h2>{{ alertHeader }}</h2>
+      <p>{{ alertMessage }}</p>
+      <ion-button expand="block" (click)="closeModal()">OK</ion-button>
+    </div>
   </div>
 </ion-content>

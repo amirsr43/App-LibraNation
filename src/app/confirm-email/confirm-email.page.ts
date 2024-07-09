@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
@@ -11,9 +11,12 @@ import { environment } from '../../environments/environment';
 export class ConfirmEmailPage {
   otpInputs: string[] = ['', '', '', '', ''];
   email: string = '';
+  showAlert: boolean = false;
+  alertHeader: string = '';
+  alertMessage: string = '';
+  alertImage: string = '';
 
   constructor(
-    private alertController: AlertController,
     private navCtrl: NavController,
     private http: HttpClient
   ) { }
@@ -68,6 +71,17 @@ export class ConfirmEmailPage {
     }
   }
 
+  showAlertModal(header: string, message: string, imageType: 'success' | 'error') {
+    this.alertHeader = header;
+    this.alertMessage = message;
+    this.alertImage = imageType === 'success' ? '../../assets/icon/check.gif' : '../../assets/icon/wrong.gif';
+    this.showAlert = true;
+  }
+
+  closeModal() {
+    this.showAlert = false;
+  }
+
   async verifyOTP() {
     const otp = this.otpInputs.join('');
     const url = `${environment.apiUrl}/verify-email`;
@@ -77,24 +91,12 @@ export class ConfirmEmailPage {
     };
 
     this.http.post(url, data).subscribe(async (response: any) => {
-      const successAlert = await this.alertController.create({
-        header: 'Verifikasi Berhasil',
-        message: `OTP berhasil diverifikasi. Silakan login.`,
-        buttons: ['OK'],
-        cssClass: 'custom-alert'
-      });
-      await successAlert.present();
-
-      this.navCtrl.navigateForward('/login');
-
+      this.showAlertModal('Verifikasi Berhasil', 'OTP berhasil diverifikasi. Silakan login.', 'success');
+      setTimeout(async () => {
+        await this.navCtrl.navigateForward('/login');
+      }, 5000); // Menunggu 2 detik sebelum navigasi
     }, async error => {
-      const errorAlert = await this.alertController.create({
-        header: 'Verifikasi Gagal',
-        message: `Kode OTP salah atau telah kedaluwarsa.`,
-        buttons: ['OK'],
-        cssClass: 'custom-alert'
-      });
-      await errorAlert.present();
+      this.showAlertModal('Verifikasi Gagal', 'Kode OTP salah atau telah kedaluwarsa.', 'error');
     });
   }
 }

@@ -54,11 +54,16 @@
   text-align: center;
   border: 1px solid #ccc;
   border-radius: 8px;
+  color: black;
+}
+
+.otp-container ion-button {
+  color: white;
 }
 
 ion-button {
   --border-radius: 30px;
-  --background: #4a5df2;
+  --background: #2E3192;
   --background-hover: #3a4dc2;
   --background-activated: #2a3da2;
   --background-focused: #4a5df2;
@@ -91,39 +96,62 @@ ion-button {
   }
 }
 
-/* Custom alert styles */
-ion-alert.custom-alert .alert-wrapper {
-  border-radius: 20px;
-  background: linear-gradient(135deg, #2193b0, #6dd5ed);
-  color: white;
-  animation: customEnterAnimation 0.5s forwards;
+/* confirm-email.page.scss */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  &.fadeIn {
+    animation: fadeIn 0.3s;
+  }
 }
 
-ion-alert.custom-alert .alert-wrapper.leave {
-  animation: customLeaveAnimation 0.5s forwards;
-}
-
-ion-alert.custom-alert .alert-header {
-  font-size: 1.5em;
-  font-weight: bold;
-  text-align: center;
-}
-
-ion-alert.custom-alert .alert-message {
-  font-size: 1.2em;
-  text-align: center;
-  margin-top: 10px;
-}
-
-ion-alert.custom-alert .alert-button {
-  font-weight: bold;
-  background-color: #fff;
-  color: #2193b0;
+.alert-message {
+  background: #fff;
+  padding: 20px;
   border-radius: 10px;
-  transition: background-color 0.3s, color 0.3s;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+
+  img {
+    width: 300px;
+    height: auto;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: black;
+  }
+
+  p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: black;
+  }
+
+  ion-button {
+    --border-radius: 10px;
+    --background: #2E3192;
+    --color: #fff;
+  }
 }
 
-ion-alert.custom-alert .alert-button:hover {
-  background-color: #2193b0;
-  color: #fff;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
