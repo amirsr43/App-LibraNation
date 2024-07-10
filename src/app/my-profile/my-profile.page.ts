@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { LoadingController, AlertController, Platform } from '@ionic/angular';
@@ -18,6 +18,7 @@ export class MyProfilePage implements OnInit {
   profileImageUrl: string = '';
   isLoading = false;
   apiUrl = `${environment.apiUrl}/members/`;
+  @ViewChild('fileInput', { static: false }) fileInput!: ElementRef<HTMLInputElement>;
 
   constructor(
     private router: Router,
@@ -65,6 +66,10 @@ export class MyProfilePage implements OnInit {
     }
   }
 
+  triggerFileUpload() {
+    this.fileInput.nativeElement.click();
+  }
+
   onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -78,10 +83,20 @@ export class MyProfilePage implements OnInit {
   }
 
   isFormValid(): boolean {
-    return this.tglLahir.trim() !== '' && this.address.trim() !== '' && this.phone.trim() !== '';
+    return this.tglLahir.trim() !== '' && this.address.trim() !== '' && this.phone.trim() !== '' && this.isPhoneValid() && this.imageProfile !== null;
+  }
+
+  isPhoneValid(): boolean {
+    const phoneLength = this.phone.trim().length;
+    return phoneLength === 12 || phoneLength === 13;
   }
 
   async save() {
+    if (!this.isPhoneValid()) {
+      await this.presentErrorAlert('Nomor telepon harus memiliki 12 atau 13 digit.');
+      return;
+    }
+
     this.isLoading = true;
     try {
       const profileData = new FormData();

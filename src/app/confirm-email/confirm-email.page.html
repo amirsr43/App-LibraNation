@@ -34,7 +34,7 @@
       <img [src]="alertImage" alt="Alert Image">
       <h2>{{ alertHeader }}</h2>
       <p>{{ alertMessage }}</p>
-      <ion-button expand="block" (click)="closeModal()">OK</ion-button>
+      <ion-button *ngIf="showOkButton" expand="block" (click)="closeModal()">OK</ion-button>
     </div>
   </div>
 </ion-content>

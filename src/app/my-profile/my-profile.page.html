@@ -9,7 +9,7 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size="auto">
-        <ion-avatar class="profile-pic">
+        <ion-avatar class="profile-pic" (click)="triggerFileUpload()">
           <img [src]="profileImageUrl || 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png'" alt="Profile Image">
         </ion-avatar>
       </ion-col>
@@ -30,12 +30,7 @@
 
           <ion-item>
             <ion-label position="stacked">No.Hp</ion-label>
-            <ion-input type="tel" [(ngModel)]="phone" name="phone" pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}" placeholder="08xx-xxxx-xxxx" required></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-label position="stacked">Profile Picture</ion-label>
-            <input type="file" (change)="onFileChange($event)">
+            <ion-input type="tel" [(ngModel)]="phone" name="phone" required></ion-input>
           </ion-item>
 
           <ion-button expand="block" type="submit" [disabled]="!isFormValid()">Simpan</ion-button>
@@ -47,4 +42,6 @@
   <div *ngIf="isLoading" class="custom-loading-modal">
     <div class="custom-spinner"></div>
   </div>
+
+  <input type="file" #fileInput (change)="onFileChange($event)" style="display: none;">
 </ion-content>

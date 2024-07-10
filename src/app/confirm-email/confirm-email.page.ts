@@ -15,6 +15,7 @@ export class ConfirmEmailPage {
   alertHeader: string = '';
   alertMessage: string = '';
   alertImage: string = '';
+  showOkButton: boolean = false;
 
   constructor(
     private navCtrl: NavController,
@@ -76,6 +77,7 @@ export class ConfirmEmailPage {
     this.alertMessage = message;
     this.alertImage = imageType === 'success' ? '../../assets/icon/check.gif' : '../../assets/icon/wrong.gif';
     this.showAlert = true;
+    this.showOkButton = imageType === 'error';
   }
 
   closeModal() {
@@ -94,7 +96,7 @@ export class ConfirmEmailPage {
       this.showAlertModal('Verifikasi Berhasil', 'OTP berhasil diverifikasi. Silakan login.', 'success');
       setTimeout(async () => {
         await this.navCtrl.navigateForward('/login');
-      }, 5000); // Menunggu 2 detik sebelum navigasi
+      }, 5000); // Menunggu 5 detik sebelum navigasi
     }, async error => {
       this.showAlertModal('Verifikasi Gagal', 'Kode OTP salah atau telah kedaluwarsa.', 'error');
     });
