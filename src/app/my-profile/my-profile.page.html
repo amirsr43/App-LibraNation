@@ -20,17 +20,17 @@
         <form (ngSubmit)="save()">
           <ion-item>
             <ion-label position="stacked">Tanggal Lahir</ion-label>
-            <ion-input type="date" [(ngModel)]="tglLahir" name="tglLahir"></ion-input>
+            <ion-input type="date" [(ngModel)]="tglLahir" name="tglLahir" required></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-label position="stacked">Alamat</ion-label>
-            <ion-input type="text" [(ngModel)]="address" name="address"></ion-input>
+            <ion-input type="text" [(ngModel)]="address" name="address" required></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-label position="stacked">No.Hp</ion-label>
-            <ion-input type="tel" [(ngModel)]="phone" name="phone" pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}" placeholder="08xx-xxxx-xxxx"></ion-input>
+            <ion-input type="tel" [(ngModel)]="phone" name="phone" pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}" placeholder="08xx-xxxx-xxxx" required></ion-input>
           </ion-item>
 
           <ion-item>
@@ -38,9 +38,13 @@
             <input type="file" (change)="onFileChange($event)">
           </ion-item>
 
-          <ion-button expand="block" type="submit">Simpan</ion-button>
+          <ion-button expand="block" type="submit" [disabled]="!isFormValid()">Simpan</ion-button>
         </form>
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <div *ngIf="isLoading" class="custom-loading-modal">
+    <div class="custom-spinner"></div>
+  </div>
 </ion-content>

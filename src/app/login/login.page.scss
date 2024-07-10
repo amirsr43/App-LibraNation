@@ -45,3 +45,27 @@ ion-button {
     from { opacity: 0; }
     to { opacity: 1; }
   }
+
+  .custom-spinner {
+    width: 100px;
+    height: 100px;
+    background: url('../../assets/icon/gif.gif') no-repeat center center;
+    background-size: contain;
+  }
+  
+  .custom-loading-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Add a background to overlay */
+    z-index: 999; /* Make sure it overlays above other elements */
+  }
+  
+  
+  

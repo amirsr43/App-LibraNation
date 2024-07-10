@@ -85,7 +85,7 @@ export class ProfilePage implements OnInit {
 
   async presentAlert() {
     const alert = await this.alertController.create({
-      header: 'Apakah kamu yakin?',
+      header: 'Apakah anda yakin?',
       buttons: [
         {
           text: 'Tidak',

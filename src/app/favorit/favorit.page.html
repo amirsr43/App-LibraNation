@@ -25,7 +25,7 @@
           <ion-list>
             <ion-item *ngFor="let book of filteredFavoriteBooks">
               <ion-thumbnail slot="start" [routerLink]="['/book', book.id]">
-                <img [src]="book.cover_link" alt="Book Cover" />
+                <img [src]="book.cover_link" alt="Book Cover" class="img"/>
               </ion-thumbnail>
               <ion-label [routerLink]="['/book', book.id]">
                 <h2>{{ book.title }}</h2>

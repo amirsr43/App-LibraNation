@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { NavController, AlertController, LoadingController, Platform } from '@ionic/angular';
+import { NavController, AlertController, Platform } from '@ionic/angular';
 import { environment } from '../../environments/environment';
 import { Storage } from '@ionic/storage-angular';
 
@@ -12,12 +12,12 @@ import { Storage } from '@ionic/storage-angular';
 export class LoginPage {
   email: string = '';
   password: string = '';
+  isLoading: boolean = false;
 
   constructor(
     private http: HttpClient,
     private navCtrl: NavController,
     private alertController: AlertController,
-    private loadingController: LoadingController,
     private storage: Storage,
     private platform: Platform
   ) {
@@ -34,14 +34,11 @@ export class LoginPage {
       password: this.password
     };
 
-    const loading = await this.loadingController.create({
-      message: 'Logging in...'
-    });
-    await loading.present();
+    this.isLoading = true;
 
     this.http.post(url, data).subscribe(
       async (response: any) => {
-        await loading.dismiss();
+        this.isLoading = false;
 
         // Simpan data pengguna ke storage
         await this.storage.set('token', response.token);
@@ -55,7 +52,7 @@ export class LoginPage {
         this.navCtrl.navigateRoot('/tabs/home');
       },
       async error => {
-        await loading.dismiss();
+        this.isLoading = false;
         const alert = await this.alertController.create({
           header: 'Login Failed',
           message: 'Email or password is incorrect.',

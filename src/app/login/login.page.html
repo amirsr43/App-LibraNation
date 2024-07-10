@@ -5,9 +5,12 @@
     <ion-input [(ngModel)]="password" placeholder="Password" fill="outline" type="password">
       <ion-input-password-toggle slot="end"></ion-input-password-toggle>
     </ion-input> <br>
-    <ion-button expand="block" id="open-loading" (click)="login()">Login</ion-button>
-    <ion-loading trigger="open-loading" message="Loading..." [duration]="3000" spinner="circles"></ion-loading>
+    <ion-button expand="block" (click)="login()">Login</ion-button>
     <a class="forgot-password" [routerLink]="['/lupa-password']">Lupa password</a>
     <p>Belum punya akun? <a [routerLink]="['/register']">Daftar</a></p>
+  </div>
+
+  <div *ngIf="isLoading" class="custom-loading-modal">
+    <div class="custom-spinner"></div>
   </div>
 </ion-content>

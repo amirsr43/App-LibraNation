@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { LoadingController, AlertController, Platform } from '@ionic/angular';
 import { environment } from '../../environments/environment';
 import { Storage } from '@ionic/storage-angular';
-import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-my-profile',
@@ -78,15 +77,13 @@ export class MyProfilePage implements OnInit {
     }
   }
 
+  isFormValid(): boolean {
+    return this.tglLahir.trim() !== '' && this.address.trim() !== '' && this.phone.trim() !== '';
+  }
+
   async save() {
     this.isLoading = true;
-    let loading: HTMLIonLoadingElement | null = null;
     try {
-      loading = await this.loadingCtrl.create({
-        message: 'Loading...',
-      });
-      await loading.present();
-
       const profileData = new FormData();
       profileData.append('tgl_lahir', this.tglLahir);
       profileData.append('address', this.address);
@@ -102,6 +99,9 @@ export class MyProfilePage implements OnInit {
         'Authorization': `Bearer ${token}`
       });
 
+      // Tambahkan delay selama 3 detik
+      await new Promise(resolve => setTimeout(resolve, 5000));
+
       const response: any = await this.http.post(`${this.apiUrl}${userId}`, profileData, { headers }).toPromise();
       if (this.profileImageUrl) {
         await this.storage.set('profileImage', this.profileImageUrl);
@@ -116,14 +116,7 @@ export class MyProfilePage implements OnInit {
       this.handleError(error, 'Error saving profile');
     } finally {
       this.isLoading = false;
-      if (loading) {
-        await loading.dismiss();
-      }
     }
-  }
-
-  checkProfileCompletion(): boolean {
-    return !!this.tglLahir && !!this.address && !!this.phone;
   }
 
   private async handleError(error: any, defaultErrorMessage: string) {

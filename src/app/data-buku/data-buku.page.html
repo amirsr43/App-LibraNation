@@ -9,7 +9,7 @@
       <ion-searchbar show-cancel-button="focus" placeholder="Cari" (ionInput)="filterBooks($event)"></ion-searchbar>
     </div>
     <div class="btn">
-      <ion-button shape="round" (click)="showFavorites()" style="--background: #FF6767">
+      <ion-button shape="round" (click)="showFavorites()" style="color: white; --background: #FF6767">
         Favorit
       </ion-button>
     </div>
@@ -30,23 +30,31 @@
     <p>Buku dengan Kategori ini kosong</p>
   </div>
 
-  <!-- Book Cards -->
-  <ion-grid *ngIf="!noBooksFound">
-    <ion-row>
-      <ion-col size="6" size-md="4" *ngFor="let book of filteredBooks">
+<!-- Book Cards -->
+<ion-grid *ngIf="!noBooksFound">
+  <ion-row>
+    <ion-col size="6" size-md="4" *ngFor="let book of filteredBooks">
+      <div class="card-container">
+        <ion-icon
+          class="love-icon"
+          [name]="book.isLiked ? 'heart' : 'heart-outline'"
+          [color]="book.isLiked ? 'danger' : ''"
+          (click)="toggleLike(book)"
+        ></ion-icon>
         <ion-card class="custom-card" [routerLink]="['/book', book.id]">
           <ion-card-content>
             <ion-img [src]="book.cover_link" alt="Book Cover"></ion-img>
           </ion-card-content>
-          <ion-card-header>
-            <ion-card-title>{{ book.title }}</ion-card-title>
-            <ion-card-subtitle>Author: {{ book.author }}</ion-card-subtitle>
-            <ion-card-subtitle>Stok Buku: {{ book.stock?.jmlh_tersedia }}</ion-card-subtitle>
-            <ion-card-subtitle>Category: {{ book.category?.name }}</ion-card-subtitle>
-          </ion-card-header>
         </ion-card>
-        <ion-icon [name]="book.isLiked ? 'heart' : 'heart-outline'" [color]="book.isLiked ? 'danger' : ''" (click)="toggleLike(book)"></ion-icon>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+      </div>
+      <div class="book-details">
+        <div class="book-author">{{ book.author }}</div>
+        <div class="book-title">{{ book.title }}</div>
+        <div class="book-stock">Stok Buku: {{ book.stock?.jmlh_tersedia }}</div>
+        <div class="book-category">Category: {{ book.category?.name }}</div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
 </ion-content>

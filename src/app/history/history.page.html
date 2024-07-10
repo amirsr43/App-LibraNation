@@ -2,6 +2,7 @@
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+  
   <ion-segment [(ngModel)]="segment" value="peminjaman">
     <ion-segment-button value="peminjaman">
       <ion-label>Peminjaman</ion-label>
@@ -12,7 +13,7 @@
   </ion-segment>
 
   <ng-container *ngIf="segment === 'peminjaman'">
-    <ion-list>
+    <ion-list *ngIf="riwayatPeminjaman.length > 0; else noPeminjamanData">
       <ion-item *ngFor="let item of riwayatPeminjaman">
         <ion-label>
           <h2>Judul Buku: {{ item.book?.title }}</h2>
@@ -22,10 +23,16 @@
         </ion-label>
       </ion-item>
     </ion-list>
+    <ng-template #noPeminjamanData>
+      <div class="no-data">
+        <img src="../../assets/icon/peminjaman.png" alt="No data">
+        <p>Belum ada peminjaman</p>
+      </div>
+    </ng-template>
   </ng-container>
 
   <ng-container *ngIf="segment === 'denda'">
-    <ion-list>
+    <ion-list *ngIf="riwayatDenda.length > 0; else noDendaData">
       <ion-item *ngFor="let item of riwayatDenda">
         <ion-label>
           <h2>Judul Buku: {{ item.judul_buku }}</h2>
@@ -48,5 +55,11 @@
         </ion-label>
       </ion-item>
     </ion-list>
+    <ng-template #noDendaData>
+      <div class="no-data">
+        <img src="../../assets/icon/denda.png" alt="No data">
+        <p>Belum ada denda</p>
+      </div>
+    </ng-template>
   </ng-container>
 </ion-content>

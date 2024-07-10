@@ -84,3 +84,19 @@ ion-segment-button[value="denda"].segment-button-checked {
     --background: #dc3545;
     --color: #ffffff;
 }
+
+.no-data {
+    text-align: center;
+    margin-top: 100px;
+  }
+  
+  .no-data img {
+    width: 300px;
+    height: auto;
+  }
+  
+  .no-data p {
+    font-size: 18px;
+    color: #666;
+  }
+  
