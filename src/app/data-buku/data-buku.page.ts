@@ -118,6 +118,7 @@ export class DataBukuPage implements OnInit {
     this.filteredBooks = this.books; // Tampilkan semua buku saat kategori dibatalkan
     this.categorySelect.value = ''; // Reset nilai category select
     this.categorySelect.placeholder = 'Pilih Kategori'; // Ubah placeholder menjadi "Pilih Kategori"
+    this.noBooksFound = false; // Reset pesan tidak ditemukan
   }
 
   noBooksFound: boolean = false;

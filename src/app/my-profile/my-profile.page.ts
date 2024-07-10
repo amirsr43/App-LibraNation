@@ -18,6 +18,7 @@ export class MyProfilePage implements OnInit {
   profileImageUrl: string = '';
   isLoading = false;
   apiUrl = `${environment.apiUrl}/members/`;
+  minAddressLength = 10;  // Panjang minimal untuk alamat
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef<HTMLInputElement>;
 
   constructor(
@@ -82,8 +83,12 @@ export class MyProfilePage implements OnInit {
     }
   }
 
+  markAsChanged(field: string) {
+    // Add any additional logic if needed
+  }
+
   isFormValid(): boolean {
-    return this.tglLahir.trim() !== '' && this.address.trim() !== '' && this.phone.trim() !== '' && this.isPhoneValid() && this.imageProfile !== null;
+    return this.tglLahir.trim() !== '' && this.address.trim().length >= this.minAddressLength && this.phone.trim() !== '' && this.isPhoneValid() && this.profileImageUrl !== '';
   }
 
   isPhoneValid(): boolean {
@@ -92,8 +97,8 @@ export class MyProfilePage implements OnInit {
   }
 
   async save() {
-    if (!this.isPhoneValid()) {
-      await this.presentErrorAlert('Nomor telepon harus memiliki 12 atau 13 digit.');
+    if (!this.isFormValid()) {
+      await this.presentErrorAlert('Pastikan semua data valid sebelum menyimpan.');
       return;
     }
 
@@ -113,9 +118,6 @@ export class MyProfilePage implements OnInit {
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`
       });
-
-      // Tambahkan delay selama 3 detik
-      await new Promise(resolve => setTimeout(resolve, 5000));
 
       const response: any = await this.http.post(`${this.apiUrl}${userId}`, profileData, { headers }).toPromise();
       if (this.profileImageUrl) {

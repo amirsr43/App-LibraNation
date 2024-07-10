@@ -20,17 +20,20 @@
         <form (ngSubmit)="save()">
           <ion-item>
             <ion-label position="stacked">Tanggal Lahir</ion-label>
-            <ion-input type="date" [(ngModel)]="tglLahir" name="tglLahir" required></ion-input>
+            <ion-input type="date" [(ngModel)]="tglLahir" name="tglLahir" required (ngModelChange)="markAsChanged('tglLahir')"></ion-input>
           </ion-item>
 
           <ion-item>
             <ion-label position="stacked">Alamat</ion-label>
-            <ion-input type="text" [(ngModel)]="address" name="address" required></ion-input>
+            <ion-input type="text" [(ngModel)]="address" name="address" required (ngModelChange)="markAsChanged('address')"></ion-input>
           </ion-item>
+          <ion-text color="danger" *ngIf="address.trim().length < minAddressLength && address.trim().length > 0">
+            Alamat harus memiliki minimal {{ minAddressLength }} karakter.
+          </ion-text>
 
           <ion-item>
             <ion-label position="stacked">No.Hp</ion-label>
-            <ion-input type="tel" [(ngModel)]="phone" name="phone" required></ion-input>
+            <ion-input type="tel" [(ngModel)]="phone" name="phone" required (ngModelChange)="markAsChanged('phone')"></ion-input>
           </ion-item>
 
           <ion-button expand="block" type="submit" [disabled]="!isFormValid()">Simpan</ion-button>
