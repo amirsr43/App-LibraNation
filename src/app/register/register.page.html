@@ -1,16 +1,54 @@
-<ion-content [fullscreen]="true" class="ion-padding">
-  <div class="login-container">
-    <h1>Register</h1>
-    <ion-input [(ngModel)]="firstName" fill="outline" placeholder="Nama Depan" type="text"></ion-input> <br>
-    <ion-input [(ngModel)]="lastName" fill="outline" placeholder="Nama Belakang" type="text"></ion-input> <br>
-    <ion-input [(ngModel)]="email" fill="outline" placeholder="Email" type="email"></ion-input> <br>
-    <ion-input [(ngModel)]="password" placeholder="Password" fill="outline" type="password">
-      <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-    </ion-input> <br>
-    <ion-input [(ngModel)]="password_confirmation" placeholder="Konfirmasi Password" fill="outline" type="password">
-      <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-    </ion-input> <br>
-    <ion-button expand="block" (click)="register()">Register</ion-button>
-    <p>Sudah punya akun? <a [routerLink]="['/login']">Masuk</a></p>
+<ion-content [fullscreen]="true">
+  <div class="register-header">
+    <h2>Akun baru</h2>
+    <p>daftar dan mulai</p>
+  </div>
+
+  <div class="ion-padding">
+    <div class="register-form">
+      <div class="input-wrapper">
+        <label>email</label>
+        <ion-item lines="none">
+          <ion-input [(ngModel)]="email" type="email"></ion-input>
+        </ion-item>
+      </div>
+      <div class="input-row">
+        <div class="input-wrapper half-width">
+          <label>nama depan</label>
+          <ion-item lines="none">
+            <ion-input [(ngModel)]="firstName" type="text"></ion-input>
+          </ion-item>
+        </div>
+        <div class="input-wrapper half-width">
+          <label>nama belakang</label>
+          <ion-item lines="none">
+            <ion-input [(ngModel)]="lastName" type="text"></ion-input>
+          </ion-item>
+        </div>
+      </div>
+      <div class="input-wrapper">
+        <label>password</label>
+        <ion-item lines="none">
+          <ion-input [(ngModel)]="password" type="password"><ion-input-password-toggle slot="end"></ion-input-password-toggle></ion-input>
+        </ion-item>
+      </div>
+      <div class="input-wrapper">
+        <label>konfirmasi password</label>
+        <ion-item lines="none">
+          <ion-input [(ngModel)]="password_confirmation" type="password"><ion-input-password-toggle slot="end"></ion-input-password-toggle></ion-input>
+        </ion-item>
+      </div>
+  
+      <ion-button expand="block" shape="round" class="register-button" (click)="register()">Daftar</ion-button>
+      <div class="divider">
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+      <div class="signin">
+        <a href="#">sudah punya akun?</a>
+        <ion-button expand="block" fill="outline" shape="round" class="signin-button" [routerLink]="['/login']">Masuk</ion-button>
+      </div>
+    </div>
   </div>
 </ion-content>
+

@@ -1,16 +1,44 @@
-<ion-content [fullscreen]="true" class="ion-padding">
-  <div class="login-container">
-    <h1>Login</h1>
-    <ion-input [(ngModel)]="email" placeholder="Email" fill="outline" type="email"></ion-input> <br>
-    <ion-input [(ngModel)]="password" placeholder="Password" fill="outline" type="password">
-      <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-    </ion-input> <br>
-    <ion-button expand="block" (click)="login()">Login</ion-button>
-    <a class="forgot-password" [routerLink]="['/lupa-password']">Lupa password</a>
-    <p>Belum punya akun? <a [routerLink]="['/register']">Daftar</a></p>
+<ion-content [fullscreen]="true">
+  <div class="login-header">
+    <h2>Selamat datang!</h2>
+    <p>masuk dan mulai</p>
   </div>
 
-  <div *ngIf="isLoading" class="custom-loading-modal">
-    <div class="custom-spinner"></div>
+  <div class="ion-padding">
+    <div class="login-form">
+      <div class="input-wrapper">
+        <label>email</label>
+        <ion-item lines="none">
+          <ion-input [(ngModel)]="email" type="email"></ion-input>
+        </ion-item>
+      </div>
+      <div class="input-wrapper">
+        <label>password</label>
+        <ion-item lines="none">
+          <ion-input [(ngModel)]="password" type="password">
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          </ion-input>
+        </ion-item>
+      </div>
+  
+      <ion-button expand="block" shape="round" class="login-button" (click)="login()">Masuk</ion-button>
+  
+      <div class="forgot-password">
+        <a [routerLink]="['/lupa-password']">lupa password</a>
+      </div>
+  
+      <div class="divider">
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+      <div *ngIf="isLoading" class="custom-loading-modal">
+        <div class="custom-spinner"></div>
+      </div>
+  
+      <div class="signup">
+        <p>belum punya akun?</p>
+        <ion-button expand="block" fill="outline" shape="round" class="signup-button" [routerLink]="['/register']">Daftar</ion-button>
+      </div>
+    </div>
   </div>
 </ion-content>

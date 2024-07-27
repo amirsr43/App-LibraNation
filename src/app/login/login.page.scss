@@ -1,35 +1,92 @@
-.login-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20vh;
-    h1 {
-        font-size: 5vh;
-        font-weight: 500;
-    }
+ion-content {
+  --background: #f8f8f8;
 
-    ion-input {
-        --border-color: #2E3192;
-        --border-radius: 20px;  
-    }
+  .login-header {
+      background: #fff;
+      border-bottom-right-radius: 40px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 40px 20px 20px 20px;
 
-    a {
-        text-decoration: none;
-    }
+      h2 {
+          color: #7b61ff;
+          margin: 0;
+          font-size: 1.5em;
+      }
 
-    p {
-        text-decoration: none;
-    }
-}
+      p {
+          color: #9e9e9e;
+          margin: 5px 0 0 0;
+          font-size: 1em;
+      }
+  }
 
+  .login-form {
+      padding: 20px;
 
-ion-button {
-    width: 100%;
-    height: auto;
-    color: white;
-    --border-radius: 20px;
-    height: 50px;
+      .input-wrapper {
+          margin-bottom: 15px;
+
+          label {
+              display: block;
+              margin-bottom: 5px;
+              color: #9e9e9e;
+              font-size: 0.9em;
+              margin-left: 15px;
+          }
+
+          ion-item {
+              --background: transparent;
+              border: 1px solid #6C6C6C;
+              border-radius: 30px;
+              color: black;
+          }
+      }
+
+      .login-button {
+          color: white;
+          height: 45px;
+          --background: linear-gradient(to right, #6366C5, #2E3192);
+          margin-top: 20px;
+      }
+
+      .forgot-password {
+          text-align: center;
+          margin-top: 15px;
+
+          a {
+              color: #6366C5;
+              text-decoration: none;
+          }
+      }
+
+      .divider {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin: 25px 0;
+
+          .line {
+              width: 40%;
+              height: 1px;
+              background: #6C6C6C;
+          }
+      }
+
+      .signup {
+          text-align: center;
+
+          p {
+              color: #6366C5;
+              margin: 0 0 10px 0;
+          }
+
+          .signup-button {
+              height: 45px;
+              --border-color: #6366C5;
+              --color: #6366C5;
+          }
+      }
+  }
 }
 
 .custom-loading .loading-wrapper {

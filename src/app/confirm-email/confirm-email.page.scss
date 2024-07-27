@@ -15,7 +15,7 @@
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: 90vh;
+  height: 91vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,7 +63,7 @@
 
 ion-button {
   --border-radius: 30px;
-  --background: #2E3192;
+  --background: linear-gradient(to right, #6366C5, #2E3192);
   --background-hover: #3a4dc2;
   --background-activated: #2a3da2;
   --background-focused: #4a5df2;

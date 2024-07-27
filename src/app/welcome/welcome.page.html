@@ -1,20 +1,10 @@
-<ion-content class="ion-padding login-container">
-  <div class="background">
-    <img src="../../assets/icon/1.png" alt="Background Image">
-  </div>
-  <img src="../../assets/icon/logo.png" class="img-logo">
-  <div class="logo-container">
-    <img src="../../assets/icon/library3.png" alt="Libra Nation Logo">
-  </div>
-  <br>
-  <br>
-  <div class="text">
-    <h2>Welcome to LibraNation</h2>
-    <p style="text-align: center;">kami menyediakan berbagai macam buku untuk segala usia dan minat. Jelajahi koleksi kami dan temukan bacaan yang tepat untuk Anda!</p>
-  </div>
-  <br>
-  <div class="login-button">
-    <ion-button expand="block" class="login-button" (click)="navigate('/login')">Login</ion-button>
-    <ion-button expand="block" class="register-button" (click)="navigate('/register')">Register</ion-button>
+<ion-content [fullscreen]="true">
+  <div class="welcome-container">
+    <img src="../../assets/icon/logo-final.png" alt="Logo" class="logo-img" />
+    <img src="../../assets/icon/home.png" alt="Welcome Illustration" class="welcome-img" />
+    <h1>Selamat datang!</h1>
+    <p>Temukan berbagai buku untuk semua usia dan minat. Jelajahi koleksi kami dan dapatkan bacaan yang tepat untuk Anda!</p>
+    <ion-button expand="block" shape="round" class="register-button" (click)="navigate('/register')">Daftar</ion-button>
+    <ion-button expand="block" shape="round" fill="outline" class="login-button" (click)="navigate('/login')">Masuk</ion-button>
   </div>
 </ion-content>
