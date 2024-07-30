@@ -41,3 +41,15 @@
   object-fit: cover;
   margin-top: -12px;
 }
+
+.no-favorites {
+  text-align: center;
+  img {
+    width: 50%;
+    margin: 20px auto;
+  }
+  p {
+    color: var(--ion-text-color);
+    font-size: 1.2em;
+  }
+}

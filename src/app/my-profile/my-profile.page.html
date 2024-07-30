@@ -3,15 +3,20 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/profile"></ion-back-button>
     </ion-buttons>
-    <ion-title style="margin-left: -8vh;">My Profile</ion-title>
+    <ion-title style="margin-left: -8vh;">Profil Saya</ion-title>
   </ion-toolbar>
   
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size="auto">
-        <ion-avatar class="profile-pic" (click)="triggerFileUpload()">
-          <img [src]="profileImageUrl || 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png'" alt="Profile Image">
-        </ion-avatar>
+        <div style="position: relative; display: inline-block;">
+          <ion-avatar class="profile-pic" (click)="triggerFileUpload()">
+            <img [src]="profileImageUrl || 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png'" alt="Profile Image">
+          </ion-avatar>
+          <div class="edit-icon" (click)="triggerFileUpload()">
+            <ion-icon name="pencil"></ion-icon>
+          </div>
+        </div>             
       </ion-col>
     </ion-row>
     

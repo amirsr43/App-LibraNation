@@ -11,15 +11,15 @@
   </ion-toolbar>
 
   <div class="search">
-    <ion-searchbar show-cancel-button="focus" placeholder="Search" (ionInput)="filterFavorites($event)"></ion-searchbar>
+    <ion-searchbar show-cancel-button="focus" placeholder="Cari buku" (ionInput)="filterFavorites($event)"></ion-searchbar>
   </div>
 
   <ion-row>
     <ion-col size="12">
-      <ion-card>
+      <ion-card *ngIf="filteredFavoriteBooks.length > 0">
         <ion-card-header>
-          <ion-card-title>Favorite Books</ion-card-title>
-          <ion-card-subtitle>Collection of your favorite books</ion-card-subtitle>
+          <ion-card-title>Buku Favorit</ion-card-title>
+          <ion-card-subtitle>Koleksi buku favorit Anda</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
           <ion-list>
@@ -37,6 +37,10 @@
           </ion-list>
         </ion-card-content>
       </ion-card>
+      <div *ngIf="filteredFavoriteBooks.length === 0" class="no-favorites">
+        <img src="../../assets/icon/like.png" alt="No Favorites" />
+        <p>Tidak ada buku dalam daftar favorit Anda</p>
+      </div>
     </ion-col>
   </ion-row>
 </ion-content>

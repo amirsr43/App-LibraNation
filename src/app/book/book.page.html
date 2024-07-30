@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button text="Go Back" defaultHref="/tabs/data-buku" style="color: white;"></ion-back-button>
+      <ion-back-button text="Kembali" defaultHref="/tabs/data-buku" style="color: white;"></ion-back-button>
     </ion-buttons>
     <ion-title style="--color: white;">{{ book?.title }}</ion-title>
   </ion-toolbar>
@@ -13,12 +13,12 @@
     <ion-card>
       <ion-card-header>
         <ion-card-title>{{ book.title }}</ion-card-title>
-        <ion-card-subtitle>Author: {{ book.author }}</ion-card-subtitle>
+        <ion-card-subtitle>Pengarang: {{ book.author }}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
         <ion-list lines="none">
           <ion-item>
-            <ion-label><strong>Category:</strong></ion-label>
+            <ion-label><strong>Kategori:</strong></ion-label>
             <ion-note>{{ book.category?.name }}</ion-note>
           </ion-item>
           <ion-item>
@@ -30,7 +30,7 @@
             <ion-note>{{ book.rack?.name }}</ion-note>
           </ion-item>
           <ion-item>
-            <ion-label><strong>Publisher:</strong></ion-label>
+            <ion-label><strong>Penerbit:</strong></ion-label>
             <ion-note>{{ book.publisher }}</ion-note>
           </ion-item>
         </ion-list>

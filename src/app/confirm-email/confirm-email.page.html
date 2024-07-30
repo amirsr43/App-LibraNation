@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/register"></ion-back-button>
     </ion-buttons>
-    <ion-title>OTP Verification</ion-title>
+    <ion-title>Verifikasi OTP</ion-title>
   </ion-toolbar>
   <div class="otp-container">
     <p>{{ email }}</p>
@@ -26,7 +26,7 @@
         (input)="onInput($event, 4)" (keydown)="onKeyDown($event, 4)" (paste)="handlePaste($event)"
         (keypress)="validateInput($event)"></ion-input>
     </div>
-    <ion-button expand="block" (click)="verifyOTP()">VERIFY & PROCEED</ion-button>
+    <ion-button expand="block" (click)="verifyOTP()">VERIFIKASI & LANJUTKAN</ion-button>
   </div>
 
   <div *ngIf="showAlert" class="modal-overlay fadeIn">

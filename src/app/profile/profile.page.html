@@ -1,29 +1,37 @@
 <ion-content>
+  <div class="profile-header-bg">
+    <h1>Profil</h1>
+  </div>
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   
-  <div *ngIf="!isProfileComplete" class="incomplete-profile-notice">
-    <p>Lengkapi data diri anda di <a [routerLink]="['/my-profile']">My Profile</a>.</p>
-  </div>
-
-  <div class="profile">
-    <img [src]="profileImageUrl || 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png'" alt="Profile Picture" class="profile-img">
+  <div class="profile-card">
+    <div class="profile-header">
+      <img [src]="profileImageUrl || 'https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png'" alt="Profile Picture" class="profile-img">
+    </div>
+       
     <div class="profile-info">
       <h2>{{ firstName }} {{ lastName }}</h2>
       <p>{{ email }}</p>
     </div>
-  </div>
+    <hr class="divider">
   
-  <ion-item [routerLink]="['/my-profile']" button class="account-item">
-    <ion-icon name="person-outline" slot="start"></ion-icon>
-    <ion-label>My Profile</ion-label>
-  </ion-item>
-  <ion-item [routerLink]="['/qr-code']" button class="account-item">
-    <ion-icon name="qr-code-outline" slot="start"></ion-icon>
-    <ion-label>QR Code</ion-label>
-  </ion-item>
-  <div class="logout-button">
-    <ion-button color="danger" id="present-alert" (click)="presentAlert()">Logout</ion-button>
+    <ion-item [routerLink]="['/my-profile']" button class="account-item" lines="none">
+      <ion-icon name="person-outline" slot="start"></ion-icon>
+      <ion-label>Profil saya</ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item [routerLink]="['/qr-code']" button class="account-item" lines="none">
+      <ion-icon name="qr-code-outline" slot="start"></ion-icon>
+      <ion-label>Kode QR</ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    </ion-item>
+    <div class="logout-button">
+      <ion-button id="present-alert" style="--color: white;" (click)="presentAlert()">Keluar</ion-button>
+    </div>
+  </div>
+  <div *ngIf="!isProfileComplete" class="incomplete-profile-notice">
+    <p>Lengkapi data diri anda di <a [routerLink]="['/my-profile']">Profil saya</a>.</p>
   </div>
 </ion-content>

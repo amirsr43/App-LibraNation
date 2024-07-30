@@ -6,7 +6,7 @@
   <!-- Search Bar -->
   <div class="search-container">
     <div class="search">
-      <ion-searchbar show-cancel-button="focus" placeholder="Cari" (ionInput)="filterBooks($event)"></ion-searchbar>
+      <ion-searchbar show-cancel-button="focus" placeholder="Cari buku" (ionInput)="filterBooks($event)"></ion-searchbar>
     </div>
     <div class="btn">
       <ion-button shape="round" (click)="showFavorites()" style="color: white; --background: #FF6767">
@@ -28,7 +28,7 @@
   <!-- Not Found Message -->
   <div *ngIf="noBooksFound" style="text-align: center; margin-top: 20px;">
     <img src="../../assets/icon/book_2.png" alt="book" class="img-book">
-    <p>Buku dengan Kategori ini kosong</p>
+    <p>Buku belum tersedia</p>
   </div>
 
   <!-- Book Cards -->
@@ -52,7 +52,7 @@
           <div class="book-author">{{ book.author }}</div>
           <div class="book-title">{{ book.title }}</div>
           <div class="book-stock">Stok Buku: {{ book.stock?.jmlh_tersedia }}</div>
-          <div class="book-category">Category: {{ book.category?.name }}</div>
+          <div class="book-category">Kategori: {{ book.category?.name }}</div>
         </div>
       </ion-col>
     </ion-row>

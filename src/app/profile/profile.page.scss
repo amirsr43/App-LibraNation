@@ -1,106 +1,186 @@
-ion-content {
-    --padding-start: 16px;
-    --padding-end: 16px;
-    --padding-top: 20px;
-    --padding-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.profile-header-bg {
+  width: 100%;
+  height: 180px;
+  background: #6366C5; /* Base background color to match the design */
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  padding: 20px;
+  overflow: hidden; /* Ensure content doesn't overflow */
 }
 
-.profile {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+.profile-header-bg::before,
+.profile-header-bg::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+}
+
+.profile-header-bg::before {
+  width: 280px;
+  height: 300px;
+  top: -50px;
+  left: -50px; /* Adjust to align correctly */
+  background: #2E3192; /* Color for the larger circle */
+}
+
+.profile-header-bg::after {
+  width: 250px;
+  height: 200px;
+  top: -100px; /* Adjust to align correctly */
+  right: -40px; /* Adjust to align correctly */
+  background: #474AAD; /* Color for the smaller circle */
+  z-index: -1;
+}
+
+
+.profile-header-bg h1 {
+  color: white;
+  margin: 0;
+  font-size: 24px;
+  z-index: 2;
+}
+
+.profile-card {
+  width: 90%;
+  max-width: 400px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: 80px auto 20px auto; /* Adjust the margin to position the card correctly */
+  padding: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.profile-header {
+  margin-top: 10vh;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 .profile-img {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    margin-right: 10px;
-    object-fit: cover;
-    border: 3px solid #2E3192; /* Atur ketebalan, tipe, dan warna border sesuai kebutuhan */
+  margin-top: 70px;
+  color: black;
+  object-fit: cover;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #2E3192;
+  position: absolute;
+  top: -40px; /* Adjust to position the image halfway on the card */
+}
+
+.profile-info {
+  text-align: center;
+  margin-top: 60px; /* Adjust margin to make room for the profile image */
 }
 
 .profile-info h2 {
-    font-size: 20px;
-    margin-bottom: 5px;
+  margin: 5px 0 0 0;
+  font-size: 18px;
+  color: black;
 }
 
 .profile-info p {
-    font-size: 14px;
-    color: #666;
+  margin: 0;
+  color: #888;
+  font-size: 14px;
+}
+
+.divider {
+  margin: 20px 0; /* Adjust margin as needed */
+  border: 0;
+  border-top: 1px solid #D4D4D4; /* Light grey color for the divider */
 }
 
 .account-item {
-    margin-top: 20px;
+  --padding-start: 20px;
+  --inner-padding-end: 20px;
+  margin-top: 10px;
+  text-decoration: none;
+  --background: white;
+  --color: #333333;
+}
+.account-item ion-icon {
+  color: #333333;
+}
+
+.account-item ion-icon[name="chevron-forward-outline"] {
+  color: #333333;
 }
 
 .logout-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-    border-radius: 15px;
-    /* Anda dapat mengubah nilai ini sesuai keinginan */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  border-radius: 15px;
+  /* Anda dapat mengubah nilai ini sesuai keinginan */
 }
 
 .logout-button ion-button {
-    width: 60%;
-    /* Agar tombol menyesuaikan dengan lebar div */
-    --border-radius: 15px;
-    /* Menyesuaikan border radius tombol dengan div */
+  --background: #FE5555;
+  width: 60%;
+  /* Agar tombol menyesuaikan dengan lebar div */
+  --border-radius: 15px;
+  /* Menyesuaikan border radius tombol dengan div */
 }
 
 .incomplete-profile-notice {
-    background-color: #ffeb3b; /* Warna latar kuning cerah */
-    color: #333; /* Warna teks gelap */
-    padding: 20px;
-    margin: 20px;
-    border-left: 8px solid #ff9800; /* Garis di sebelah kiri dengan warna lebih gelap */
-    border-radius: 10px; /* Sudut yang lebih bulat */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    font-family: 'Arial', sans-serif;
-    animation: fadeIn 1s ease-in-out; /* Animasi masuk */
-    position: relative;
-  
-    p {
-      margin: 0;
-      font-size: 1.2rem;
-      font-weight: 500;
-      line-height: 1.5;
-    }
-  
-    a {
-      color: #007bff;
-      text-decoration: none;
-      font-weight: bold;
-      margin-left: 5px;
-      transition: color 0.3s;
-    }
-  
-    a:hover {
-      color: #0056b3;
-      text-decoration: underline;
-    }
-  
-    ion-icon {
-      font-size: 2rem;
-      margin-right: 12px;
-      color: #ff9800;
-    }
+  background-color: #ffeb3b; /* Warna latar kuning cerah */
+  color: #333; /* Warna teks gelap */
+  padding: 20px;
+  margin: 20px;
+  border-left: 8px solid #ff9800; /* Garis di sebelah kiri dengan warna lebih gelap */
+  border-radius: 10px; /* Sudut yang lebih bulat */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  animation: fadeIn 1s ease-in-out; /* Animasi masuk */
+  position: relative;
+
+  p {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.5;
   }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+
+  a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px;
+    transition: color 0.3s;
   }
+
+  a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+
+  ion-icon {
+    font-size: 2rem;
+    margin-right: 12px;
+    color: #ff9800;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
